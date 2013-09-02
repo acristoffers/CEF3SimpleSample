@@ -8,11 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		E79F38B417D4DDFD0081FCA7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38B317D4DDFD0081FCA7 /* Cocoa.framework */; };
-		E79F38BE17D4DDFD0081FCA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E79F38BC17D4DDFD0081FCA7 /* InfoPlist.strings */; };
-		E79F38C017D4DDFD0081FCA7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E79F38BF17D4DDFD0081FCA7 /* main.m */; };
-		E79F38C417D4DDFD0081FCA7 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = E79F38C217D4DDFD0081FCA7 /* Credits.rtf */; };
-		E79F38C717D4DDFD0081FCA7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E79F38C617D4DDFD0081FCA7 /* AppDelegate.m */; };
-		E79F38CA17D4DDFE0081FCA7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E79F38C817D4DDFE0081FCA7 /* MainMenu.xib */; };
+		E79F38D517D4DE730081FCA7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E79F38D317D4DE730081FCA7 /* main.m */; };
+		E79F38D717D4DE800081FCA7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = E79F38D117D4DE650081FCA7 /* AppDelegate.m */; };
+		E79F38DD17D4DE900081FCA7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E79F38D917D4DE900081FCA7 /* MainMenu.xib */; };
+		E79F38DE17D4DE900081FCA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E79F38DB17D4DE900081FCA7 /* InfoPlist.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -21,14 +20,13 @@
 		E79F38B617D4DDFD0081FCA7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		E79F38B717D4DDFD0081FCA7 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		E79F38B817D4DDFD0081FCA7 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		E79F38BB17D4DDFD0081FCA7 /* CEF3SimpleSample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CEF3SimpleSample-Info.plist"; sourceTree = "<group>"; };
-		E79F38BD17D4DDFD0081FCA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		E79F38BF17D4DDFD0081FCA7 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		E79F38C117D4DDFD0081FCA7 /* CEF3SimpleSample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CEF3SimpleSample-Prefix.pch"; sourceTree = "<group>"; };
-		E79F38C317D4DDFD0081FCA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
-		E79F38C517D4DDFD0081FCA7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		E79F38C617D4DDFD0081FCA7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		E79F38C917D4DDFE0081FCA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		E79F38D017D4DE650081FCA7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = Mac/AppDelegate.h; sourceTree = "<group>"; };
+		E79F38D117D4DE650081FCA7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = Mac/AppDelegate.m; sourceTree = "<group>"; };
+		E79F38D217D4DE730081FCA7 /* CEF3SimpleSample-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "CEF3SimpleSample-Prefix.pch"; path = "Mac/CEF3SimpleSample-Prefix.pch"; sourceTree = "<group>"; };
+		E79F38D317D4DE730081FCA7 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = Mac/main.m; sourceTree = "<group>"; };
+		E79F38D417D4DE730081FCA7 /* CEF3SimpleSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "CEF3SimpleSample-Info.plist"; path = "Mac/CEF3SimpleSample-Info.plist"; sourceTree = "<group>"; };
+		E79F38DA17D4DE900081FCA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Mac/Resources/en.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		E79F38DC17D4DE900081FCA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Mac/Resources/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,9 +80,8 @@
 		E79F38B917D4DDFD0081FCA7 /* CEF3SimpleSample */ = {
 			isa = PBXGroup;
 			children = (
-				E79F38C517D4DDFD0081FCA7 /* AppDelegate.h */,
-				E79F38C617D4DDFD0081FCA7 /* AppDelegate.m */,
-				E79F38C817D4DDFE0081FCA7 /* MainMenu.xib */,
+				E79F38D017D4DE650081FCA7 /* AppDelegate.h */,
+				E79F38D117D4DE650081FCA7 /* AppDelegate.m */,
 				E79F38BA17D4DDFD0081FCA7 /* Supporting Files */,
 			);
 			path = CEF3SimpleSample;
@@ -93,11 +90,11 @@
 		E79F38BA17D4DDFD0081FCA7 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				E79F38BB17D4DDFD0081FCA7 /* CEF3SimpleSample-Info.plist */,
-				E79F38BC17D4DDFD0081FCA7 /* InfoPlist.strings */,
-				E79F38BF17D4DDFD0081FCA7 /* main.m */,
-				E79F38C117D4DDFD0081FCA7 /* CEF3SimpleSample-Prefix.pch */,
-				E79F38C217D4DDFD0081FCA7 /* Credits.rtf */,
+				E79F38D917D4DE900081FCA7 /* MainMenu.xib */,
+				E79F38DB17D4DE900081FCA7 /* InfoPlist.strings */,
+				E79F38D217D4DE730081FCA7 /* CEF3SimpleSample-Prefix.pch */,
+				E79F38D317D4DE730081FCA7 /* main.m */,
+				E79F38D417D4DE730081FCA7 /* CEF3SimpleSample-Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -153,9 +150,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E79F38BE17D4DDFD0081FCA7 /* InfoPlist.strings in Resources */,
-				E79F38C417D4DDFD0081FCA7 /* Credits.rtf in Resources */,
-				E79F38CA17D4DDFE0081FCA7 /* MainMenu.xib in Resources */,
+				E79F38DD17D4DE900081FCA7 /* MainMenu.xib in Resources */,
+				E79F38DE17D4DE900081FCA7 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -166,36 +162,28 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E79F38C017D4DDFD0081FCA7 /* main.m in Sources */,
-				E79F38C717D4DDFD0081FCA7 /* AppDelegate.m in Sources */,
+				E79F38D517D4DE730081FCA7 /* main.m in Sources */,
+				E79F38D717D4DE800081FCA7 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E79F38BC17D4DDFD0081FCA7 /* InfoPlist.strings */ = {
+		E79F38D917D4DE900081FCA7 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E79F38BD17D4DDFD0081FCA7 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		E79F38C217D4DDFD0081FCA7 /* Credits.rtf */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E79F38C317D4DDFD0081FCA7 /* en */,
-			);
-			name = Credits.rtf;
-			sourceTree = "<group>";
-		};
-		E79F38C817D4DDFE0081FCA7 /* MainMenu.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E79F38C917D4DDFE0081FCA7 /* en */,
+				E79F38DA17D4DE900081FCA7 /* en */,
 			);
 			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		E79F38DB17D4DE900081FCA7 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E79F38DC17D4DE900081FCA7 /* en */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -263,8 +251,8 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CEF3SimpleSample/CEF3SimpleSample-Prefix.pch";
-				INFOPLIST_FILE = "CEF3SimpleSample/CEF3SimpleSample-Info.plist";
+				GCC_PREFIX_HEADER = "CEF3SimpleSample/Mac/CEF3SimpleSample-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/CEF3SimpleSample/Mac/CEF3SimpleSample-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -275,8 +263,8 @@
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "CEF3SimpleSample/CEF3SimpleSample-Prefix.pch";
-				INFOPLIST_FILE = "CEF3SimpleSample/CEF3SimpleSample-Info.plist";
+				GCC_PREFIX_HEADER = "CEF3SimpleSample/Mac/CEF3SimpleSample-Prefix.pch";
+				INFOPLIST_FILE = "$(SRCROOT)/CEF3SimpleSample/Mac/CEF3SimpleSample-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
