@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "E79F38AF17D4DDFD0081FCA7"
-               BuildableName = "CEF3 Simple Sample.app"
-               BlueprintName = "CEF3 Simple Sample"
+               BlueprintIdentifier = "E79F3A2F17D4FF3F0081FCA7"
+               BuildableName = "CEF3 Simple Sample copy.app"
+               BlueprintName = "CEF3 Simple Sample copy"
                ReferencedContainer = "container:CEF3SimpleSample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E79F38AF17D4DDFD0081FCA7"
-            BuildableName = "CEF3 Simple Sample.app"
-            BlueprintName = "CEF3 Simple Sample"
+            BlueprintIdentifier = "E79F3A2F17D4FF3F0081FCA7"
+            BuildableName = "CEF3 Simple Sample copy.app"
+            BlueprintName = "CEF3 Simple Sample copy"
             ReferencedContainer = "container:CEF3SimpleSample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -51,9 +51,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E79F38AF17D4DDFD0081FCA7"
-            BuildableName = "CEF3 Simple Sample.app"
-            BlueprintName = "CEF3 Simple Sample"
+            BlueprintIdentifier = "E79F3A2F17D4FF3F0081FCA7"
+            BuildableName = "CEF3 Simple Sample copy.app"
+            BlueprintName = "CEF3 Simple Sample copy"
             ReferencedContainer = "container:CEF3SimpleSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -69,9 +69,9 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "E79F38AF17D4DDFD0081FCA7"
-            BuildableName = "CEF3 Simple Sample.app"
-            BlueprintName = "CEF3 Simple Sample"
+            BlueprintIdentifier = "E79F3A2F17D4FF3F0081FCA7"
+            BuildableName = "CEF3 Simple Sample copy.app"
+            BlueprintName = "CEF3 Simple Sample copy"
             ReferencedContainer = "container:CEF3SimpleSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

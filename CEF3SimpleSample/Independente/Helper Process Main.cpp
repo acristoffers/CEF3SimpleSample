@@ -16,12 +16,16 @@
  DEALINGS IN THE SOFTWARE.
  ************************************************************************************************/
 
-#import <Cocoa/Cocoa.h>
+#include "include/cef_app.h"
 
-@interface AppDelegate : NSObject <NSApplicationDelegate> {
-    NSWindow* window;
+#include "ClientApp.h"
+
+// Process entry point.
+int main(int argc, char* argv[]) {
+    CefMainArgs main_args(argc, argv);
+    
+    CefRefPtr<ClientApp> app(new ClientApp);
+    
+    // Execute the secondary process.
+    return CefExecuteProcess(main_args, app.get());
 }
-
-@property (assign) IBOutlet NSWindow *window;
-
-@end
