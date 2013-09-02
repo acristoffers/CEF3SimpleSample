@@ -1,0 +1,14 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	width: 100%;
+	height: 100%;
+    background: url(../img/bg.png) repeat-y top left;
+}
+
+#container {
+    text-align: center;
+}

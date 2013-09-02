@@ -16,7 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "E79F38AF17D4DDFD0081FCA7"
                BuildableName = "CEF3SimpleSample.app"
-               BlueprintName = "CEF3SimpleSample"
+               BlueprintName = "CEF3 Simple Sample"
                ReferencedContainer = "container:CEF3SimpleSample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -34,7 +34,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E79F38AF17D4DDFD0081FCA7"
             BuildableName = "CEF3SimpleSample.app"
-            BlueprintName = "CEF3SimpleSample"
+            BlueprintName = "CEF3 Simple Sample"
             ReferencedContainer = "container:CEF3SimpleSample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -53,7 +53,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E79F38AF17D4DDFD0081FCA7"
             BuildableName = "CEF3SimpleSample.app"
-            BlueprintName = "CEF3SimpleSample"
+            BlueprintName = "CEF3 Simple Sample"
             ReferencedContainer = "container:CEF3SimpleSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -71,7 +71,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "E79F38AF17D4DDFD0081FCA7"
             BuildableName = "CEF3SimpleSample.app"
-            BlueprintName = "CEF3SimpleSample"
+            BlueprintName = "CEF3 Simple Sample"
             ReferencedContainer = "container:CEF3SimpleSample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
