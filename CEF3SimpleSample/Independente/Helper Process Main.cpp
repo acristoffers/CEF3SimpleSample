@@ -20,12 +20,8 @@
 
 #include "ClientApp.h"
 
-// Process entry point.
 int main(int argc, char* argv[]) {
     CefMainArgs main_args(argc, argv);
-    
     CefRefPtr<ClientApp> app(new ClientApp);
-    
-    // Execute the secondary process.
     return CefExecuteProcess(main_args, app.get());
 }
