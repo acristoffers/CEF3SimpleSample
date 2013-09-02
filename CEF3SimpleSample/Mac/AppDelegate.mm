@@ -53,7 +53,7 @@
     
     CefWindowInfo info;
     CefBrowserSettings b_settings;
-    CefRefPtr<CefClient> client(new ClientHandler());
+    CefRefPtr<CefClient> client(new ClientHandler);
     
     std::string path;
     
@@ -70,13 +70,8 @@
     info.SetAsChild([window contentView], 0, 0, [[window contentView] frame].size.width, [[window contentView] frame].size.height);
     CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings);
     
-    NSLog(@"\n\ncwd: %s\npath:%s\n\n", cwd, path.c_str());
-    
     CefRunMessageLoop();
-    
-    // Shut down CEF.
     CefShutdown();
-
 }
 
 @end

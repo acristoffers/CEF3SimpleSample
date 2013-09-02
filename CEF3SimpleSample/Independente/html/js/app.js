@@ -1,6 +1,7 @@
+
 $(document).ready(function() {
     $('.btn').click(function() {
-        window.cpp.ChangeTextInJS('Hello World!');
+        window.app.ChangeTextInJS('Hello World!');
     });
 });
 

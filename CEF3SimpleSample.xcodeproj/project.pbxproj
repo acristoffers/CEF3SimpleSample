@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E73EAEC517D52DD700DC9A30 /* locale.pak in Resources */ = {isa = PBXBuildFile; fileRef = E79F392417D4E31A0081FCA7 /* locale.pak */; };
+		E73EAEC617D532E400DC9A30 /* ClientHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E79F39BB17D4F5B30081FCA7 /* ClientHandler.cpp */; };
+		E73EAEC917D5496100DC9A30 /* ClientV8ExtensionHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E73EAEC717D5496100DC9A30 /* ClientV8ExtensionHandler.cpp */; };
+		E73EAECA17D5496100DC9A30 /* ClientV8ExtensionHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E73EAEC717D5496100DC9A30 /* ClientV8ExtensionHandler.cpp */; };
 		E79F38B417D4DDFD0081FCA7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38B317D4DDFD0081FCA7 /* Cocoa.framework */; };
 		E79F38D517D4DE730081FCA7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E79F38D317D4DE730081FCA7 /* main.m */; };
 		E79F38D717D4DE800081FCA7 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E79F38D117D4DE650081FCA7 /* AppDelegate.mm */; };
@@ -72,60 +76,6 @@
 		E79F39ED17D4FDFB0081FCA7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38B317D4DDFD0081FCA7 /* Cocoa.framework */; };
 		E79F39EE17D4FDFB0081FCA7 /* libcef.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38E117D4DF770081FCA7 /* libcef.dylib */; };
 		E79F39EF17D4FDFB0081FCA7 /* libcef_dll_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38DF17D4DF770081FCA7 /* libcef_dll_wrapper.a */; };
-		E79F39F117D4FDFB0081FCA7 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = E79F38D917D4DE900081FCA7 /* MainMenu.xib */; };
-		E79F39F217D4FDFB0081FCA7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = E79F38DB17D4DE900081FCA7 /* InfoPlist.strings */; };
-		E79F39F317D4FDFB0081FCA7 /* html in Resources */ = {isa = PBXBuildFile; fileRef = E79F391E17D4E2EF0081FCA7 /* html */; };
-		E79F39F417D4FDFB0081FCA7 /* aliasCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F392317D4E31A0081FCA7 /* aliasCursor.png */; };
-		E79F39F517D4FDFB0081FCA7 /* locale.pak in Resources */ = {isa = PBXBuildFile; fileRef = E79F392417D4E31A0081FCA7 /* locale.pak */; };
-		E79F39F617D4FDFB0081FCA7 /* cef.pak in Resources */ = {isa = PBXBuildFile; fileRef = E79F392A17D4E31A0081FCA7 /* cef.pak */; };
-		E79F39F717D4FDFB0081FCA7 /* cellCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F392B17D4E31A0081FCA7 /* cellCursor.png */; };
-		E79F39F817D4FDFB0081FCA7 /* contextMenuCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F392C17D4E31A0081FCA7 /* contextMenuCursor.png */; };
-		E79F39F917D4FDFB0081FCA7 /* copyCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F392D17D4E31A0081FCA7 /* copyCursor.png */; };
-		E79F39FA17D4FDFB0081FCA7 /* deleteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F393117D4E31A0081FCA7 /* deleteButton.png */; };
-		E79F39FB17D4FDFB0081FCA7 /* deleteButton.tiff in Resources */ = {isa = PBXBuildFile; fileRef = E79F393217D4E31A0081FCA7 /* deleteButton.tiff */; };
-		E79F39FC17D4FDFB0081FCA7 /* deleteButton@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F393317D4E31A0081FCA7 /* deleteButton@2x.png */; };
-		E79F39FD17D4FDFB0081FCA7 /* deleteButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F393417D4E31A0081FCA7 /* deleteButtonPressed.png */; };
-		E79F39FE17D4FDFB0081FCA7 /* deleteButtonPressed.tiff in Resources */ = {isa = PBXBuildFile; fileRef = E79F393517D4E31A0081FCA7 /* deleteButtonPressed.tiff */; };
-		E79F39FF17D4FDFB0081FCA7 /* deleteButtonPressed@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F393617D4E31A0081FCA7 /* deleteButtonPressed@2x.png */; };
-		E79F3A0017D4FDFB0081FCA7 /* devtools_resources.pak in Resources */ = {isa = PBXBuildFile; fileRef = E79F393717D4E31A0081FCA7 /* devtools_resources.pak */; };
-		E79F3A0117D4FDFB0081FCA7 /* eastResizeCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F393817D4E31A0081FCA7 /* eastResizeCursor.png */; };
-		E79F3A0217D4FDFB0081FCA7 /* eastWestResizeCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F393917D4E31A0081FCA7 /* eastWestResizeCursor.png */; };
-		E79F3A0317D4FDFB0081FCA7 /* helpCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F394617D4E31A0081FCA7 /* helpCursor.png */; };
-		E79F3A0417D4FDFB0081FCA7 /* inputSpeech.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F394B17D4E31A0081FCA7 /* inputSpeech.png */; };
-		E79F3A0517D4FDFB0081FCA7 /* inputSpeech.tiff in Resources */ = {isa = PBXBuildFile; fileRef = E79F394C17D4E31A0081FCA7 /* inputSpeech.tiff */; };
-		E79F3A0617D4FDFB0081FCA7 /* linearSRGB.icc in Resources */ = {isa = PBXBuildFile; fileRef = E79F395117D4E31A0081FCA7 /* linearSRGB.icc */; };
-		E79F3A0717D4FDFB0081FCA7 /* linkCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F395217D4E31A0081FCA7 /* linkCursor.png */; };
-		E79F3A0817D4FDFB0081FCA7 /* missingImage.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F395517D4E31A0081FCA7 /* missingImage.png */; };
-		E79F3A0917D4FDFB0081FCA7 /* missingImage.tiff in Resources */ = {isa = PBXBuildFile; fileRef = E79F395617D4E31A0081FCA7 /* missingImage.tiff */; };
-		E79F3A0A17D4FDFB0081FCA7 /* missingImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F395717D4E31A0081FCA7 /* missingImage@2x.png */; };
-		E79F3A0B17D4FDFB0081FCA7 /* moveCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F395917D4E31A0081FCA7 /* moveCursor.png */; };
-		E79F3A0C17D4FDFB0081FCA7 /* noDropCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F395E17D4E31A0081FCA7 /* noDropCursor.png */; };
-		E79F3A0D17D4FDFB0081FCA7 /* noneCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F395F17D4E31A0081FCA7 /* noneCursor.png */; };
-		E79F3A0E17D4FDFB0081FCA7 /* northEastResizeCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F396017D4E31A0081FCA7 /* northEastResizeCursor.png */; };
-		E79F3A0F17D4FDFB0081FCA7 /* northEastSouthWestResizeCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F396117D4E31A0081FCA7 /* northEastSouthWestResizeCursor.png */; };
-		E79F3A1017D4FDFB0081FCA7 /* northResizeCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F396217D4E31A0081FCA7 /* northResizeCursor.png */; };
-		E79F3A1117D4FDFB0081FCA7 /* northSouthResizeCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F396317D4E31A0081FCA7 /* northSouthResizeCursor.png */; };
-		E79F3A1217D4FDFB0081FCA7 /* northWestResizeCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F396417D4E31A0081FCA7 /* northWestResizeCursor.png */; };
-		E79F3A1317D4FDFB0081FCA7 /* northWestSouthEastResizeCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F396517D4E31A0081FCA7 /* northWestSouthEastResizeCursor.png */; };
-		E79F3A1417D4FDFB0081FCA7 /* nullPlugin.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F396617D4E31A0081FCA7 /* nullPlugin.png */; };
-		E79F3A1517D4FDFB0081FCA7 /* nullPlugin@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F396717D4E31A0081FCA7 /* nullPlugin@2x.png */; };
-		E79F3A1617D4FDFB0081FCA7 /* panIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F396817D4E31A0081FCA7 /* panIcon.png */; };
-		E79F3A1717D4FDFB0081FCA7 /* progressCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F396A17D4E31A0081FCA7 /* progressCursor.png */; };
-		E79F3A1817D4FDFB0081FCA7 /* southEastResizeCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F397117D4E31A0081FCA7 /* southEastResizeCursor.png */; };
-		E79F3A1917D4FDFB0081FCA7 /* southResizeCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F397217D4E31A0081FCA7 /* southResizeCursor.png */; };
-		E79F3A1A17D4FDFB0081FCA7 /* southWestResizeCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F397317D4E31A0081FCA7 /* southWestResizeCursor.png */; };
-		E79F3A1B17D4FDFB0081FCA7 /* textAreaResizeCorner.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F397917D4E31A0081FCA7 /* textAreaResizeCorner.png */; };
-		E79F3A1C17D4FDFB0081FCA7 /* textAreaResizeCorner.tiff in Resources */ = {isa = PBXBuildFile; fileRef = E79F397A17D4E31A0081FCA7 /* textAreaResizeCorner.tiff */; };
-		E79F3A1D17D4FDFB0081FCA7 /* textAreaResizeCorner@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F397B17D4E31A0081FCA7 /* textAreaResizeCorner@2x.png */; };
-		E79F3A1E17D4FDFB0081FCA7 /* urlIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F397F17D4E31A0081FCA7 /* urlIcon.png */; };
-		E79F3A1F17D4FDFB0081FCA7 /* verticalTextCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F398017D4E31A0081FCA7 /* verticalTextCursor.png */; };
-		E79F3A2017D4FDFB0081FCA7 /* waitCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F398217D4E31A0081FCA7 /* waitCursor.png */; };
-		E79F3A2117D4FDFB0081FCA7 /* westResizeCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F398317D4E31A0081FCA7 /* westResizeCursor.png */; };
-		E79F3A2217D4FDFB0081FCA7 /* zoomInCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F398617D4E31A0081FCA7 /* zoomInCursor.png */; };
-		E79F3A2317D4FDFB0081FCA7 /* zoomOutCursor.png in Resources */ = {isa = PBXBuildFile; fileRef = E79F398717D4E31A0081FCA7 /* zoomOutCursor.png */; };
-		E79F3A2517D4FDFB0081FCA7 /* libcef.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E79F38E117D4DF770081FCA7 /* libcef.dylib */; };
-		E79F3A2617D4FDFB0081FCA7 /* libplugin_carbon_interpose.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = E79F38E217D4DF770081FCA7 /* libplugin_carbon_interpose.dylib */; };
-		E79F3A2717D4FDFB0081FCA7 /* ffmpegsumo.so in CopyFiles */ = {isa = PBXBuildFile; fileRef = E79F38E017D4DF770081FCA7 /* ffmpegsumo.so */; };
 		E79F3A7A17D4FFDB0081FCA7 /* CEF3 Simple Sample Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E79F3A2B17D4FDFB0081FCA7 /* CEF3 Simple Sample Helper.app */; };
 		E79F3A7C17D504F90081FCA7 /* Helper Process Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E79F3A7B17D504F90081FCA7 /* Helper Process Main.cpp */; };
 /* End PBXBuildFile section */
@@ -159,9 +109,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
-				E79F3A2517D4FDFB0081FCA7 /* libcef.dylib in CopyFiles */,
-				E79F3A2617D4FDFB0081FCA7 /* libplugin_carbon_interpose.dylib in CopyFiles */,
-				E79F3A2717D4FDFB0081FCA7 /* ffmpegsumo.so in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -178,6 +125,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		E73EAEBF17D5284F00DC9A30 /* CEF3SimpleSampleHelper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CEF3SimpleSampleHelper-Info.plist"; path = "Mac/CEF3SimpleSampleHelper-Info.plist"; sourceTree = "<group>"; };
+		E73EAEC717D5496100DC9A30 /* ClientV8ExtensionHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClientV8ExtensionHandler.cpp; path = Independente/ClientV8ExtensionHandler.cpp; sourceTree = "<group>"; };
+		E73EAEC817D5496100DC9A30 /* ClientV8ExtensionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientV8ExtensionHandler.h; path = Independente/ClientV8ExtensionHandler.h; sourceTree = "<group>"; };
 		E79F38B017D4DDFD0081FCA7 /* CEF3 Simple Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEF3 Simple Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E79F38B317D4DDFD0081FCA7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E79F38B617D4DDFD0081FCA7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -370,6 +320,8 @@
 		E79F38B917D4DDFD0081FCA7 /* CEF3SimpleSample */ = {
 			isa = PBXGroup;
 			children = (
+				E73EAEC717D5496100DC9A30 /* ClientV8ExtensionHandler.cpp */,
+				E73EAEC817D5496100DC9A30 /* ClientV8ExtensionHandler.h */,
 				E79F3A7B17D504F90081FCA7 /* Helper Process Main.cpp */,
 				E79F39BB17D4F5B30081FCA7 /* ClientHandler.cpp */,
 				E79F39BC17D4F5B30081FCA7 /* ClientHandler.h */,
@@ -389,6 +341,7 @@
 				E79F38DB17D4DE900081FCA7 /* InfoPlist.strings */,
 				E79F38D217D4DE730081FCA7 /* CEF3SimpleSample-Prefix.pch */,
 				E79F38D317D4DE730081FCA7 /* main.m */,
+				E73EAEBF17D5284F00DC9A30 /* CEF3SimpleSampleHelper-Info.plist */,
 				E79F38D417D4DE730081FCA7 /* CEF3SimpleSample-Info.plist */,
 			);
 			name = "Supporting Files";
@@ -473,6 +426,7 @@
 				E79F38AE17D4DDFD0081FCA7 /* Resources */,
 				E79F38E817D4DF8D0081FCA7 /* CopyFiles */,
 				E79F3A7917D4FFD20081FCA7 /* CopyFiles */,
+				E73EAEC217D52AF200DC9A30 /* Run - Make More Helpers */,
 			);
 			buildRules = (
 			);
@@ -492,6 +446,9 @@
 				E79F39EC17D4FDFB0081FCA7 /* Frameworks */,
 				E79F39F017D4FDFB0081FCA7 /* Resources */,
 				E79F3A2417D4FDFB0081FCA7 /* CopyFiles */,
+				E73EAEC317D52D6900DC9A30 /* ShellScript */,
+				E73EAEC017D529C000DC9A30 /* Run - Change libcef.dylib reference */,
+				E73EAEC117D52A4600DC9A30 /* Run - Change Mach-O Flags */,
 			);
 			buildRules = (
 			);
@@ -644,61 +601,72 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E79F39F117D4FDFB0081FCA7 /* MainMenu.xib in Resources */,
-				E79F39F217D4FDFB0081FCA7 /* InfoPlist.strings in Resources */,
-				E79F39F317D4FDFB0081FCA7 /* html in Resources */,
-				E79F39F417D4FDFB0081FCA7 /* aliasCursor.png in Resources */,
-				E79F39F517D4FDFB0081FCA7 /* locale.pak in Resources */,
-				E79F39F617D4FDFB0081FCA7 /* cef.pak in Resources */,
-				E79F39F717D4FDFB0081FCA7 /* cellCursor.png in Resources */,
-				E79F39F817D4FDFB0081FCA7 /* contextMenuCursor.png in Resources */,
-				E79F39F917D4FDFB0081FCA7 /* copyCursor.png in Resources */,
-				E79F39FA17D4FDFB0081FCA7 /* deleteButton.png in Resources */,
-				E79F39FB17D4FDFB0081FCA7 /* deleteButton.tiff in Resources */,
-				E79F39FC17D4FDFB0081FCA7 /* deleteButton@2x.png in Resources */,
-				E79F39FD17D4FDFB0081FCA7 /* deleteButtonPressed.png in Resources */,
-				E79F39FE17D4FDFB0081FCA7 /* deleteButtonPressed.tiff in Resources */,
-				E79F39FF17D4FDFB0081FCA7 /* deleteButtonPressed@2x.png in Resources */,
-				E79F3A0017D4FDFB0081FCA7 /* devtools_resources.pak in Resources */,
-				E79F3A0117D4FDFB0081FCA7 /* eastResizeCursor.png in Resources */,
-				E79F3A0217D4FDFB0081FCA7 /* eastWestResizeCursor.png in Resources */,
-				E79F3A0317D4FDFB0081FCA7 /* helpCursor.png in Resources */,
-				E79F3A0417D4FDFB0081FCA7 /* inputSpeech.png in Resources */,
-				E79F3A0517D4FDFB0081FCA7 /* inputSpeech.tiff in Resources */,
-				E79F3A0617D4FDFB0081FCA7 /* linearSRGB.icc in Resources */,
-				E79F3A0717D4FDFB0081FCA7 /* linkCursor.png in Resources */,
-				E79F3A0817D4FDFB0081FCA7 /* missingImage.png in Resources */,
-				E79F3A0917D4FDFB0081FCA7 /* missingImage.tiff in Resources */,
-				E79F3A0A17D4FDFB0081FCA7 /* missingImage@2x.png in Resources */,
-				E79F3A0B17D4FDFB0081FCA7 /* moveCursor.png in Resources */,
-				E79F3A0C17D4FDFB0081FCA7 /* noDropCursor.png in Resources */,
-				E79F3A0D17D4FDFB0081FCA7 /* noneCursor.png in Resources */,
-				E79F3A0E17D4FDFB0081FCA7 /* northEastResizeCursor.png in Resources */,
-				E79F3A0F17D4FDFB0081FCA7 /* northEastSouthWestResizeCursor.png in Resources */,
-				E79F3A1017D4FDFB0081FCA7 /* northResizeCursor.png in Resources */,
-				E79F3A1117D4FDFB0081FCA7 /* northSouthResizeCursor.png in Resources */,
-				E79F3A1217D4FDFB0081FCA7 /* northWestResizeCursor.png in Resources */,
-				E79F3A1317D4FDFB0081FCA7 /* northWestSouthEastResizeCursor.png in Resources */,
-				E79F3A1417D4FDFB0081FCA7 /* nullPlugin.png in Resources */,
-				E79F3A1517D4FDFB0081FCA7 /* nullPlugin@2x.png in Resources */,
-				E79F3A1617D4FDFB0081FCA7 /* panIcon.png in Resources */,
-				E79F3A1717D4FDFB0081FCA7 /* progressCursor.png in Resources */,
-				E79F3A1817D4FDFB0081FCA7 /* southEastResizeCursor.png in Resources */,
-				E79F3A1917D4FDFB0081FCA7 /* southResizeCursor.png in Resources */,
-				E79F3A1A17D4FDFB0081FCA7 /* southWestResizeCursor.png in Resources */,
-				E79F3A1B17D4FDFB0081FCA7 /* textAreaResizeCorner.png in Resources */,
-				E79F3A1C17D4FDFB0081FCA7 /* textAreaResizeCorner.tiff in Resources */,
-				E79F3A1D17D4FDFB0081FCA7 /* textAreaResizeCorner@2x.png in Resources */,
-				E79F3A1E17D4FDFB0081FCA7 /* urlIcon.png in Resources */,
-				E79F3A1F17D4FDFB0081FCA7 /* verticalTextCursor.png in Resources */,
-				E79F3A2017D4FDFB0081FCA7 /* waitCursor.png in Resources */,
-				E79F3A2117D4FDFB0081FCA7 /* westResizeCursor.png in Resources */,
-				E79F3A2217D4FDFB0081FCA7 /* zoomInCursor.png in Resources */,
-				E79F3A2317D4FDFB0081FCA7 /* zoomOutCursor.png in Resources */,
+				E73EAEC517D52DD700DC9A30 /* locale.pak in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		E73EAEC017D529C000DC9A30 /* Run - Change libcef.dylib reference */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = "Run - Change libcef.dylib reference";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec install_name_tool -change @executable_path/libcef.dylib \"@executable_path/../../../../MacOS/libcef.dylib\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nexit 1";
+		};
+		E73EAEC117D52A4600DC9A30 /* Run - Change Mach-O Flags */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = "Run - Change Mach-O Flags";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec CEF3SimpleSample/Mac/tools/change_mach_o_flags_from_xcode.sh\nexit 1\n";
+		};
+		E73EAEC217D52AF200DC9A30 /* Run - Make More Helpers */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(EXECUTABLE_PATH)",
+			);
+			name = "Run - Make More Helpers";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "exec CEF3SimpleSample/Mac/tools/make_more_helpers.sh Frameworks \"CEF3 Simple Sample\"\nexit 1\n";
+		};
+		E73EAEC317D52D6900DC9A30 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E79F38AC17D4DDFD0081FCA7 /* Sources */ = {
@@ -709,6 +677,7 @@
 				E79F38D717D4DE800081FCA7 /* AppDelegate.mm in Sources */,
 				E79F39BA17D4E58F0081FCA7 /* ClientApp.cpp in Sources */,
 				E79F39BD17D4F5B30081FCA7 /* ClientHandler.cpp in Sources */,
+				E73EAEC917D5496100DC9A30 /* ClientV8ExtensionHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -718,6 +687,8 @@
 			files = (
 				E79F39EA17D4FDFB0081FCA7 /* ClientApp.cpp in Sources */,
 				E79F3A7C17D504F90081FCA7 /* Helper Process Main.cpp in Sources */,
+				E73EAEC617D532E400DC9A30 /* ClientHandler.cpp in Sources */,
+				E73EAECA17D5496100DC9A30 /* ClientV8ExtensionHandler.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -815,7 +786,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -839,7 +810,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "CEF3 Simple Sample Helper";
+				PRODUCT_NAME = "CEF3 Simple Sample";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -848,7 +819,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -865,7 +836,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
-				PRODUCT_NAME = "CEF3 Simple Sample Helper";
+				PRODUCT_NAME = "CEF3 Simple Sample";
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -929,7 +900,7 @@
 					"\"$(SRCROOT)/CEF3SimpleSample/Mac\"",
 					"\"$(SRCROOT)/CEF3SimpleSample/Independent\"",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/CEF3SimpleSample/Mac/CEF3SimpleSample-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/CEF3SimpleSample/Mac/CEF3SimpleSampleHelper-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/CEF3SimpleSample/CEF/Mac/lib\"",
@@ -952,7 +923,7 @@
 					"\"$(SRCROOT)/CEF3SimpleSample/Mac\"",
 					"\"$(SRCROOT)/CEF3SimpleSample/Independent\"",
 				);
-				INFOPLIST_FILE = "$(SRCROOT)/CEF3SimpleSample/Mac/CEF3SimpleSample-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/CEF3SimpleSample/Mac/CEF3SimpleSampleHelper-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/CEF3SimpleSample/CEF/Mac/lib\"",
