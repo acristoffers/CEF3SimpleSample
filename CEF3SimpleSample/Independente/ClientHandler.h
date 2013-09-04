@@ -1,3 +1,4 @@
+
 /************************************************************************************************
 Copyright (c) 2013 Álan Crístoffer
 
@@ -24,32 +25,34 @@ DEALINGS IN THE SOFTWARE.
 #include "include/cef_v8.h"
 #include "include/cef_browser.h"
 
-class ClientHandler : public CefClient,
-                      public CefLifeSpanHandler
-{
+class ClientHandler:public CefClient, public CefLifeSpanHandler {
 public:
     ClientHandler();
-    
-    CefRefPtr<CefBrowser> GetBrowser() { return m_Browser; }
-    CefWindowHandle GetBrowserHwnd() { return m_BrowserHwnd; }
-    
+
+    CefRefPtr < CefBrowser > GetBrowser() {
+        return m_Browser;
+    };
+    CefWindowHandle GetBrowserHwnd() {
+        return m_BrowserHwnd;
+    };
+
     // CefClient methods
-    virtual CefRefPtr<CefLifeSpanHandler> GetLifeSpanHandler() OVERRIDE {
+    virtual CefRefPtr < CefLifeSpanHandler > GetLifeSpanHandler() OVERRIDE {
         return this;
-    }
-    
+    };
+
     // Virutal on CefLifeSpanHandler
-    virtual bool DoClose(CefRefPtr<CefBrowser> browser) OVERRIDE;
-    virtual void OnAfterCreated(CefRefPtr<CefBrowser> browser) OVERRIDE;
-    virtual void OnBeforeClose(CefRefPtr<CefBrowser> browser) OVERRIDE;
-    
+    virtual bool DoClose(CefRefPtr < CefBrowser > browser) OVERRIDE;
+    virtual void OnAfterCreated(CefRefPtr < CefBrowser > browser) OVERRIDE;
+    virtual void OnBeforeClose(CefRefPtr < CefBrowser > browser) OVERRIDE;
+
 protected:
     // The child browser window
-    CefRefPtr<CefBrowser> m_Browser;
-    
+    CefRefPtr < CefBrowser > m_Browser;
+
     // The child browser window handle
     CefWindowHandle m_BrowserHwnd;
-                          
+
     ///
     // Macro that provides a reference counting implementation for classes extending
     // CefBase.

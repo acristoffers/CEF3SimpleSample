@@ -1,3 +1,4 @@
+
 /************************************************************************************************
 Copyright (c) 2013 Álan Crístoffer
 
@@ -22,19 +23,16 @@ DEALINGS IN THE SOFTWARE.
 #include "include/cef_app.h"
 #include "include/cef_client.h"
 
-class ClientApp : public CefApp,
-                  public CefRenderProcessHandler
-{
+class ClientApp:public CefApp, public CefRenderProcessHandler {
 public:
     ClientApp();
-    
-    CefRefPtr<CefRenderProcessHandler> GetRenderProcessHandler() OVERRIDE {
+
+    CefRefPtr < CefRenderProcessHandler > GetRenderProcessHandler() OVERRIDE {
         return this;
-    }
-    
+    };
     void OnWebKitInitialized() OVERRIDE;
-    
-IMPLEMENT_REFCOUNTING(ClientApp);
+
+    IMPLEMENT_REFCOUNTING(ClientApp);
 };
 
 #endif /* defined(__CEF3SimpleSample__ClientHandler__) */
