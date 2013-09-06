@@ -9,7 +9,7 @@ cd build
 
 echo "Building CEF3SimpleSample::Independente"
 g++ -c ../CEF3SimpleSample/Independente/*.cpp \
-	-I ../CEF3SimpleSample/cc \
+	-I ../CEF3SimpleSample/Independente \
 	-I ../CEF3SimpleSample/CEF/Linux \
 	-I ../CEF3SimpleSample/CEF/Linux/include \
 	`pkg-config --cflags --libs gtk+-2.0`
