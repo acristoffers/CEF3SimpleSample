@@ -11,6 +11,7 @@
 		E73EAEC617D532E400DC9A30 /* ClientHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E79F39BB17D4F5B30081FCA7 /* ClientHandler.cpp */; };
 		E73EAEC917D5496100DC9A30 /* ClientV8ExtensionHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E73EAEC717D5496100DC9A30 /* ClientV8ExtensionHandler.cpp */; };
 		E73EAECA17D5496100DC9A30 /* ClientV8ExtensionHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E73EAEC717D5496100DC9A30 /* ClientV8ExtensionHandler.cpp */; };
+		E76E32CF17DAA70E00E3AF5C /* Helper Process Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E76E32CE17DAA70E00E3AF5C /* Helper Process Main.cpp */; };
 		E79F38B417D4DDFD0081FCA7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38B317D4DDFD0081FCA7 /* Cocoa.framework */; };
 		E79F38D517D4DE730081FCA7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = E79F38D317D4DE730081FCA7 /* main.m */; };
 		E79F38D717D4DE800081FCA7 /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = E79F38D117D4DE650081FCA7 /* AppDelegate.mm */; };
@@ -77,7 +78,6 @@
 		E79F39EE17D4FDFB0081FCA7 /* libcef.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38E117D4DF770081FCA7 /* libcef.dylib */; };
 		E79F39EF17D4FDFB0081FCA7 /* libcef_dll_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38DF17D4DF770081FCA7 /* libcef_dll_wrapper.a */; };
 		E79F3A7A17D4FFDB0081FCA7 /* CEF3 Simple Sample Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E79F3A2B17D4FDFB0081FCA7 /* CEF3 Simple Sample Helper.app */; };
-		E79F3A7C17D504F90081FCA7 /* Helper Process Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E79F3A7B17D504F90081FCA7 /* Helper Process Main.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +128,7 @@
 		E73EAEBF17D5284F00DC9A30 /* CEF3SimpleSampleHelper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CEF3SimpleSampleHelper-Info.plist"; path = "Mac/CEF3SimpleSampleHelper-Info.plist"; sourceTree = "<group>"; };
 		E73EAEC717D5496100DC9A30 /* ClientV8ExtensionHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClientV8ExtensionHandler.cpp; path = Independente/ClientV8ExtensionHandler.cpp; sourceTree = "<group>"; };
 		E73EAEC817D5496100DC9A30 /* ClientV8ExtensionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientV8ExtensionHandler.h; path = Independente/ClientV8ExtensionHandler.h; sourceTree = "<group>"; };
+		E76E32CE17DAA70E00E3AF5C /* Helper Process Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "Helper Process Main.cpp"; path = "Mac/Helper Process Main.cpp"; sourceTree = "<group>"; };
 		E79F38B017D4DDFD0081FCA7 /* CEF3 Simple Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEF3 Simple Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E79F38B317D4DDFD0081FCA7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E79F38B617D4DDFD0081FCA7 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -250,7 +251,6 @@
 		E79F39BB17D4F5B30081FCA7 /* ClientHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClientHandler.cpp; path = Independente/ClientHandler.cpp; sourceTree = "<group>"; };
 		E79F39BC17D4F5B30081FCA7 /* ClientHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientHandler.h; path = Independente/ClientHandler.h; sourceTree = "<group>"; };
 		E79F3A2B17D4FDFB0081FCA7 /* CEF3 Simple Sample Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEF3 Simple Sample Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E79F3A7B17D504F90081FCA7 /* Helper Process Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "Helper Process Main.cpp"; path = "Independente/Helper Process Main.cpp"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -320,9 +320,9 @@
 		E79F38B917D4DDFD0081FCA7 /* CEF3SimpleSample */ = {
 			isa = PBXGroup;
 			children = (
+				E76E32CE17DAA70E00E3AF5C /* Helper Process Main.cpp */,
 				E73EAEC717D5496100DC9A30 /* ClientV8ExtensionHandler.cpp */,
 				E73EAEC817D5496100DC9A30 /* ClientV8ExtensionHandler.h */,
-				E79F3A7B17D504F90081FCA7 /* Helper Process Main.cpp */,
 				E79F39BB17D4F5B30081FCA7 /* ClientHandler.cpp */,
 				E79F39BC17D4F5B30081FCA7 /* ClientHandler.h */,
 				E79F38D117D4DE650081FCA7 /* AppDelegate.mm */,
@@ -686,9 +686,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E79F39EA17D4FDFB0081FCA7 /* ClientApp.cpp in Sources */,
-				E79F3A7C17D504F90081FCA7 /* Helper Process Main.cpp in Sources */,
 				E73EAEC617D532E400DC9A30 /* ClientHandler.cpp in Sources */,
 				E73EAECA17D5496100DC9A30 /* ClientV8ExtensionHandler.cpp in Sources */,
+				E76E32CF17DAA70E00E3AF5C /* Helper Process Main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
