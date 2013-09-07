@@ -16,7 +16,9 @@
 *   DEALINGS IN THE SOFTWARE.
 ************************************************************************************************/
 #include <string>
+#include <algorithm>
 #include <windows.h>
+
 #include "include/cef_app.h"
 #include "include/cef_browser.h"
 #include "ClientApp.h"
@@ -31,8 +33,10 @@ std::string GetApplicationDir()
 
     GetModuleFileNameW(hModule, wpath, MAX_PATH);
     std::wstring wide(wpath);
-    std::string  path( wide.begin(), wide.end() );
-    return path.substr( 0, path.find_last_of("\\/") );
+
+    std::string path = CefString(wide);
+    path = path.substr( 0, path.find_last_of("\\/") );
+    return path;
 }
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
@@ -49,12 +53,11 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
                 RECT rect;
                 GetClientRect(hwnd, &rect);
                 HDWP hdwp = BeginDeferWindowPos(1);
-                hdwp =
-                    DeferWindowPos(hdwp, g_handler->GetBrowserHwnd(),
-                                   NULL, rect.left, rect.top,
-                                   rect.right - rect.left,
-                                   rect.bottom - rect.top,
-                                   SWP_NOZORDER);
+                hdwp = DeferWindowPos(hdwp, g_handler->GetBrowserHwnd(),
+                                      NULL, rect.left, rect.top,
+                                      rect.right - rect.left,
+                                      rect.bottom - rect.top,
+                                      SWP_NOZORDER);
                 EndDeferWindowPos(hdwp);
             }
 
@@ -71,8 +74,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_CLOSE:
             if ( g_handler ) {
-                CefRefPtr<CefBrowser> browser =
-                    g_handler->GetBrowser();
+                CefRefPtr<CefBrowser> browser = g_handler->GetBrowser();
 
                 if ( browser.get() ) {
                     // Let the browser window know we are about to destroy it.
@@ -84,7 +86,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
         case WM_PAINT:
             PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hwnd, &ps);
+            HDC         hdc = BeginPaint(hwnd, &ps);
             EndPaint(hwnd, &ps);
             return 0;
     }
@@ -137,46 +139,41 @@ HWND CreateMessageWindow(HINSTANCE hInstance)
     wc.hInstance     = hInstance;
     wc.lpszClassName = "ClientMessageWindow";
     RegisterClassEx(&wc);
-    return CreateWindow("ClientMessageWindow", 0, 0, 0, 0, 0, 0,
-                        HWND_MESSAGE, 0, hInstance, 0);
+    return CreateWindow("ClientMessageWindow", 0, 0, 0, 0, 0, 0, HWND_MESSAGE, 0, hInstance, 0);
 }
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
 {
+    CefMainArgs main_args(hInstance);
+
+    CefRefPtr<ClientApp> app(new ClientApp);
+
+    // Execute the secondary process, if any.
+    int exit_code = CefExecuteProcess( main_args, app.get() );
+    if ( exit_code >= 0 ) {
+        exit(exit_code);
+    }
+
     // Register the window class.
     HWND hwnd = RegisterWindow(hInstance, nCmdShow);
-
     if ( hwnd == 0 ) {
         return 0;
     }
 
     RECT rect;
     GetClientRect(hwnd, &rect);
-    CefMainArgs          main_args(hInstance);
-    CefRefPtr<ClientApp> app(new ClientApp);
-    // Execute the secondary process, if any.
-    int exit_code = CefExecuteProcess( main_args, app.get() );
-
-    if ( exit_code >= 0 ) {
-        exit(exit_code);
-    }
 
     CefSettings settings;
     CefInitialize( main_args, settings, app.get() );
-    CefWindowInfo             info;
-    CefBrowserSettings        b_settings;
-    CefRefPtr<CefClient>      client(new ClientHandler);
-    std::string               path;
-    CefRefPtr<CefCommandLine> command_line =
-        CefCommandLine::GetGlobalCommandLine();
+    CefWindowInfo        info;
+    CefBrowserSettings   b_settings;
+    CefRefPtr<CefClient> client(new ClientHandler);
+    g_handler = (ClientHandler *) client.get();
+    std::string               path         = "file://" + GetApplicationDir() + "/html/index.html";
+    CefRefPtr<CefCommandLine> command_line = CefCommandLine::GetGlobalCommandLine();
 
     if ( command_line->HasSwitch("url") ) {
         path = command_line->GetSwitchValue("url");
-    }
-
-    if ( path.empty() ) {
-        path = GetApplicationDir();
-        path = "file://" + path + "/html/index.html";
     }
 
     info.SetAsChild(hwnd, rect);
