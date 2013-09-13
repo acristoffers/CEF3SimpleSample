@@ -187,3 +187,5 @@ Release/
 # Editors temporary files
 *~
 *.autosave
+
+*.xcuserstate

@@ -446,7 +446,6 @@
 				E79F39EC17D4FDFB0081FCA7 /* Frameworks */,
 				E79F39F017D4FDFB0081FCA7 /* Resources */,
 				E79F3A2417D4FDFB0081FCA7 /* CopyFiles */,
-				E73EAEC317D52D6900DC9A30 /* ShellScript */,
 				E73EAEC017D529C000DC9A30 /* Run - Change libcef.dylib reference */,
 				E73EAEC117D52A4600DC9A30 /* Run - Change Mach-O Flags */,
 			);
@@ -652,19 +651,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "exec CEF3SimpleSample/Mac/tools/make_more_helpers.sh Frameworks \"CEF3 Simple Sample\"\nexit 1\n";
-		};
-		E73EAEC317D52D6900DC9A30 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "";
 		};
 /* End PBXShellScriptBuildPhase section */
 

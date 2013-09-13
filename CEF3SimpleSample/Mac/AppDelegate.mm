@@ -33,6 +33,11 @@
     [super dealloc];
 }
 
+-(BOOL)applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)sender
+{
+    return YES;
+}
+
 -(void)applicationDidFinishLaunching: (NSNotification *)aNotification
 {
     CefMainArgs main_args;

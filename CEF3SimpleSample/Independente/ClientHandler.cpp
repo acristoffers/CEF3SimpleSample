@@ -20,7 +20,6 @@
 
 #include "include/cef_app.h"
 #include "include/cef_base.h"
-
 #include "include/cef_client.h"
 #include "include/cef_command_line.h"
 #include "include/cef_frame.h"
