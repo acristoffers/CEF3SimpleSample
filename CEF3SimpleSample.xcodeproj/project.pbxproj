@@ -464,7 +464,7 @@
 		E79F38A817D4DDFD0081FCA7 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0460;
+				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Álan Crístoffer";
 			};
 			buildConfigurationList = E79F38AB17D4DDFD0081FCA7 /* Build configuration list for PBXProject "CEF3SimpleSample" */;
@@ -831,10 +831,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CEF3SimpleSample/Mac/CEF3SimpleSample-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/CEF3SimpleSample/CEF/Mac\"",
 					"\"$(SRCROOT)/CEF3SimpleSample/Mac\"",
@@ -845,6 +846,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/CEF3SimpleSample/CEF/Mac/lib\"",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -854,10 +856,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CEF3SimpleSample/Mac/CEF3SimpleSample-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/CEF3SimpleSample/CEF/Mac\"",
 					"\"$(SRCROOT)/CEF3SimpleSample/Mac\"",
@@ -868,6 +871,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/CEF3SimpleSample/CEF/Mac/lib\"",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -877,10 +881,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CEF3SimpleSample/Mac/CEF3SimpleSample-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/CEF3SimpleSample/CEF/Mac\"",
 					"\"$(SRCROOT)/CEF3SimpleSample/Mac\"",
@@ -891,6 +896,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/CEF3SimpleSample/CEF/Mac/lib\"",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "CEF3 Simple Sample Helper";
 				WRAPPER_EXTENSION = app;
 			};
@@ -900,10 +906,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_CXX_LIBRARY = "libstdc++";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CEF3SimpleSample/Mac/CEF3SimpleSample-Prefix.pch";
-				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_VERSION = "";
 				HEADER_SEARCH_PATHS = (
 					"\"$(SRCROOT)/CEF3SimpleSample/CEF/Mac\"",
 					"\"$(SRCROOT)/CEF3SimpleSample/Mac\"",
@@ -914,6 +921,7 @@
 					"$(inherited)",
 					"\"$(SRCROOT)/CEF3SimpleSample/CEF/Mac/lib\"",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "CEF3 Simple Sample Helper";
 				WRAPPER_EXTENSION = app;
 			};
