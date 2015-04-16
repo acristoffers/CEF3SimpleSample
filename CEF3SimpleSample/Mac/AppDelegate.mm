@@ -45,7 +45,7 @@
     CefRefPtr<ClientApp> app(new ClientApp);
 
     // Execute the secondary process, if any.
-    int exit_code = CefExecuteProcess( main_args, app.get() );
+    int exit_code = CefExecuteProcess( main_args, app.get(), NULL );
     if ( exit_code >= 0 ) {
         exit(exit_code);
     }
@@ -55,7 +55,7 @@
 
     CefSettings settings;
 
-    CefInitialize( main_args, settings, app.get() );
+    CefInitialize( main_args, settings, app.get(), NULL );
 
     CefWindowInfo        info;
     CefBrowserSettings   b_settings;
@@ -74,7 +74,7 @@
     }
 
     info.SetAsChild([window contentView], 0, 0, [[window contentView] frame].size.width, [[window contentView] frame].size.height);
-    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings);
+    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings, NULL);
 
     CefRunMessageLoop();
     CefShutdown();

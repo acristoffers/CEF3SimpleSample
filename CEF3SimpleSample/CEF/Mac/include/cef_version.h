@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -36,24 +36,24 @@
 #define CEF_INCLUDE_CEF_VERSION_H_
 
 #define CEF_VERSION_MAJOR 3
-#define CEF_REVISION 1255
-#define COPYRIGHT_YEAR 2013
+#define CEF_REVISION 2077
+#define COPYRIGHT_YEAR 2015
 
-#define CHROME_VERSION_MAJOR 27
+#define CHROME_VERSION_MAJOR 41
 #define CHROME_VERSION_MINOR 0
-#define CHROME_VERSION_BUILD 1453
-#define CHROME_VERSION_PATCH 73
+#define CHROME_VERSION_BUILD 2272
+#define CHROME_VERSION_PATCH 76
 
 #define DO_MAKE_STRING(p) #p
 #define MAKE_STRING(p) DO_MAKE_STRING(p)
 
 #ifndef APSTUDIO_HIDDEN_SYMBOLS
 
+#include "include/internal/cef_export.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "internal/cef_export.h"
 
 // The API hash is created by analyzing CEF header files for C API type
 // definitions. The hash value will change when header files are modified
@@ -61,13 +61,13 @@ extern "C" {
 // universal hash value will change if any platform is affected whereas the
 // platform hash values will change only if that particular platform is
 // affected.
-#define CEF_API_HASH_UNIVERSAL "d093915809504a2e33d3e29c9ce3bf9adbbfeed7"
+#define CEF_API_HASH_UNIVERSAL "598db691cb410dc98cb6eff67513485bcfed85c9"
 #if defined(OS_WIN)
-#define CEF_API_HASH_PLATFORM "ef557aff5c1c0ac0f3a337722c3412e9f5d506cb"
+#define CEF_API_HASH_PLATFORM "8b085cf0f8c0c51224d1f6c8a8660635da820566"
 #elif defined(OS_MACOSX)
-#define CEF_API_HASH_PLATFORM "78e54f8b7fc1dab0b9c4a552613bb3bc026ebc7b"
+#define CEF_API_HASH_PLATFORM "93241b9cd50d55e00fa256590033a63d757b078d"
 #elif defined(OS_LINUX)
-#define CEF_API_HASH_PLATFORM "8a58dc3ad85042a2d366fee99b24a0dab38a31ab"
+#define CEF_API_HASH_PLATFORM "df91279f546fd2e34684a3bc02abb7e70c35e5a1"
 #endif
 
 ///

@@ -1,4 +1,4 @@
-// Copyright (c) 2011 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2014 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -31,9 +31,7 @@
 #ifndef CEF_INCLUDE_CAPI_CEF_BASE_CAPI_H_
 #define CEF_INCLUDE_CAPI_CEF_BASE_CAPI_H_
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+#include <stdint.h>
 
 #include "include/internal/cef_export.h"
 #include "include/internal/cef_string.h"
@@ -41,6 +39,10 @@ extern "C" {
 #include "include/internal/cef_string_map.h"
 #include "include/internal/cef_string_multimap.h"
 #include "include/internal/cef_types.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 
 ///
 // Structure defining the reference count implementation functions. All
@@ -53,20 +55,22 @@ typedef struct _cef_base_t {
   size_t size;
 
   ///
-  // Increment the reference count.
+  // Called to increment the reference count for the object. Should be called
+  // for every new copy of a pointer to a given object.
   ///
-  int (CEF_CALLBACK *add_ref)(struct _cef_base_t* self);
+  void (CEF_CALLBACK *add_ref)(struct _cef_base_t* self);
 
   ///
-  // Decrement the reference count.  Delete this object when no references
-  // remain.
+  // Called to decrement the reference count for the object. If the reference
+  // count falls to 0 the object should self-delete. Returns true (1) if the
+  // resulting reference count is 0.
   ///
   int (CEF_CALLBACK *release)(struct _cef_base_t* self);
 
   ///
-  // Returns the current number of references.
+  // Returns true (1) if the current reference count is 1.
   ///
-  int (CEF_CALLBACK *get_refct)(struct _cef_base_t* self);
+  int (CEF_CALLBACK *has_one_ref)(struct _cef_base_t* self);
 } cef_base_t;
 
 

@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,11 +38,14 @@
 #define CEF_INCLUDE_CAPI_CEF_BROWSER_PROCESS_HANDLER_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+#include "include/capi/cef_command_line_capi.h"
+#include "include/capi/cef_print_handler_capi.h"
+#include "include/capi/cef_values_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "include/capi/cef_base_capi.h"
 
 
 ///
@@ -84,6 +87,13 @@ typedef struct _cef_browser_process_handler_t {
   void (CEF_CALLBACK *on_render_process_thread_created)(
       struct _cef_browser_process_handler_t* self,
       struct _cef_list_value_t* extra_info);
+
+  ///
+  // Return the handler for printing on Linux. If a print handler is not
+  // provided then printing will not be supported on the Linux platform.
+  ///
+  struct _cef_print_handler_t* (CEF_CALLBACK *get_print_handler)(
+      struct _cef_browser_process_handler_t* self);
 } cef_browser_process_handler_t;
 
 

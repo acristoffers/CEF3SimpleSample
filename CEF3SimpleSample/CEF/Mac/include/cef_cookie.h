@@ -49,7 +49,7 @@ class CefCookieVisitor;
 // Class used for managing cookies. The methods of this class may be called on
 // any thread unless otherwise indicated.
 ///
-/*--cef(source=library)--*/
+/*--cef(source=library,no_debugct_check)--*/
 class CefCookieManager : public virtual CefBase {
  public:
   ///
@@ -136,11 +136,11 @@ class CefCookieManager : public virtual CefBase {
 
   ///
   // Flush the backing store (if any) to disk and execute the specified
-  // |handler| on the IO thread when done. Returns false if cookies cannot be
+  // |callback| on the IO thread when done. Returns false if cookies cannot be
   // accessed.
   ///
   /*--cef(optional_param=handler)--*/
-  virtual bool FlushStore(CefRefPtr<CefCompletionHandler> handler) =0;
+  virtual bool FlushStore(CefRefPtr<CefCompletionCallback> callback) =0;
 };
 
 

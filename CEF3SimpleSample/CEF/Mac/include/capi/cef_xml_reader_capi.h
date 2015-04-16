@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,11 +38,12 @@
 #define CEF_INCLUDE_CAPI_CEF_XML_READER_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+#include "include/capi/cef_stream_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "include/capi/cef_base_capi.h"
 
 
 ///
@@ -88,8 +89,7 @@ typedef struct _cef_xml_reader_t {
   ///
   // Returns the node type.
   ///
-  enum cef_xml_node_type_t (CEF_CALLBACK *get_type)(
-      struct _cef_xml_reader_t* self);
+  cef_xml_node_type_t (CEF_CALLBACK *get_type)(struct _cef_xml_reader_t* self);
 
   ///
   // Returns the node depth. Depth starts at 0 for the root node.
@@ -267,8 +267,8 @@ typedef struct _cef_xml_reader_t {
 // only be called from the thread that created the object.
 ///
 CEF_EXPORT cef_xml_reader_t* cef_xml_reader_create(
-    struct _cef_stream_reader_t* stream,
-    enum cef_xml_encoding_type_t encodingType, const cef_string_t* URI);
+    struct _cef_stream_reader_t* stream, cef_xml_encoding_type_t encodingType,
+    const cef_string_t* URI);
 
 
 #ifdef __cplusplus

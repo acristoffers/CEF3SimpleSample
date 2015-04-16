@@ -81,8 +81,8 @@ class CefJSDialogHandler : public virtual CefBase {
   // modal or modeless. If a custom dialog is used the application must execute
   // |callback| once the custom dialog is dismissed.
   ///
-  /*--cef(optional_param=accept_lang,optional_param=message_text,
-          optional_param=default_prompt_text)--*/
+  /*--cef(optional_param=origin_url,optional_param=accept_lang,
+          optional_param=message_text,optional_param=default_prompt_text)--*/
   virtual bool OnJSDialog(CefRefPtr<CefBrowser> browser,
                           const CefString& origin_url,
                           const CefString& accept_lang,
@@ -117,6 +117,12 @@ class CefJSDialogHandler : public virtual CefBase {
   ///
   /*--cef()--*/
   virtual void OnResetDialogState(CefRefPtr<CefBrowser> browser) {}
+  
+  ///
+  // Called when the default implementation dialog is closed.
+  ///
+  /*--cef()--*/
+  virtual void OnDialogClosed(CefRefPtr<CefBrowser> browser) {}
 };
 
 #endif  // CEF_INCLUDE_CEF_JSDIALOG_HANDLER_H_

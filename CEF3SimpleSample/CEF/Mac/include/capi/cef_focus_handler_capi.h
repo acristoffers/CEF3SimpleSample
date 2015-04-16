@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,11 +38,14 @@
 #define CEF_INCLUDE_CAPI_CEF_FOCUS_HANDLER_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+#include "include/capi/cef_browser_capi.h"
+#include "include/capi/cef_dom_capi.h"
+#include "include/capi/cef_frame_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "include/capi/cef_base_capi.h"
 
 
 ///
@@ -70,7 +73,7 @@ typedef struct _cef_focus_handler_t {
   // focus to be set or true (1) to cancel setting the focus.
   ///
   int (CEF_CALLBACK *on_set_focus)(struct _cef_focus_handler_t* self,
-      struct _cef_browser_t* browser, enum cef_focus_source_t source);
+      struct _cef_browser_t* browser, cef_focus_source_t source);
 
   ///
   // Called when the browser component has received focus.

@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,11 +38,13 @@
 #define CEF_INCLUDE_CAPI_CEF_DOWNLOAD_HANDLER_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+#include "include/capi/cef_browser_capi.h"
+#include "include/capi/cef_download_item_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "include/capi/cef_base_capi.h"
 
 
 ///
@@ -78,6 +80,16 @@ typedef struct _cef_download_item_callback_t {
   // Call to cancel the download.
   ///
   void (CEF_CALLBACK *cancel)(struct _cef_download_item_callback_t* self);
+
+  ///
+  // Call to pause the download.
+  ///
+  void (CEF_CALLBACK *pause)(struct _cef_download_item_callback_t* self);
+
+  ///
+  // Call to resume the download.
+  ///
+  void (CEF_CALLBACK *resume)(struct _cef_download_item_callback_t* self);
 } cef_download_item_callback_t;
 
 
