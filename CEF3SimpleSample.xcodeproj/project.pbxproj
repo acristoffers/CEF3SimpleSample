@@ -22,12 +22,12 @@
 		E79F39EA17D4FDFB0081FCA7 /* ClientApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E79F39B817D4E58F0081FCA7 /* ClientApp.cpp */; };
 		E79F39ED17D4FDFB0081FCA7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38B317D4DDFD0081FCA7 /* Cocoa.framework */; };
 		E79F3A7A17D4FFDB0081FCA7 /* CEF3 Simple Sample Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E79F3A2B17D4FDFB0081FCA7 /* CEF3 Simple Sample Helper.app */; };
-		E7F810431AE0024700B143D5 /* libcef_dll_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F810421AE0024700B143D5 /* libcef_dll_wrapper.a */; };
-		E7F810441AE0025400B143D5 /* libcef_dll_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F810421AE0024700B143D5 /* libcef_dll_wrapper.a */; };
-		E7F8104C1AE00CEA00B143D5 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7AEC2771ADFFC7800C0DD06 /* Chromium Embedded Framework.framework */; };
-		E7F8104E1AE00CEE00B143D5 /* Chromium Embedded Framework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E7AEC2771ADFFC7800C0DD06 /* Chromium Embedded Framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		E7F810501AE00D0E00B143D5 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7AEC2771ADFFC7800C0DD06 /* Chromium Embedded Framework.framework */; };
-		E7F810511AE00D0E00B143D5 /* Chromium Embedded Framework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7AEC2771ADFFC7800C0DD06 /* Chromium Embedded Framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E7A14E751AE01418005672E7 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7A14E741AE01418005672E7 /* Chromium Embedded Framework.framework */; };
+		E7A14E761AE01418005672E7 /* Chromium Embedded Framework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7A14E741AE01418005672E7 /* Chromium Embedded Framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E7A14E771AE01427005672E7 /* libcef_dll_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38DF17D4DF770081FCA7 /* libcef_dll_wrapper.a */; };
+		E7A14E781AE01446005672E7 /* libcef_dll_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38DF17D4DF770081FCA7 /* libcef_dll_wrapper.a */; };
+		E7A14E791AE01457005672E7 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7A14E741AE01418005672E7 /* Chromium Embedded Framework.framework */; };
+		E7A14E7A1AE01457005672E7 /* Chromium Embedded Framework.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = E7A14E741AE01418005672E7 /* Chromium Embedded Framework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,7 +48,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E79F3A7A17D4FFDB0081FCA7 /* CEF3 Simple Sample Helper.app in CopyFiles */,
-				E7F8104E1AE00CEE00B143D5 /* Chromium Embedded Framework.framework in CopyFiles */,
+				E7A14E7A1AE01457005672E7 /* Chromium Embedded Framework.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -58,7 +58,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E7F810511AE00D0E00B143D5 /* Chromium Embedded Framework.framework in Embed Frameworks */,
+				E7A14E761AE01418005672E7 /* Chromium Embedded Framework.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -83,17 +83,13 @@
 		E79F38DA17D4DE900081FCA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = Mac/Resources/en.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E79F38DC17D4DE900081FCA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Mac/Resources/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E79F38DF17D4DF770081FCA7 /* libcef_dll_wrapper.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcef_dll_wrapper.a; path = CEF3SimpleSample/CEF/Mac/lib/libcef_dll_wrapper.a; sourceTree = "<group>"; };
-		E79F38E017D4DF770081FCA7 /* ffmpegsumo.so */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = ffmpegsumo.so; path = CEF3SimpleSample/CEF/Mac/lib/ffmpegsumo.so; sourceTree = "<group>"; };
-		E79F38E117D4DF770081FCA7 /* libcef.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcef.dylib; path = CEF3SimpleSample/CEF/Mac/lib/libcef.dylib; sourceTree = "<group>"; };
-		E79F38E217D4DF770081FCA7 /* libplugin_carbon_interpose.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libplugin_carbon_interpose.dylib; path = CEF3SimpleSample/CEF/Mac/lib/libplugin_carbon_interpose.dylib; sourceTree = "<group>"; };
 		E79F391E17D4E2EF0081FCA7 /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; name = html; path = CEF3SimpleSample/Independente/html; sourceTree = "<group>"; };
 		E79F39B817D4E58F0081FCA7 /* ClientApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClientApp.cpp; path = Independente/ClientApp.cpp; sourceTree = "<group>"; };
 		E79F39B917D4E58F0081FCA7 /* ClientApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientApp.h; path = Independente/ClientApp.h; sourceTree = "<group>"; };
 		E79F39BB17D4F5B30081FCA7 /* ClientHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClientHandler.cpp; path = Independente/ClientHandler.cpp; sourceTree = "<group>"; };
 		E79F39BC17D4F5B30081FCA7 /* ClientHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientHandler.h; path = Independente/ClientHandler.h; sourceTree = "<group>"; };
 		E79F3A2B17D4FDFB0081FCA7 /* CEF3 Simple Sample Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEF3 Simple Sample Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E7AEC2771ADFFC7800C0DD06 /* Chromium Embedded Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Chromium Embedded Framework.framework"; path = "CEF3SimpleSample/CEF/Mac/Release/Chromium Embedded Framework.framework"; sourceTree = "<group>"; };
-		E7F810421AE0024700B143D5 /* libcef_dll_wrapper.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcef_dll_wrapper.a; path = CEF3SimpleSample/CEF/Mac/Release/libcef_dll_wrapper.a; sourceTree = "<group>"; };
+		E7A14E741AE01418005672E7 /* Chromium Embedded Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Chromium Embedded Framework.framework"; path = "CEF3SimpleSample/CEF/Mac/lib/Chromium Embedded Framework.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,9 +97,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7F810431AE0024700B143D5 /* libcef_dll_wrapper.a in Frameworks */,
+				E7A14E791AE01457005672E7 /* Chromium Embedded Framework.framework in Frameworks */,
 				E79F38B417D4DDFD0081FCA7 /* Cocoa.framework in Frameworks */,
-				E7F8104C1AE00CEA00B143D5 /* Chromium Embedded Framework.framework in Frameworks */,
+				E7A14E781AE01446005672E7 /* libcef_dll_wrapper.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,9 +107,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7F810501AE00D0E00B143D5 /* Chromium Embedded Framework.framework in Frameworks */,
-				E7F810441AE0025400B143D5 /* libcef_dll_wrapper.a in Frameworks */,
+				E7A14E771AE01427005672E7 /* libcef_dll_wrapper.a in Frameworks */,
 				E79F39ED17D4FDFB0081FCA7 /* Cocoa.framework in Frameworks */,
+				E7A14E751AE01418005672E7 /* Chromium Embedded Framework.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -143,8 +139,7 @@
 		E79F38B217D4DDFD0081FCA7 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E7F810421AE0024700B143D5 /* libcef_dll_wrapper.a */,
-				E7AEC2771ADFFC7800C0DD06 /* Chromium Embedded Framework.framework */,
+				E7A14E741AE01418005672E7 /* Chromium Embedded Framework.framework */,
 				E79F38B317D4DDFD0081FCA7 /* Cocoa.framework */,
 				E79F38B517D4DDFD0081FCA7 /* Other Frameworks */,
 			);
@@ -195,9 +190,6 @@
 			isa = PBXGroup;
 			children = (
 				E79F38DF17D4DF770081FCA7 /* libcef_dll_wrapper.a */,
-				E79F38E017D4DF770081FCA7 /* ffmpegsumo.so */,
-				E79F38E117D4DF770081FCA7 /* libcef.dylib */,
-				E79F38E217D4DF770081FCA7 /* libplugin_carbon_interpose.dylib */,
 			);
 			name = "CEF Libraries";
 			sourceTree = "<group>";
@@ -499,6 +491,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/Release",
+					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/lib",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CEF3SimpleSample/Mac/CEF3SimpleSample-Prefix.pch";
@@ -512,6 +505,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/Release",
+					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/lib",
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -525,6 +519,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/Release",
+					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/lib",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CEF3SimpleSample/Mac/CEF3SimpleSample-Prefix.pch";
@@ -538,6 +533,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/Release",
+					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/lib",
 				);
 				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -551,6 +547,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/Release",
+					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/lib",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CEF3SimpleSample/Mac/CEF3SimpleSample-Prefix.pch";
@@ -564,6 +561,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/Release",
+					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/lib",
 				);
 				PRODUCT_NAME = "CEF3 Simple Sample Helper";
 				WRAPPER_EXTENSION = app;
@@ -577,6 +575,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/Release",
+					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/lib",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CEF3SimpleSample/Mac/CEF3SimpleSample-Prefix.pch";
@@ -590,6 +589,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/Release",
+					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/lib",
 				);
 				PRODUCT_NAME = "CEF3 Simple Sample Helper";
 				WRAPPER_EXTENSION = app;

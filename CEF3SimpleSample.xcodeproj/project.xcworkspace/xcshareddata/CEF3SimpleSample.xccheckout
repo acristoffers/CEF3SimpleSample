@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>9290B5C8-9BE1-4154-B115-908897A98CF7</string>
 	<key>IDESourceControlProjectName</key>
-	<string>project</string>
+	<string>CEF3SimpleSample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>DAB2F24D9A8A6ED19A32CF375665B1FDC91A73D4</key>
 		<string>https://github.com/acristoffers/CEF3SimpleSample.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>CEF3SimpleSample.xcodeproj/project.xcworkspace</string>
+	<string>CEF3SimpleSample.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>DAB2F24D9A8A6ED19A32CF375665B1FDC91A73D4</key>
