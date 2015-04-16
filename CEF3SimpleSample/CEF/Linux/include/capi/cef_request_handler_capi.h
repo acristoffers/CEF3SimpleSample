@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,34 +38,19 @@
 #define CEF_INCLUDE_CAPI_CEF_REQUEST_HANDLER_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_auth_callback_capi.h"
+#include "include/capi/cef_base_capi.h"
+#include "include/capi/cef_browser_capi.h"
+#include "include/capi/cef_frame_capi.h"
+#include "include/capi/cef_request_capi.h"
+#include "include/capi/cef_resource_handler_capi.h"
+#include "include/capi/cef_response_capi.h"
+#include "include/capi/cef_ssl_info_capi.h"
+#include "include/capi/cef_web_plugin_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "include/capi/cef_base_capi.h"
-
-
-///
-// Callback structure used for asynchronous continuation of authentication
-// requests.
-///
-typedef struct _cef_auth_callback_t {
-  ///
-  // Base structure.
-  ///
-  cef_base_t base;
-
-  ///
-  // Continue the authentication request.
-  ///
-  void (CEF_CALLBACK *cont)(struct _cef_auth_callback_t* self,
-      const cef_string_t* username, const cef_string_t* password);
-
-  ///
-  // Cancel the authentication request.
-  ///
-  void (CEF_CALLBACK *cancel)(struct _cef_auth_callback_t* self);
-} cef_auth_callback_t;
 
 
 ///
@@ -120,6 +105,20 @@ typedef struct _cef_request_handler_t {
   cef_base_t base;
 
   ///
+  // Called on the UI thread before browser navigation. Return true (1) to
+  // cancel the navigation or false (0) to allow the navigation to proceed. The
+  // |request| object cannot be modified in this callback.
+  // cef_load_handler_t::OnLoadingStateChange will be called twice in all cases.
+  // If the navigation is allowed cef_load_handler_t::OnLoadStart and
+  // cef_load_handler_t::OnLoadEnd will be called. If the navigation is canceled
+  // cef_load_handler_t::OnLoadError will be called with an |errorCode| value of
+  // ERR_ABORTED.
+  ///
+  int (CEF_CALLBACK *on_before_browse)(struct _cef_request_handler_t* self,
+      struct _cef_browser_t* browser, struct _cef_frame_t* frame,
+      struct _cef_request_t* request, int is_redirect);
+
+  ///
   // Called on the IO thread before a resource request is loaded. The |request|
   // object may be modified. To cancel the request return true (1) otherwise
   // return false (0).
@@ -172,16 +171,6 @@ typedef struct _cef_request_handler_t {
       int64 new_size, struct _cef_quota_callback_t* callback);
 
   ///
-  // Called on the IO thread to retrieve the cookie manager. |main_url| is the
-  // URL of the top-level frame. Cookies managers can be unique per browser or
-  // shared across multiple browsers. The global cookie manager will be used if
-  // this function returns NULL.
-  ///
-  struct _cef_cookie_manager_t* (CEF_CALLBACK *get_cookie_manager)(
-      struct _cef_request_handler_t* self, struct _cef_browser_t* browser,
-      const cef_string_t* main_url);
-
-  ///
   // Called on the UI thread to handle requests for URLs with an unknown
   // protocol component. Set |allow_os_execution| to true (1) to attempt
   // execution via the registered OS protocol handler, if any. SECURITY WARNING:
@@ -191,14 +180,6 @@ typedef struct _cef_request_handler_t {
   void (CEF_CALLBACK *on_protocol_execution)(
       struct _cef_request_handler_t* self, struct _cef_browser_t* browser,
       const cef_string_t* url, int* allow_os_execution);
-
-  ///
-  // Called on the browser process IO thread before a plugin is loaded. Return
-  // true (1) to block loading of the plugin.
-  ///
-  int (CEF_CALLBACK *on_before_plugin_load)(struct _cef_request_handler_t* self,
-      struct _cef_browser_t* browser, const cef_string_t* url,
-      const cef_string_t* policy_url, struct _cef_web_plugin_info_t* info);
 
   ///
   // Called on the UI thread to handle requests for URLs with an invalid SSL
@@ -211,8 +192,32 @@ typedef struct _cef_request_handler_t {
   // be accepted without calling this function.
   ///
   int (CEF_CALLBACK *on_certificate_error)(struct _cef_request_handler_t* self,
-      enum cef_errorcode_t cert_error, const cef_string_t* request_url,
+      struct _cef_browser_t* browser, cef_errorcode_t cert_error,
+      const cef_string_t* request_url, struct _cef_sslinfo_t* ssl_info,
       struct _cef_allow_certificate_error_callback_t* callback);
+
+  ///
+  // Called on the browser process IO thread before a plugin is loaded. Return
+  // true (1) to block loading of the plugin.
+  ///
+  int (CEF_CALLBACK *on_before_plugin_load)(struct _cef_request_handler_t* self,
+      struct _cef_browser_t* browser, const cef_string_t* url,
+      const cef_string_t* policy_url, struct _cef_web_plugin_info_t* info);
+
+  ///
+  // Called on the browser process UI thread when a plugin has crashed.
+  // |plugin_path| is the path of the plugin that crashed.
+  ///
+  void (CEF_CALLBACK *on_plugin_crashed)(struct _cef_request_handler_t* self,
+      struct _cef_browser_t* browser, const cef_string_t* plugin_path);
+
+  ///
+  // Called on the browser process UI thread when the render process terminates
+  // unexpectedly. |status| indicates how the process terminated.
+  ///
+  void (CEF_CALLBACK *on_render_process_terminated)(
+      struct _cef_request_handler_t* self, struct _cef_browser_t* browser,
+      cef_termination_status_t status);
 } cef_request_handler_t;
 
 

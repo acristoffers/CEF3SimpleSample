@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,12 +38,14 @@
 #define CEF_INCLUDE_CAPI_CEF_REQUEST_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "include/capi/cef_base_capi.h"
-
+struct _cef_post_data_element_t;
+struct _cef_post_data_t;
 
 ///
 // Structure used to represent a web request. The functions of this structure
@@ -142,6 +144,21 @@ typedef struct _cef_request_t {
   ///
   void (CEF_CALLBACK *set_first_party_for_cookies)(struct _cef_request_t* self,
       const cef_string_t* url);
+
+  ///
+  // Get the resource type for this request. Only available in the browser
+  // process.
+  ///
+  cef_resource_type_t (CEF_CALLBACK *get_resource_type)(
+      struct _cef_request_t* self);
+
+  ///
+  // Get the transition type for this request. Only available in the browser
+  // process and only applies to requests that represent a main frame or sub-
+  // frame navigation.
+  ///
+  cef_transition_type_t (CEF_CALLBACK *get_transition_type)(
+      struct _cef_request_t* self);
 } cef_request_t;
 
 
@@ -239,7 +256,7 @@ typedef struct _cef_post_data_element_t {
   ///
   // Return the type of this post data element.
   ///
-  enum cef_postdataelement_type_t (CEF_CALLBACK *get_type)(
+  cef_postdataelement_type_t (CEF_CALLBACK *get_type)(
       struct _cef_post_data_element_t* self);
 
   ///

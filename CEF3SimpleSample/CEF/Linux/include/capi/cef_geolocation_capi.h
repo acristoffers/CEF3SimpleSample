@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,20 +38,12 @@
 #define CEF_INCLUDE_CAPI_CEF_GEOLOCATION_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "include/capi/cef_base_capi.h"
-
-
-///
-// Request a one-time geolocation update. This function bypasses any user
-// permission checks so should only be used by code that is allowed to access
-// location information.
-///
-CEF_EXPORT int cef_get_geolocation(
-    struct _cef_get_geolocation_callback_t* callback);
 
 ///
 // Implement this structure to receive geolocation updates. The functions of
@@ -72,6 +64,13 @@ typedef struct _cef_get_geolocation_callback_t {
       const struct _cef_geoposition_t* position);
 } cef_get_geolocation_callback_t;
 
+
+///
+// Request a one-time geolocation update. This function bypasses any user
+// permission checks so should only be used by code that is allowed to access
+// location information.
+///
+CEF_EXPORT int cef_get_geolocation(cef_get_geolocation_callback_t* callback);
 
 #ifdef __cplusplus
 }

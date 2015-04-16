@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,12 +38,14 @@
 #define CEF_INCLUDE_CAPI_CEF_LIFE_SPAN_HANDLER_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+#include "include/capi/cef_browser_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "include/capi/cef_base_capi.h"
-
+struct _cef_client_t;
 
 ///
 // Implement this structure to handle events related to browser life span. The
@@ -112,9 +114,10 @@ typedef struct _cef_life_span_handler_t {
   // opportunity to process the 'onbeforeunload' event and optionally cancel the
   // close before do_close() is called.
   //
-  // The cef_life_span_handler_t::OnBeforeclose() function will be called
+  // The cef_life_span_handler_t::on_before_close() function will be called
   // immediately before the browser object is destroyed. The application should
-  // only exit after OnBeforeclose() has been called for all existing browsers.
+  // only exit after on_before_close() has been called for all existing
+  // browsers.
   //
   // If the browser represents a modal window and a custom modal loop
   // implementation was provided in cef_life_span_handler_t::run_modal() this
@@ -133,15 +136,13 @@ typedef struct _cef_life_span_handler_t {
   //     CefJSDialogHandler::OnBeforeUnloadDialog()).
   // 4.  User approves the close. 5.  JavaScript 'onunload' handler executes. 6.
   // Application's do_close() handler is called. Application will:
-  //     A. Call CefBrowserHost::ParentWindowWillClose() to notify CEF that the
-  //        parent window will be closing.
-  //     B. Set a flag to indicate that the next close attempt will be allowed.
-  //     C. Return false.
+  //     A. Set a flag to indicate that the next close attempt will be allowed.
+  //     B. Return false.
   // 7.  CEF sends an OS close notification. 8.  Application's top-level window
   // receives the OS close notification and
   //     allows the window to close based on the flag from #6B.
   // 9.  Browser OS window is destroyed. 10. Application's
-  // cef_life_span_handler_t::OnBeforeclose() handler is called and
+  // cef_life_span_handler_t::on_before_close() handler is called and
   //     the browser object is destroyed.
   // 11. Application exits by calling cef_quit_message_loop() if no other
   // browsers

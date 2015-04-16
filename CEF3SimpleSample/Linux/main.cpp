@@ -21,7 +21,11 @@
 #include <string>
 #include <unistd.h>
 
+#include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#include <X11/Xlib.h>
+#undef Status   // Definition conflicts with cef_urlrequest.h
+#undef Success  // Definition conflicts with cef_message_router.h
 
 #include "include/cef_app.h"
 #include "include/cef_browser.h"
@@ -87,7 +91,7 @@ int main(int argc, char **argv)
     CefRefPtr<ClientApp> app(new ClientApp);
 
     // Execute the secondary process, if any.
-    int exit_code = CefExecuteProcess( main_args, app.get() );
+    int exit_code = CefExecuteProcess( main_args, app.get(), NULL );
     if ( exit_code >= 0 ) {
         exit(exit_code);
     }
@@ -104,8 +108,9 @@ int main(int argc, char **argv)
     GtkWidget *vbox = gtk_vbox_new(FALSE, 0);
 
     CefSettings settings;
+    settings.no_sandbox = true;
 
-    CefInitialize( main_args, settings, app.get() );
+    CefInitialize( main_args, settings, app.get(), NULL );
 
     CefWindowInfo        info;
     CefBrowserSettings   b_settings;
@@ -120,13 +125,16 @@ int main(int argc, char **argv)
         path = command_line->GetSwitchValue("url");
     }
 
-    info.SetAsChild(vbox);
-
-    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings);
-
     gtk_window_set_icon( GTK_WINDOW(window), create_pixbuf( app_icon.c_str() ) );
     gtk_container_add(GTK_CONTAINER(window), vbox);
     gtk_widget_show_all( GTK_WIDGET(window) );
+
+    ::Window xwindow = GDK_WINDOW_XID(gtk_widget_get_window(window));
+
+    CefRect rect(0, 0, 800, 600);
+    info.SetAsChild(xwindow, rect);
+
+    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings, NULL);
 
     signal(SIGINT,  TerminationSignalHandler);
     signal(SIGTERM, TerminationSignalHandler);

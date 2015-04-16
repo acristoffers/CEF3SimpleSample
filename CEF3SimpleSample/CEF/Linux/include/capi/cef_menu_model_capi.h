@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,11 +38,11 @@
 #define CEF_INCLUDE_CAPI_CEF_MENU_MODEL_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "include/capi/cef_base_capi.h"
 
 
 ///
@@ -196,13 +196,13 @@ typedef struct _cef_menu_model_t {
   ///
   // Returns the item type for the specified |command_id|.
   ///
-  enum cef_menu_item_type_t (CEF_CALLBACK *get_type)(
-      struct _cef_menu_model_t* self, int command_id);
+  cef_menu_item_type_t (CEF_CALLBACK *get_type)(struct _cef_menu_model_t* self,
+      int command_id);
 
   ///
   // Returns the item type at the specified |index|.
   ///
-  enum cef_menu_item_type_t (CEF_CALLBACK *get_type_at)(
+  cef_menu_item_type_t (CEF_CALLBACK *get_type_at)(
       struct _cef_menu_model_t* self, int index);
 
   ///

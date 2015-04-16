@@ -14,8 +14,6 @@ g++ -c ../CEF3SimpleSample/Independente/*.cpp \
 	-I ../CEF3SimpleSample/CEF/Linux/include \
 	`pkg-config --cflags --libs gtk+-2.0`
 
-rm "Helper Process Main.o"
-
 echo "Building CEF3SimpleSample::Linux"
 g++ -c ../CEF3SimpleSample/Linux/*.cpp \
 	-I ../CEF3SimpleSample/Independente \

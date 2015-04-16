@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,18 +38,18 @@
 #define CEF_INCLUDE_CAPI_CEF_PATH_UTIL_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "include/capi/cef_base_capi.h"
 
 
 ///
 // Retrieve the path associated with the specified |key|. Returns true (1) on
 // success. Can be called on any thread in the browser process.
 ///
-CEF_EXPORT int cef_get_path(enum cef_path_key_t key, cef_string_t* path);
+CEF_EXPORT int cef_get_path(cef_path_key_t key, cef_string_t* path);
 
 #ifdef __cplusplus
 }

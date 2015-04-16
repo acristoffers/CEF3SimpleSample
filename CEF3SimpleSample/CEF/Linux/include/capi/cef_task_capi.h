@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,33 +38,12 @@
 #define CEF_INCLUDE_CAPI_CEF_TASK_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "include/capi/cef_base_capi.h"
-
-
-///
-// Returns true (1) if called on the specified thread. Equivalent to using
-// cef_task_runner_t::GetForThread(threadId)->belongs_to_current_thread().
-///
-CEF_EXPORT int cef_currently_on(cef_thread_id_t threadId);
-
-///
-// Post a task for execution on the specified thread. Equivalent to using
-// cef_task_runner_t::GetForThread(threadId)->PostTask(task).
-///
-CEF_EXPORT int cef_post_task(cef_thread_id_t threadId,
-    struct _cef_task_t* task);
-
-///
-// Post a task for delayed execution on the specified thread. Equivalent to
-// using cef_task_runner_t::GetForThread(threadId)->PostDelayedTask(task,
-// delay_ms).
-///
-CEF_EXPORT int cef_post_delayed_task(cef_thread_id_t threadId,
-    struct _cef_task_t* task, int64 delay_ms);
 
 ///
 // Implement this structure for asynchronous task execution. If the task is
@@ -152,6 +131,26 @@ CEF_EXPORT cef_task_runner_t* cef_task_runner_get_for_current_thread();
 CEF_EXPORT cef_task_runner_t* cef_task_runner_get_for_thread(
     cef_thread_id_t threadId);
 
+
+///
+// Returns true (1) if called on the specified thread. Equivalent to using
+// cef_task_tRunner::GetForThread(threadId)->belongs_to_current_thread().
+///
+CEF_EXPORT int cef_currently_on(cef_thread_id_t threadId);
+
+///
+// Post a task for execution on the specified thread. Equivalent to using
+// cef_task_tRunner::GetForThread(threadId)->PostTask(task).
+///
+CEF_EXPORT int cef_post_task(cef_thread_id_t threadId, cef_task_t* task);
+
+///
+// Post a task for delayed execution on the specified thread. Equivalent to
+// using cef_task_tRunner::GetForThread(threadId)->PostDelayedTask(task,
+// delay_ms).
+///
+CEF_EXPORT int cef_post_delayed_task(cef_thread_id_t threadId, cef_task_t* task,
+    int64 delay_ms);
 
 #ifdef __cplusplus
 }
