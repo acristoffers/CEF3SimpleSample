@@ -44,13 +44,25 @@
 
 ///
 // Implement this interface to handle events related to browser load status. The
-// methods of this class will be called on the UI thread.
+// methods of this class will be called on the browser process UI thread or
+// render process main thread (TID_RENDERER).
 ///
 /*--cef(source=client)--*/
 class CefLoadHandler : public virtual CefBase {
  public:
   typedef cef_errorcode_t ErrorCode;
-  typedef cef_termination_status_t TerminationStatus;
+
+  ///
+  // Called when the loading state has changed. This callback will be executed
+  // twice -- once when loading is initiated either programmatically or by user
+  // action, and once when loading is terminated due to completion, cancellation
+  // of failure.
+  ///
+  /*--cef()--*/
+  virtual void OnLoadingStateChange(CefRefPtr<CefBrowser> browser,
+                                    bool isLoading,
+                                    bool canGoBack,
+                                    bool canGoForward) {}
 
   ///
   // Called when the browser begins loading a frame. The |frame| value will
@@ -58,7 +70,8 @@ class CefLoadHandler : public virtual CefBase {
   // main frame. Multiple frames may be loading at the same time. Sub-frames may
   // start or continue loading after the main frame load has ended. This method
   // may not be called for a particular frame if the load request for that frame
-  // fails.
+  // fails. For notification of overall browser load status use
+  // OnLoadingStateChange instead.
   ///
   /*--cef()--*/
   virtual void OnLoadStart(CefRefPtr<CefBrowser> browser,
@@ -78,10 +91,10 @@ class CefLoadHandler : public virtual CefBase {
                          int httpStatusCode) {}
 
   ///
-  // Called when the browser fails to load a resource. |errorCode| is the error
-  // code number, |errorText| is the error text and and |failedUrl| is the URL
-  // that failed to load. See net\base\net_error_list.h for complete
-  // descriptions of the error codes.
+  // Called when the resource load for a navigation fails or is canceled.
+  // |errorCode| is the error code number, |errorText| is the error text and
+  // |failedUrl| is the URL that failed to load. See net\base\net_error_list.h
+  // for complete descriptions of the error codes.
   ///
   /*--cef(optional_param=errorText)--*/
   virtual void OnLoadError(CefRefPtr<CefBrowser> browser,
@@ -89,22 +102,6 @@ class CefLoadHandler : public virtual CefBase {
                            ErrorCode errorCode,
                            const CefString& errorText,
                            const CefString& failedUrl) {}
-
-  ///
-  // Called when the render process terminates unexpectedly. |status| indicates
-  // how the process terminated.
-  ///
-  /*--cef()--*/
-  virtual void OnRenderProcessTerminated(CefRefPtr<CefBrowser> browser,
-                                         TerminationStatus status) {}
-
-  ///
-  // Called when a plugin has crashed. |plugin_path| is the path of the plugin
-  // that crashed.
-  ///
-  /*--cef()--*/
-  virtual void OnPluginCrashed(CefRefPtr<CefBrowser> browser,
-                               const CefString& plugin_path) {}
 };
 
 #endif  // CEF_INCLUDE_CEF_LOAD_HANDLER_H_

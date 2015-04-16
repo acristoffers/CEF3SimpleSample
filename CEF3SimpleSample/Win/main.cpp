@@ -73,19 +73,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             break;
 
-        case WM_CLOSE:
-            if ( g_handler ) {
-                CefRefPtr<CefBrowser> browser = g_handler->GetBrowser();
-
-                if ( browser.get() ) {
-                    // Let the browser window know we are about to destroy it.
-                    browser->GetHost()->ParentWindowWillClose();
-                }
-            }
-
-            break;
-
-        case WM_PAINT:
+       case WM_PAINT:
             PAINTSTRUCT ps;
             HDC         hdc = BeginPaint(hwnd, &ps);
             EndPaint(hwnd, &ps);
@@ -150,7 +138,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     CefRefPtr<ClientApp> app(new ClientApp);
 
     // Execute the secondary process, if any.
-    int exit_code = CefExecuteProcess( main_args, app.get() );
+    int exit_code = CefExecuteProcess( main_args, app.get(), NULL );
     if ( exit_code >= 0 ) {
         exit(exit_code);
     }
@@ -165,7 +153,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     GetClientRect(hwnd, &rect);
 
     CefSettings settings;
-    CefInitialize( main_args, settings, app.get() );
+    CefInitialize( main_args, settings, app.get(), NULL );
     CefWindowInfo        info;
     CefBrowserSettings   b_settings;
     CefRefPtr<CefClient> client(new ClientHandler);
@@ -178,7 +166,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     }
 
     info.SetAsChild(hwnd, rect);
-    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings);
+    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings, NULL);
     int result = 0;
 
     if ( !settings.multi_threaded_message_loop ) {

@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,12 +38,19 @@
 #define CEF_INCLUDE_CAPI_CEF_BROWSER_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+#include "include/capi/cef_drag_data_capi.h"
+#include "include/capi/cef_frame_capi.h"
+#include "include/capi/cef_navigation_entry_capi.h"
+#include "include/capi/cef_process_message_capi.h"
+#include "include/capi/cef_request_context_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "include/capi/cef_base_capi.h"
-
+struct _cef_browser_host_t;
+struct _cef_client_t;
 
 ///
 // Structure used to represent a browser window. When used in the browser
@@ -172,7 +179,7 @@ typedef struct _cef_browser_t {
   // message was sent successfully.
   ///
   int (CEF_CALLBACK *send_process_message)(struct _cef_browser_t* self,
-      enum cef_process_id_t target_process,
+      cef_process_id_t target_process,
       struct _cef_process_message_t* message);
 } cef_browser_t;
 
@@ -188,14 +195,39 @@ typedef struct _cef_run_file_dialog_callback_t {
   cef_base_t base;
 
   ///
-  // Called asynchronously after the file dialog is dismissed. If the selection
-  // was successful |file_paths| will be a single value or a list of values
-  // depending on the dialog mode. If the selection was cancelled |file_paths|
-  // will be NULL.
+  // Called asynchronously after the file dialog is dismissed.
+  // |selected_accept_filter| is the 0-based index of the value selected from
+  // the accept filters array passed to cef_browser_host_t::RunFileDialog.
+  // |file_paths| will be a single value or a list of values depending on the
+  // dialog mode. If the selection was cancelled |file_paths| will be NULL.
   ///
-  void (CEF_CALLBACK *cont)(struct _cef_run_file_dialog_callback_t* self,
-      struct _cef_browser_host_t* browser_host, cef_string_list_t file_paths);
+  void (CEF_CALLBACK *on_file_dialog_dismissed)(
+      struct _cef_run_file_dialog_callback_t* self, int selected_accept_filter,
+      cef_string_list_t file_paths);
 } cef_run_file_dialog_callback_t;
+
+
+///
+// Callback structure for cef_browser_host_t::GetNavigationEntries. The
+// functions of this structure will be called on the browser process UI thread.
+///
+typedef struct _cef_navigation_entry_visitor_t {
+  ///
+  // Base structure.
+  ///
+  cef_base_t base;
+
+  ///
+  // Method that will be executed. Do not keep a reference to |entry| outside of
+  // this callback. Return true (1) to continue visiting entries or false (0) to
+  // stop. |current| is true (1) if this entry is the currently loaded
+  // navigation entry. |index| is the 0-based index of this entry and |total| is
+  // the total number of entries.
+  ///
+  int (CEF_CALLBACK *visit)(struct _cef_navigation_entry_visitor_t* self,
+      struct _cef_navigation_entry_t* entry, int current, int index,
+      int total);
+} cef_navigation_entry_visitor_t;
 
 
 ///
@@ -217,15 +249,6 @@ typedef struct _cef_browser_host_t {
       struct _cef_browser_host_t* self);
 
   ///
-  // Call this function before destroying a contained browser window. This
-  // function performs any internal cleanup that may be needed before the
-  // browser window is destroyed. See cef_life_span_handler_t::do_close()
-  // documentation for additional usage information.
-  ///
-  void (CEF_CALLBACK *parent_window_will_close)(
-      struct _cef_browser_host_t* self);
-
-  ///
   // Request that the browser close. The JavaScript 'onbeforeunload' event will
   // be fired. If |force_close| is false (0) the event handler, if any, will be
   // allowed to prompt the user and the user can optionally cancel the close. If
@@ -239,10 +262,16 @@ typedef struct _cef_browser_host_t {
       int force_close);
 
   ///
-  // Set focus for the browser window. If |enable| is true (1) focus will be set
-  // to the window. Otherwise, focus will be removed.
+  // Set whether the browser is focused.
   ///
-  void (CEF_CALLBACK *set_focus)(struct _cef_browser_host_t* self, int enable);
+  void (CEF_CALLBACK *set_focus)(struct _cef_browser_host_t* self, int focus);
+
+  ///
+  // Set whether the window containing the browser is visible
+  // (minimized/unminimized, app hidden/unhidden, etc). Only used on Mac OS X.
+  ///
+  void (CEF_CALLBACK *set_window_visibility)(struct _cef_browser_host_t* self,
+      int visible);
 
   ///
   // Retrieve the window handle for this browser.
@@ -265,16 +294,10 @@ typedef struct _cef_browser_host_t {
       struct _cef_browser_host_t* self);
 
   ///
-  // Returns the DevTools URL for this browser. If |http_scheme| is true (1) the
-  // returned URL will use the http scheme instead of the chrome-devtools
-  // scheme. Remote debugging can be enabled by specifying the "remote-
-  // debugging-port" command-line flag or by setting the
-  // CefSettings.remote_debugging_port value. If remote debugging is not enabled
-  // this function will return an NULL string.
+  // Returns the request context for this browser.
   ///
-  // The resulting string must be freed by calling cef_string_userfree_free().
-  cef_string_userfree_t (CEF_CALLBACK *get_dev_tools_url)(
-      struct _cef_browser_host_t* self, int http_scheme);
+  struct _cef_request_context_t* (CEF_CALLBACK *get_request_context)(
+      struct _cef_browser_host_t* self);
 
   ///
   // Get the current zoom level. The default zoom level is 0.0. This function
@@ -294,17 +317,22 @@ typedef struct _cef_browser_host_t {
   // Call to run a file chooser dialog. Only a single file chooser dialog may be
   // pending at any given time. |mode| represents the type of dialog to display.
   // |title| to the title to be used for the dialog and may be NULL to show the
-  // default title ("Open" or "Save" depending on the mode). |default_file_name|
-  // is the default file name to select in the dialog. |accept_types| is a list
-  // of valid lower-cased MIME types or file extensions specified in an input
-  // element and is used to restrict selectable files to such types. |callback|
-  // will be executed after the dialog is dismissed or immediately if another
-  // dialog is already pending. The dialog will be initiated asynchronously on
-  // the UI thread.
+  // default title ("Open" or "Save" depending on the mode). |default_file_path|
+  // is the path with optional directory and/or file name component that will be
+  // initially selected in the dialog. |accept_filters| are used to restrict the
+  // selectable file types and may any combination of (a) valid lower-cased MIME
+  // types (e.g. "text/*" or "image/*"), (b) individual file extensions (e.g.
+  // ".txt" or ".png"), or (c) combined description and file extension delimited
+  // using "|" and ";" (e.g. "Image Types|.png;.gif;.jpg").
+  // |selected_accept_filter| is the 0-based index of the filter that will be
+  // selected by default. |callback| will be executed after the dialog is
+  // dismissed or immediately if another dialog is already pending. The dialog
+  // will be initiated asynchronously on the UI thread.
   ///
   void (CEF_CALLBACK *run_file_dialog)(struct _cef_browser_host_t* self,
-      enum cef_file_dialog_mode_t mode, const cef_string_t* title,
-      const cef_string_t* default_file_name, cef_string_list_t accept_types,
+      cef_file_dialog_mode_t mode, const cef_string_t* title,
+      const cef_string_t* default_file_path, cef_string_list_t accept_filters,
+      int selected_accept_filter,
       struct _cef_run_file_dialog_callback_t* callback);
 
   ///
@@ -312,6 +340,55 @@ typedef struct _cef_browser_host_t {
   ///
   void (CEF_CALLBACK *start_download)(struct _cef_browser_host_t* self,
       const cef_string_t* url);
+
+  ///
+  // Print the current browser contents.
+  ///
+  void (CEF_CALLBACK *print)(struct _cef_browser_host_t* self);
+
+  ///
+  // Search for |searchText|. |identifier| can be used to have multiple searches
+  // running simultaniously. |forward| indicates whether to search forward or
+  // backward within the page. |matchCase| indicates whether the search should
+  // be case-sensitive. |findNext| indicates whether this is the first request
+  // or a follow-up. The cef_find_handler_t instance, if any, returned via
+  // cef_client_t::GetFindHandler will be called to report find results.
+  ///
+  void (CEF_CALLBACK *find)(struct _cef_browser_host_t* self, int identifier,
+      const cef_string_t* searchText, int forward, int matchCase,
+      int findNext);
+
+  ///
+  // Cancel all searches that are currently going on.
+  ///
+  void (CEF_CALLBACK *stop_finding)(struct _cef_browser_host_t* self,
+      int clearSelection);
+
+  ///
+  // Open developer tools in its own window. If |inspect_element_at| is non-
+  // NULL the element at the specified (x,y) location will be inspected.
+  ///
+  void (CEF_CALLBACK *show_dev_tools)(struct _cef_browser_host_t* self,
+      const struct _cef_window_info_t* windowInfo,
+      struct _cef_client_t* client,
+      const struct _cef_browser_settings_t* settings,
+      const cef_point_t* inspect_element_at);
+
+  ///
+  // Explicitly close the developer tools window if one exists for this browser
+  // instance.
+  ///
+  void (CEF_CALLBACK *close_dev_tools)(struct _cef_browser_host_t* self);
+
+  ///
+  // Retrieve a snapshot of current navigation entries as values sent to the
+  // specified visitor. If |current_only| is true (1) only the current
+  // navigation entry will be sent, otherwise all navigation entries will be
+  // sent.
+  ///
+  ///
+  void (CEF_CALLBACK *get_navigation_entries)(struct _cef_browser_host_t* self,
+      struct _cef_navigation_entry_visitor_t* visitor, int current_only);
 
   ///
   // Set whether mouse cursor change is disabled.
@@ -324,6 +401,19 @@ typedef struct _cef_browser_host_t {
   ///
   int (CEF_CALLBACK *is_mouse_cursor_change_disabled)(
       struct _cef_browser_host_t* self);
+
+  ///
+  // If a misspelled word is currently selected in an editable node calling this
+  // function will replace it with the specified |word|.
+  ///
+  void (CEF_CALLBACK *replace_misspelling)(struct _cef_browser_host_t* self,
+      const cef_string_t* word);
+
+  ///
+  // Add the specified |word| to the spelling dictionary.
+  ///
+  void (CEF_CALLBACK *add_word_to_dictionary)(struct _cef_browser_host_t* self,
+      const cef_string_t* word);
 
   ///
   // Returns true (1) if window rendering is disabled.
@@ -358,12 +448,12 @@ typedef struct _cef_browser_host_t {
       struct _cef_browser_host_t* self);
 
   ///
-  // Invalidate the |dirtyRect| region of the view. The browser will call
-  // cef_render_handler_t::OnPaint asynchronously with the updated regions. This
-  // function is only used when window rendering is disabled.
+  // Invalidate the view. The browser will call cef_render_handler_t::OnPaint
+  // asynchronously. This function is only used when window rendering is
+  // disabled.
   ///
   void (CEF_CALLBACK *invalidate)(struct _cef_browser_host_t* self,
-      const cef_rect_t* dirtyRect, enum cef_paint_element_type_t type);
+      cef_paint_element_type_t type);
 
   ///
   // Send a key event to the browser.
@@ -376,8 +466,8 @@ typedef struct _cef_browser_host_t {
   // relative to the upper-left corner of the view.
   ///
   void (CEF_CALLBACK *send_mouse_click_event)(struct _cef_browser_host_t* self,
-      const struct _cef_mouse_event_t* event,
-      enum cef_mouse_button_type_t type, int mouseUp, int clickCount);
+      const struct _cef_mouse_event_t* event, cef_mouse_button_type_t type,
+      int mouseUp, int clickCount);
 
   ///
   // Send a mouse move event to the browser. The |x| and |y| coordinates are
@@ -409,6 +499,13 @@ typedef struct _cef_browser_host_t {
       struct _cef_browser_host_t* self);
 
   ///
+  // Notify the browser that the window hosting it is about to be moved or
+  // resized. This function is only used on Windows and Linux.
+  ///
+  void (CEF_CALLBACK *notify_move_or_resize_started)(
+      struct _cef_browser_host_t* self);
+
+  ///
   // Get the NSTextInputContext implementation for enabling IME on Mac when
   // window rendering is disabled.
   ///
@@ -427,27 +524,94 @@ typedef struct _cef_browser_host_t {
   ///
   void (CEF_CALLBACK *handle_key_event_after_text_input_client)(
       struct _cef_browser_host_t* self, cef_event_handle_t keyEvent);
+
+  ///
+  // Call this function when the user drags the mouse into the web view (before
+  // calling DragTargetDragOver/DragTargetLeave/DragTargetDrop). |drag_data|
+  // should not contain file contents as this type of data is not allowed to be
+  // dragged into the web view. File contents can be removed using
+  // cef_drag_data_t::ResetFileContents (for example, if |drag_data| comes from
+  // cef_render_handler_t::StartDragging). This function is only used when
+  // window rendering is disabled.
+  ///
+  void (CEF_CALLBACK *drag_target_drag_enter)(struct _cef_browser_host_t* self,
+      struct _cef_drag_data_t* drag_data,
+      const struct _cef_mouse_event_t* event,
+      cef_drag_operations_mask_t allowed_ops);
+
+  ///
+  // Call this function each time the mouse is moved across the web view during
+  // a drag operation (after calling DragTargetDragEnter and before calling
+  // DragTargetDragLeave/DragTargetDrop). This function is only used when window
+  // rendering is disabled.
+  ///
+  void (CEF_CALLBACK *drag_target_drag_over)(struct _cef_browser_host_t* self,
+      const struct _cef_mouse_event_t* event,
+      cef_drag_operations_mask_t allowed_ops);
+
+  ///
+  // Call this function when the user drags the mouse out of the web view (after
+  // calling DragTargetDragEnter). This function is only used when window
+  // rendering is disabled.
+  ///
+  void (CEF_CALLBACK *drag_target_drag_leave)(struct _cef_browser_host_t* self);
+
+  ///
+  // Call this function when the user completes the drag operation by dropping
+  // the object onto the web view (after calling DragTargetDragEnter). The
+  // object being dropped is |drag_data|, given as an argument to the previous
+  // DragTargetDragEnter call. This function is only used when window rendering
+  // is disabled.
+  ///
+  void (CEF_CALLBACK *drag_target_drop)(struct _cef_browser_host_t* self,
+      const struct _cef_mouse_event_t* event);
+
+  ///
+  // Call this function when the drag operation started by a
+  // cef_render_handler_t::StartDragging call has ended either in a drop or by
+  // being cancelled. |x| and |y| are mouse coordinates relative to the upper-
+  // left corner of the view. If the web view is both the drag source and the
+  // drag target then all DragTarget* functions should be called before
+  // DragSource* mthods. This function is only used when window rendering is
+  // disabled.
+  ///
+  void (CEF_CALLBACK *drag_source_ended_at)(struct _cef_browser_host_t* self,
+      int x, int y, cef_drag_operations_mask_t op);
+
+  ///
+  // Call this function when the drag operation started by a
+  // cef_render_handler_t::StartDragging call has completed. This function may
+  // be called immediately without first calling DragSourceEndedAt to cancel a
+  // drag operation. If the web view is both the drag source and the drag target
+  // then all DragTarget* functions should be called before DragSource* mthods.
+  // This function is only used when window rendering is disabled.
+  ///
+  void (CEF_CALLBACK *drag_source_system_drag_ended)(
+      struct _cef_browser_host_t* self);
 } cef_browser_host_t;
 
 
 ///
 // Create a new browser window using the window parameters specified by
 // |windowInfo|. All values will be copied internally and the actual window will
-// be created on the UI thread. This function can be called on any browser
-// process thread and will not block.
+// be created on the UI thread. If |request_context| is NULL the global request
+// context will be used. This function can be called on any browser process
+// thread and will not block.
 ///
 CEF_EXPORT int cef_browser_host_create_browser(
     const cef_window_info_t* windowInfo, struct _cef_client_t* client,
-    const cef_string_t* url, const struct _cef_browser_settings_t* settings);
+    const cef_string_t* url, const struct _cef_browser_settings_t* settings,
+    struct _cef_request_context_t* request_context);
 
 ///
 // Create a new browser window using the window parameters specified by
-// |windowInfo|. This function can only be called on the browser process UI
-// thread.
+// |windowInfo|. If |request_context| is NULL the global request context will be
+// used. This function can only be called on the browser process UI thread.
 ///
 CEF_EXPORT cef_browser_t* cef_browser_host_create_browser_sync(
     const cef_window_info_t* windowInfo, struct _cef_client_t* client,
-    const cef_string_t* url, const struct _cef_browser_settings_t* settings);
+    const cef_string_t* url, const struct _cef_browser_settings_t* settings,
+    struct _cef_request_context_t* request_context);
 
 
 #ifdef __cplusplus

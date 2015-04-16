@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,11 +38,16 @@
 #define CEF_INCLUDE_CAPI_CEF_RESOURCE_HANDLER_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+#include "include/capi/cef_browser_capi.h"
+#include "include/capi/cef_callback_capi.h"
+#include "include/capi/cef_cookie_capi.h"
+#include "include/capi/cef_request_capi.h"
+#include "include/capi/cef_response_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "include/capi/cef_base_capi.h"
 
 
 ///

@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,11 +38,13 @@
 #define CEF_INCLUDE_CAPI_CEF_DRAG_HANDLER_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+#include "include/capi/cef_browser_capi.h"
+#include "include/capi/cef_drag_data_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
-
-#include "include/capi/cef_base_capi.h"
 
 
 ///
@@ -63,7 +65,7 @@ typedef struct _cef_drag_handler_t {
   ///
   int (CEF_CALLBACK *on_drag_enter)(struct _cef_drag_handler_t* self,
       struct _cef_browser_t* browser, struct _cef_drag_data_t* dragData,
-      enum cef_drag_operations_mask_t mask);
+      cef_drag_operations_mask_t mask);
 } cef_drag_handler_t;
 
 

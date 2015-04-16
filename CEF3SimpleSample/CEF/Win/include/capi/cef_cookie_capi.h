@@ -1,4 +1,4 @@
-// Copyright (c) 2013 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -38,12 +38,14 @@
 #define CEF_INCLUDE_CAPI_CEF_COOKIE_CAPI_H_
 #pragma once
 
+#include "include/capi/cef_base_capi.h"
+#include "include/capi/cef_callback_capi.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-#include "include/capi/cef_base_capi.h"
-
+struct _cef_cookie_visitor_t;
 
 ///
 // Structure used for managing cookies. The functions of this structure may be
@@ -118,11 +120,11 @@ typedef struct _cef_cookie_manager_t {
 
   ///
   // Flush the backing store (if any) to disk and execute the specified
-  // |handler| on the IO thread when done. Returns false (0) if cookies cannot
+  // |callback| on the IO thread when done. Returns false (0) if cookies cannot
   // be accessed.
   ///
   int (CEF_CALLBACK *flush_store)(struct _cef_cookie_manager_t* self,
-      struct _cef_completion_handler_t* handler);
+      struct _cef_completion_callback_t* callback);
 } cef_cookie_manager_t;
 
 
