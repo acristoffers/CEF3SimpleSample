@@ -36,6 +36,10 @@ void ClientApp::OnWebKitInitialized()
         "        native function ChangeTextInJS();"
         "        return ChangeTextInJS(text);"
         "    };"
+		"    app.NotifyCEF3App = function(text) {"
+		"        native function NotifyCEF3App();"
+		"        return NotifyCEF3App(text);"
+		"    };"
         "})();;";
 
     CefRegisterExtension( "v8/app", app_code, new ClientV8ExtensionHandler(this) );
