@@ -507,7 +507,7 @@
 					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/Release",
 					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/lib",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -535,7 +535,7 @@
 					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/Release",
 					"$(PROJECT_DIR)/CEF3SimpleSample/CEF/Mac/lib",
 				);
-				OTHER_LDFLAGS = "";
+				OTHER_LDFLAGS = "-headerpad_max_install_names";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
