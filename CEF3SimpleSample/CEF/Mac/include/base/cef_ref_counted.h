@@ -38,10 +38,10 @@
 // This can happen in cases where Chromium code is used directly by the
 // client application. When using Chromium code directly always include
 // the Chromium header first to avoid type conflicts.
-#elif defined(BUILDING_CEF_SHARED)
+#elif defined(USING_CHROMIUM_INCLUDES)
 // When building CEF include the Chromium header directly.
 #include "base/memory/ref_counted.h"
-#else  // !BUILDING_CEF_SHARED
+#else  // !USING_CHROMIUM_INCLUDES
 // The following is substantially similar to the Chromium implementation.
 // If the Chromium implementation diverges the below implementation should be
 // updated to match.
@@ -57,7 +57,7 @@
 
 namespace base {
 
-namespace subtle {
+namespace cef_subtle {
 
 class RefCountedBase {
  public:
@@ -141,7 +141,7 @@ class RefCountedThreadSafeBase {
   DISALLOW_COPY_AND_ASSIGN(RefCountedThreadSafeBase);
 };
 
-}  // namespace subtle
+}  // namespace cef_subtle
 
 //
 // A base class for reference counted classes.  Otherwise, known as a cheap
@@ -158,16 +158,16 @@ class RefCountedThreadSafeBase {
 // You should always make your destructor private, to avoid any code deleting
 // the object accidently while there are references to it.
 template <class T>
-class RefCounted : public subtle::RefCountedBase {
+class RefCounted : public cef_subtle::RefCountedBase {
  public:
   RefCounted() {}
 
   void AddRef() const {
-    subtle::RefCountedBase::AddRef();
+    cef_subtle::RefCountedBase::AddRef();
   }
 
   void Release() const {
-    if (subtle::RefCountedBase::Release()) {
+    if (cef_subtle::RefCountedBase::Release()) {
       delete static_cast<const T*>(this);
     }
   }
@@ -208,16 +208,16 @@ struct DefaultRefCountedThreadSafeTraits {
 //     friend class base::RefCountedThreadSafe<MyFoo>;
 //     ~MyFoo();
 template <class T, typename Traits = DefaultRefCountedThreadSafeTraits<T> >
-class RefCountedThreadSafe : public subtle::RefCountedThreadSafeBase {
+class RefCountedThreadSafe : public cef_subtle::RefCountedThreadSafeBase {
  public:
   RefCountedThreadSafe() {}
 
   void AddRef() const {
-    subtle::RefCountedThreadSafeBase::AddRef();
+    cef_subtle::RefCountedThreadSafeBase::AddRef();
   }
 
   void Release() const {
-    if (subtle::RefCountedThreadSafeBase::Release()) {
+    if (cef_subtle::RefCountedThreadSafeBase::Release()) {
       Traits::Destruct(static_cast<const T*>(this));
     }
   }
@@ -381,6 +381,6 @@ scoped_refptr<T> make_scoped_refptr(T* t) {
   return scoped_refptr<T>(t);
 }
 
-#endif  // !BUILDING_CEF_SHARED
+#endif  // !USING_CHROMIUM_INCLUDES
 
 #endif  // CEF_INCLUDE_BASE_CEF_REF_COUNTED_H_

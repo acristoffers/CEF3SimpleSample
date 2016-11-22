@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BuildMachineOSBuild</key>
-	<string>14F27</string>
+	<string>14D136</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
@@ -24,14 +24,16 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>DTCompiler</key>
+	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTSDKBuild</key>
-	<string>14D125</string>
+	<string>10.10</string>
 	<key>DTSDKName</key>
-	<string>macosx10.10</string>
+	<string>macosx10.1010.10</string>
 	<key>DTXcode</key>
-	<string>0640</string>
+	<string>0630</string>
 	<key>DTXcodeBuild</key>
-	<string>6E35b</string>
+	<string>6D570</string>
 	<key>LSHasLocalizedDisplayName</key>
 	<true/>
 	<key>NSMainNibFile</key>

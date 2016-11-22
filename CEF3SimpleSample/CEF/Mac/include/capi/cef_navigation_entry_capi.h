@@ -1,4 +1,4 @@
-// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2016 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -100,14 +100,6 @@ typedef struct _cef_navigation_entry_t {
   // Returns true (1) if this navigation includes post data.
   ///
   int (CEF_CALLBACK *has_post_data)(struct _cef_navigation_entry_t* self);
-
-  ///
-  // Returns the name of the sub-frame that navigated or an NULL value if the
-  // main frame navigated.
-  ///
-  // The resulting string must be freed by calling cef_string_userfree_free().
-  cef_string_userfree_t (CEF_CALLBACK *get_frame_name)(
-      struct _cef_navigation_entry_t* self);
 
   ///
   // Returns the time for the last known successful navigation completion. A

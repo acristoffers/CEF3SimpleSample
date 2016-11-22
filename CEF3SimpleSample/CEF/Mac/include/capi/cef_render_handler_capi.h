@@ -1,4 +1,4 @@
-// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2016 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -159,7 +159,8 @@ typedef struct _cef_render_handler_t {
   // Called when the scroll offset has changed.
   ///
   void (CEF_CALLBACK *on_scroll_offset_changed)(
-      struct _cef_render_handler_t* self, struct _cef_browser_t* browser);
+      struct _cef_render_handler_t* self, struct _cef_browser_t* browser,
+      double x, double y);
 } cef_render_handler_t;
 
 
