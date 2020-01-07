@@ -49,25 +49,25 @@ class CefFillLayout;
 // process UI thread unless otherwise indicated.
 ///
 /*--cef(source=library)--*/
-class CefLayout : public CefBase {
+class CefLayout : public CefBaseRefCounted {
  public:
   ///
   // Returns this Layout as a BoxLayout or NULL if this is not a BoxLayout.
   ///
   /*--cef()--*/
-  virtual CefRefPtr<CefBoxLayout> AsBoxLayout() =0;
+  virtual CefRefPtr<CefBoxLayout> AsBoxLayout() = 0;
 
   ///
   // Returns this Layout as a FillLayout or NULL if this is not a FillLayout.
   ///
   /*--cef()--*/
-  virtual CefRefPtr<CefFillLayout> AsFillLayout() =0;
+  virtual CefRefPtr<CefFillLayout> AsFillLayout() = 0;
 
   ///
   // Returns true if this Layout is valid.
   ///
   /*--cef()--*/
-  virtual bool IsValid() =0;
+  virtual bool IsValid() = 0;
 };
 
 #endif  // CEF_INCLUDE_VIEWS_CEF_LAYOUT_H_

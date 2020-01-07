@@ -4,6 +4,17 @@ A simple hello world application to get you started with CEF3.
 
 It setups a browser, loads a local file and binds JS methods.
 
+MACOS
+-----
+
+The library file was compressed, so you need to decompress it before running the
+project. From the root directory:
+
+```bash
+cd CEF3SimpleSample/CEF/Mac/lib/Chromium\ Embedded\ Framework.framework
+tar -xf Chromium\ Embedded\ Framework.txz
+```
+
 LICENSE
 -------
 (MIT)

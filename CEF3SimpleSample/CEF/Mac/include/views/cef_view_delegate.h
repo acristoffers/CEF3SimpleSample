@@ -47,7 +47,7 @@ class CefView;
 // will be called on the browser process UI thread unless otherwise indicated.
 ///
 /*--cef(source=client)--*/
-class CefViewDelegate : public virtual CefBase {
+class CefViewDelegate : public virtual CefBaseRefCounted {
  public:
   ///
   // Return the preferred size for |view|. The Layout will use this information
@@ -62,17 +62,13 @@ class CefViewDelegate : public virtual CefBase {
   // Return the minimum size for |view|.
   ///
   /*--cef()--*/
-  virtual CefSize GetMinimumSize(CefRefPtr<CefView> view) {
-    return CefSize();
-  }
+  virtual CefSize GetMinimumSize(CefRefPtr<CefView> view) { return CefSize(); }
 
   ///
   // Return the maximum size for |view|.
   ///
   /*--cef()--*/
-  virtual CefSize GetMaximumSize(CefRefPtr<CefView> view) {
-    return CefSize();
-  }
+  virtual CefSize GetMaximumSize(CefRefPtr<CefView> view) { return CefSize(); }
 
   ///
   // Return the height necessary to display |view| with the provided |width|.
@@ -108,6 +104,18 @@ class CefViewDelegate : public virtual CefBase {
   virtual void OnChildViewChanged(CefRefPtr<CefView> view,
                                   bool added,
                                   CefRefPtr<CefView> child) {}
+
+  ///
+  // Called when |view| gains focus.
+  ///
+  /*--cef()--*/
+  virtual void OnFocus(CefRefPtr<CefView> view) {}
+
+  ///
+  // Called when |view| loses focus.
+  ///
+  /*--cef()--*/
+  virtual void OnBlur(CefRefPtr<CefView> view) {}
 };
 
 #endif  // CEF_INCLUDE_VIEWS_CEF_WINDOW_DELEGATE_H_

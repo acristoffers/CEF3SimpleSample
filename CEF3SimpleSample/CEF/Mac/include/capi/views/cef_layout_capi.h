@@ -1,4 +1,4 @@
-// Copyright (c) 2016 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2019 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,6 +33,8 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
+// $hash=9217854fae0d6439ce459bdb28c9df5d1f3974b9$
+//
 
 #ifndef CEF_INCLUDE_CAPI_VIEWS_CEF_LAYOUT_CAPI_H_
 #define CEF_INCLUDE_CAPI_VIEWS_CEF_LAYOUT_CAPI_H_
@@ -56,26 +58,25 @@ typedef struct _cef_layout_t {
   ///
   // Base structure.
   ///
-  cef_base_t base;
+  cef_base_ref_counted_t base;
 
   ///
   // Returns this Layout as a BoxLayout or NULL if this is not a BoxLayout.
   ///
-  struct _cef_box_layout_t* (CEF_CALLBACK *as_box_layout)(
+  struct _cef_box_layout_t*(CEF_CALLBACK* as_box_layout)(
       struct _cef_layout_t* self);
 
   ///
   // Returns this Layout as a FillLayout or NULL if this is not a FillLayout.
   ///
-  struct _cef_fill_layout_t* (CEF_CALLBACK *as_fill_layout)(
+  struct _cef_fill_layout_t*(CEF_CALLBACK* as_fill_layout)(
       struct _cef_layout_t* self);
 
   ///
   // Returns true (1) if this Layout is valid.
   ///
-  int (CEF_CALLBACK *is_valid)(struct _cef_layout_t* self);
+  int(CEF_CALLBACK* is_valid)(struct _cef_layout_t* self);
 } cef_layout_t;
-
 
 #ifdef __cplusplus
 }

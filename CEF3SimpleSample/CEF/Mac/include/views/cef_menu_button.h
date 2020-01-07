@@ -58,15 +58,12 @@ class CefMenuButton : public CefLabelButton {
   // have a visible frame at all times, center alignment, additional padding and
   // a default minimum size of 70x33 DIP. If |with_frame| is false the button
   // will only have a visible frame on hover/press, left alignment, less padding
-  // and no default minimum size. If |with_menu_marker| is true a menu marker
-  // will be added to the button.
+  // and no default minimum size.
   ///
   /*--cef(optional_param=text)--*/
   static CefRefPtr<CefMenuButton> CreateMenuButton(
       CefRefPtr<CefMenuButtonDelegate> delegate,
-      const CefString& text,
-      bool with_frame,
-      bool with_menu_marker);
+      const CefString& text);
 
   ///
   // Show a menu with contents |menu_model|. |screen_point| specifies the menu
@@ -77,7 +74,14 @@ class CefMenuButton : public CefLabelButton {
   /*--cef()--*/
   virtual void ShowMenu(CefRefPtr<CefMenuModel> menu_model,
                         const CefPoint& screen_point,
-                        cef_menu_anchor_position_t anchor_position) =0;
+                        cef_menu_anchor_position_t anchor_position) = 0;
+
+  ///
+  // Show the menu for this button. Results in a call to
+  // CefMenuButtonDelegate::OnMenuButtonPressed().
+  ///
+  /*--cef()--*/
+  virtual void TriggerMenu() = 0;
 };
 
 #endif  // CEF_INCLUDE_VIEWS_CEF_MENU_BUTTON_H_

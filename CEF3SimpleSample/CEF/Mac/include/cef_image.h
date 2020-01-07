@@ -46,11 +46,11 @@
 // image representations should be the same size in density independent pixel
 // (DIP) units. For example, if the image at scale factor 1.0 is 100x100 pixels
 // then the image at scale factor 2.0 should be 200x200 pixels -- both images
-// will display with a DIP size of 100x100 units. The methods of this class must
-// be called on the browser process UI thread.
+// will display with a DIP size of 100x100 units. The methods of this class can
+// be called on any browser process thread.
 ///
 /*--cef(source=library)--*/
-class CefImage : public virtual CefBase {
+class CefImage : public virtual CefBaseRefCounted {
  public:
   ///
   // Create a new CefImage. It will initially be empty. Use the Add*() methods
@@ -63,14 +63,14 @@ class CefImage : public virtual CefBase {
   // Returns true if this Image is empty.
   ///
   /*--cef()--*/
-  virtual bool IsEmpty() =0;
+  virtual bool IsEmpty() = 0;
 
   ///
   // Returns true if this Image and |that| Image share the same underlying
   // storage. Will also return true if both images are empty.
   ///
   /*--cef()--*/
-  virtual bool IsSame(CefRefPtr<CefImage> that) =0;
+  virtual bool IsSame(CefRefPtr<CefImage> that) = 0;
 
   ///
   // Add a bitmap image representation for |scale_factor|. Only 32-bit RGBA/BGRA
@@ -86,7 +86,7 @@ class CefImage : public virtual CefBase {
                          cef_color_type_t color_type,
                          cef_alpha_type_t alpha_type,
                          const void* pixel_data,
-                         size_t pixel_data_size) =0;
+                         size_t pixel_data_size) = 0;
 
   ///
   // Add a PNG image representation for |scale_factor|. |png_data| is the image
@@ -96,7 +96,7 @@ class CefImage : public virtual CefBase {
   /*--cef()--*/
   virtual bool AddPNG(float scale_factor,
                       const void* png_data,
-                      size_t png_data_size) =0;
+                      size_t png_data_size) = 0;
 
   ///
   // Create a JPEG image representation for |scale_factor|. |jpeg_data| is the
@@ -106,31 +106,31 @@ class CefImage : public virtual CefBase {
   /*--cef()--*/
   virtual bool AddJPEG(float scale_factor,
                        const void* jpeg_data,
-                       size_t jpeg_data_size) =0;
+                       size_t jpeg_data_size) = 0;
 
   ///
   // Returns the image width in density independent pixel (DIP) units.
   ///
   /*--cef()--*/
-  virtual size_t GetWidth() =0;
+  virtual size_t GetWidth() = 0;
 
   ///
   // Returns the image height in density independent pixel (DIP) units.
   ///
   /*--cef()--*/
-  virtual size_t GetHeight() =0;
+  virtual size_t GetHeight() = 0;
 
   ///
   // Returns true if this image contains a representation for |scale_factor|.
   ///
   /*--cef()--*/
-  virtual bool HasRepresentation(float scale_factor) =0;
+  virtual bool HasRepresentation(float scale_factor) = 0;
 
   ///
   // Removes the representation for |scale_factor|. Returns true on success.
   ///
   /*--cef()--*/
-  virtual bool RemoveRepresentation(float scale_factor) =0;
+  virtual bool RemoveRepresentation(float scale_factor) = 0;
 
   ///
   // Returns information for the representation that most closely matches
@@ -142,7 +142,7 @@ class CefImage : public virtual CefBase {
   virtual bool GetRepresentationInfo(float scale_factor,
                                      float& actual_scale_factor,
                                      int& pixel_width,
-                                     int& pixel_height) =0;
+                                     int& pixel_height) = 0;
 
   ///
   // Returns the bitmap representation that most closely matches |scale_factor|.
@@ -157,7 +157,7 @@ class CefImage : public virtual CefBase {
                                                 cef_color_type_t color_type,
                                                 cef_alpha_type_t alpha_type,
                                                 int& pixel_width,
-                                                int& pixel_height) =0;
+                                                int& pixel_height) = 0;
 
   ///
   // Returns the PNG representation that most closely matches |scale_factor|. If
@@ -170,7 +170,7 @@ class CefImage : public virtual CefBase {
   virtual CefRefPtr<CefBinaryValue> GetAsPNG(float scale_factor,
                                              bool with_transparency,
                                              int& pixel_width,
-                                             int& pixel_height) =0;
+                                             int& pixel_height) = 0;
 
   ///
   // Returns the JPEG representation that most closely matches |scale_factor|.
@@ -185,7 +185,7 @@ class CefImage : public virtual CefBase {
   virtual CefRefPtr<CefBinaryValue> GetAsJPEG(float scale_factor,
                                               int quality,
                                               int& pixel_width,
-                                              int& pixel_height) =0;
+                                              int& pixel_height) = 0;
 };
 
 #endif  // CEF_INCLUDE_CEF_IMAGE_H_

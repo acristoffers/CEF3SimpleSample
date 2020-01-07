@@ -1,4 +1,4 @@
-﻿/************************************************************************************************
+/************************************************************************************************
 *   Copyright (c) 2013 Álan Crístoffer
 *
 *   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -20,6 +20,7 @@
 
 #include "ClientHandler.h"
 #include "ClientV8ExtensionHandler.h"
+#include "include/wrapper/cef_helpers.h"
 
 ClientApp::ClientApp()
 {
@@ -36,7 +37,7 @@ void ClientApp::OnWebKitInitialized()
         "        native function ChangeTextInJS();"
         "        return ChangeTextInJS(text);"
         "    };"
-        "})();;";
+        "})();";
 
-    CefRegisterExtension( "v8/app", app_code, new ClientV8ExtensionHandler(this) );
+    CefRegisterExtension("v8/app", app_code, new ClientV8ExtensionHandler(this));
 }

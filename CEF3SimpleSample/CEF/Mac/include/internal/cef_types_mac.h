@@ -27,7 +27,6 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 #ifndef CEF_INCLUDE_INTERNAL_CEF_TYPES_MAC_H_
 #define CEF_INCLUDE_INTERNAL_CEF_TYPES_MAC_H_
 #pragma once
@@ -38,32 +37,36 @@
 #include "include/internal/cef_string.h"
 
 // Handle types.
-#ifdef __cplusplus
-#ifdef __OBJC__
-@class NSCursor;
-@class NSEvent;
-@class NSView;
-@class NSTextInputContext;
-#else
-class NSCursor;
-class NSEvent;
-struct NSView;
-class NSTextInputContext;
-#endif
-#define cef_cursor_handle_t NSCursor*
-#define cef_event_handle_t NSEvent*
-#define cef_window_handle_t NSView*
-#define cef_text_input_context_t NSTextInputContext*
-#else
+// Actually NSCursor*
 #define cef_cursor_handle_t void*
+// Acutally NSEvent*
 #define cef_event_handle_t void*
+// Actually NSView*
 #define cef_window_handle_t void*
-#define cef_text_input_context_t void*
-#endif
 
 #define kNullCursorHandle NULL
 #define kNullEventHandle NULL
 #define kNullWindowHandle NULL
+
+#ifdef __OBJC__
+#if __has_feature(objc_arc)
+#define CAST_CEF_CURSOR_HANDLE_TO_NSCURSOR(handle) ((__bridge NSCursor*)handle)
+#define CAST_CEF_EVENT_HANDLE_TO_NSEVENT(handle) ((__bridge NSEvent*)handle)
+#define CAST_CEF_WINDOW_HANDLE_TO_NSVIEW(handle) ((__bridge NSView*)handle)
+
+#define CAST_NSCURSOR_TO_CEF_CURSOR_HANDLE(cursor) ((__bridge void*)cursor)
+#define CAST_NSEVENT_TO_CEF_EVENT_HANDLE(event) ((__bridge void*)event)
+#define CAST_NSVIEW_TO_CEF_WINDOW_HANDLE(view) ((__bridge void*)view)
+#else  // __has_feature(objc_arc)
+#define CAST_CEF_CURSOR_HANDLE_TO_NSCURSOR(handle) ((NSCursor*)handle)
+#define CAST_CEF_EVENT_HANDLE_TO_NSEVENT(handle) ((NSEvent*)handle)
+#define CAST_CEF_WINDOW_HANDLE_TO_NSVIEW(handle) ((NSView*)handle)
+
+#define CAST_NSCURSOR_TO_CEF_CURSOR_HANDLE(cursor) ((void*)cursor)
+#define CAST_NSEVENT_TO_CEF_EVENT_HANDLE(event) ((void*)event)
+#define CAST_NSVIEW_TO_CEF_WINDOW_HANDLE(view) ((void*)view)
+#endif  // __has_feature(objc_arc)
+#endif  // __OBJC__
 
 #ifdef __cplusplus
 extern "C" {
@@ -106,16 +109,23 @@ typedef struct _cef_window_info_t {
   // monitor will be used and some functionality that requires a parent view
   // may not function correctly. In order to create windowless browsers the
   // CefSettings.windowless_rendering_enabled value must be set to true.
+  // Transparent painting is enabled by default but can be disabled by setting
+  // CefBrowserSettings.background_color to an opaque value.
   ///
   int windowless_rendering_enabled;
 
   ///
-  // Set to true (1) to enable transparent painting in combination with
-  // windowless rendering. When this value is true a transparent background
-  // color will be used (RGBA=0x00000000). When this value is false the
-  // background will be white and opaque.
+  // Set to true (1) to enable shared textures for windowless rendering. Only
+  // valid if windowless_rendering_enabled above is also set to true. Currently
+  // only supported on Windows (D3D11).
   ///
-  int transparent_painting_enabled;
+  int shared_texture_enabled;
+
+  ///
+  // Set to true (1) to enable the ability to issue BeginFrame from the client
+  // application.
+  ///
+  int external_begin_frame_enabled;
 
   ///
   // NSView pointer for the new browser view. Only used with windowed rendering.

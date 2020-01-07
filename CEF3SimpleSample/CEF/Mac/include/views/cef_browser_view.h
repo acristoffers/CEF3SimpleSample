@@ -51,14 +51,19 @@ class CefBrowserView : public CefView {
  public:
   ///
   // Create a new BrowserView. The underlying CefBrowser will not be created
-  // until this view is added to the views hierarchy.
+  // until this view is added to the views hierarchy. The optional |extra_info|
+  // parameter provides an opportunity to specify extra information specific
+  // to the created browser that will be passed to
+  // CefRenderProcessHandler::OnBrowserCreated() in the render process.
   ///
   /*--cef(optional_param=client,optional_param=url,
-          optional_param=request_context,optional_param=delegate)--*/
+          optional_param=request_context,optional_param=delegate,
+          optional_param=extra_info)--*/
   static CefRefPtr<CefBrowserView> CreateBrowserView(
       CefRefPtr<CefClient> client,
       const CefString& url,
       const CefBrowserSettings& settings,
+      CefRefPtr<CefDictionaryValue> extra_info,
       CefRefPtr<CefRequestContext> request_context,
       CefRefPtr<CefBrowserViewDelegate> delegate);
 
@@ -73,7 +78,19 @@ class CefBrowserView : public CefView {
   // browser has not yet been created or has already been destroyed.
   ///
   /*--cef()--*/
-  virtual CefRefPtr<CefBrowser> GetBrowser() =0;
+  virtual CefRefPtr<CefBrowser> GetBrowser() = 0;
+
+  ///
+  // Sets whether accelerators registered with CefWindow::SetAccelerator are
+  // triggered before or after the event is sent to the CefBrowser. If
+  // |prefer_accelerators| is true then the matching accelerator will be
+  // triggered immediately and the event will not be sent to the CefBrowser. If
+  // |prefer_accelerators| is false then the matching accelerator will only be
+  // triggered if the event is not handled by web content or by
+  // CefKeyboardHandler. The default value is false.
+  ///
+  /*--cef()--*/
+  virtual void SetPreferAccelerators(bool prefer_accelerators) = 0;
 };
 
 #endif  // CEF_INCLUDE_VIEWS_CEF_BROWSER_VIEW_H_

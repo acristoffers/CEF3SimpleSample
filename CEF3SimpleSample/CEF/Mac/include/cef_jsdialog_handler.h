@@ -46,24 +46,22 @@
 // requests.
 ///
 /*--cef(source=library)--*/
-class CefJSDialogCallback : public virtual CefBase {
+class CefJSDialogCallback : public virtual CefBaseRefCounted {
  public:
   ///
   // Continue the JS dialog request. Set |success| to true if the OK button was
   // pressed. The |user_input| value should be specified for prompt dialogs.
   ///
   /*--cef(capi_name=cont,optional_param=user_input)--*/
-  virtual void Continue(bool success,
-                        const CefString& user_input) =0;
+  virtual void Continue(bool success, const CefString& user_input) = 0;
 };
-
 
 ///
 // Implement this interface to handle events related to JavaScript dialogs. The
 // methods of this class will be called on the UI thread.
 ///
 /*--cef(source=client)--*/
-class CefJSDialogHandler : public virtual CefBase {
+class CefJSDialogHandler : public virtual CefBaseRefCounted {
  public:
   typedef cef_jsdialog_type_t JSDialogType;
 
@@ -118,7 +116,7 @@ class CefJSDialogHandler : public virtual CefBase {
   ///
   /*--cef()--*/
   virtual void OnResetDialogState(CefRefPtr<CefBrowser> browser) {}
-  
+
   ///
   // Called when the default implementation dialog is closed.
   ///

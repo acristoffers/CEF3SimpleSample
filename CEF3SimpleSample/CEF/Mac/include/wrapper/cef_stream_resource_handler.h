@@ -38,12 +38,9 @@
 #pragma once
 
 #include "include/base/cef_macros.h"
-#include "include/base/cef_scoped_ptr.h"
-#include "include/cef_base.h"
 #include "include/cef_resource_handler.h"
 #include "include/cef_response.h"
-
-class CefStreamReader;
+#include "include/cef_stream.h"
 
 ///
 // Implementation of the CefResourceHandler class for reading from a CefStream.
@@ -64,38 +61,25 @@ class CefStreamResourceHandler : public CefResourceHandler {
                            CefResponse::HeaderMap header_map,
                            CefRefPtr<CefStreamReader> stream);
 
-  virtual ~CefStreamResourceHandler();
-
   // CefResourceHandler methods.
-  virtual bool ProcessRequest(CefRefPtr<CefRequest> request,
-                              CefRefPtr<CefCallback> callback) OVERRIDE;
-  virtual void GetResponseHeaders(CefRefPtr<CefResponse> response,
-                                  int64& response_length,
-                                  CefString& redirectUrl) OVERRIDE;
-  virtual bool ReadResponse(void* data_out,
-                            int bytes_to_read,
-                            int& bytes_read,
-                            CefRefPtr<CefCallback> callback) OVERRIDE;
-  virtual void Cancel() OVERRIDE;
+  bool Open(CefRefPtr<CefRequest> request,
+            bool& handle_request,
+            CefRefPtr<CefCallback> callback) OVERRIDE;
+  void GetResponseHeaders(CefRefPtr<CefResponse> response,
+                          int64& response_length,
+                          CefString& redirectUrl) OVERRIDE;
+  bool Read(void* data_out,
+            int bytes_to_read,
+            int& bytes_read,
+            CefRefPtr<CefResourceReadCallback> callback) OVERRIDE;
+  void Cancel() OVERRIDE;
 
  private:
-  void ReadOnFileThread(int bytes_to_read,
-                        CefRefPtr<CefCallback> callback);
-
   const int status_code_;
   const CefString status_text_;
   const CefString mime_type_;
   const CefResponse::HeaderMap header_map_;
   const CefRefPtr<CefStreamReader> stream_;
-  bool read_on_file_thread_;
-
-  class Buffer;
-  scoped_ptr<Buffer> buffer_;
-#ifndef NDEBUG
-  // Used in debug builds to verify that |buffer_| isn't being accessed on
-  // multiple threads at the same time.
-  bool buffer_owned_by_file_thread_;
-#endif
 
   IMPLEMENT_REFCOUNTING(CefStreamResourceHandler);
   DISALLOW_COPY_AND_ASSIGN(CefStreamResourceHandler);

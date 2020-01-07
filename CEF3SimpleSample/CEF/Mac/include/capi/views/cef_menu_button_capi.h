@@ -1,4 +1,4 @@
-// Copyright (c) 2016 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2019 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,6 +33,8 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
+// $hash=889104f0418508aaa66ed8808b627fdd6652102c$
+//
 
 #ifndef CEF_INCLUDE_CAPI_VIEWS_CEF_MENU_BUTTON_CAPI_H_
 #define CEF_INCLUDE_CAPI_VIEWS_CEF_MENU_BUTTON_CAPI_H_
@@ -45,7 +47,6 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 
 ///
 // MenuButton is a button with optional text, icon and/or menu marker that shows
@@ -65,11 +66,17 @@ typedef struct _cef_menu_button_t {
   // will be anchored relative to |screen_point|. This function should be called
   // from cef_menu_button_delegate_t::on_menu_button_pressed().
   ///
-  void (CEF_CALLBACK *show_menu)(struct _cef_menu_button_t* self,
-      struct _cef_menu_model_t* menu_model, const cef_point_t* screen_point,
-      cef_menu_anchor_position_t anchor_position);
-} cef_menu_button_t;
+  void(CEF_CALLBACK* show_menu)(struct _cef_menu_button_t* self,
+                                struct _cef_menu_model_t* menu_model,
+                                const cef_point_t* screen_point,
+                                cef_menu_anchor_position_t anchor_position);
 
+  ///
+  // Show the menu for this button. Results in a call to
+  // cef_menu_button_delegate_t::on_menu_button_pressed().
+  ///
+  void(CEF_CALLBACK* trigger_menu)(struct _cef_menu_button_t* self);
+} cef_menu_button_t;
 
 ///
 // Create a new MenuButton. A |delegate| must be provided to call show_menu()
@@ -78,13 +85,11 @@ typedef struct _cef_menu_button_t {
 // have a visible frame at all times, center alignment, additional padding and a
 // default minimum size of 70x33 DIP. If |with_frame| is false (0) the button
 // will only have a visible frame on hover/press, left alignment, less padding
-// and no default minimum size. If |with_menu_marker| is true (1) a menu marker
-// will be added to the button.
+// and no default minimum size.
 ///
 CEF_EXPORT cef_menu_button_t* cef_menu_button_create(
-    struct _cef_menu_button_delegate_t* delegate, const cef_string_t* text,
-    int with_frame, int with_menu_marker);
-
+    struct _cef_menu_button_delegate_t* delegate,
+    const cef_string_t* text);
 
 #ifdef __cplusplus
 }

@@ -1,4 +1,4 @@
-﻿/************************************************************************************************
+/************************************************************************************************
 *   Copyright (c) 2013 Álan Crístoffer
 *
 *   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -40,26 +40,20 @@
 
 -(void)applicationDidFinishLaunching: (NSNotification *)aNotification
 {
-    CefMainArgs main_args;
-
     CefRefPtr<ClientApp> app(new ClientApp);
 
-    // Execute the secondary process, if any.
-    int exit_code = CefExecuteProcess( main_args, app.get(), NULL );
-    if ( exit_code >= 0 ) {
-        exit(exit_code);
-    }
-
-    char cwd[1024];
-    getcwd( cwd, sizeof(cwd) );
-
+    CefMainArgs main_args;
     CefSettings settings;
 
-    CefInitialize( main_args, settings, app.get(), NULL );
+    int ret = CefExecuteProcess(main_args, app.get(), NULL);
+    if (ret >= 0) exit(ret);
+
+    CefInitialize(main_args, settings, app.get(), NULL);
+
+    CefRefPtr<CefClient> client(new ClientHandler);
 
     CefWindowInfo        info;
     CefBrowserSettings   b_settings;
-    CefRefPtr<CefClient> client(new ClientHandler);
 
     std::string path;
 
@@ -74,7 +68,7 @@
     }
 
     info.SetAsChild([window contentView], 0, 0, [[window contentView] frame].size.width, [[window contentView] frame].size.height);
-    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings, NULL);
+    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings, NULL, NULL);
 
     CefRunMessageLoop();
     CefShutdown();
