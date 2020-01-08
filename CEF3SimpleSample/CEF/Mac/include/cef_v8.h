@@ -218,7 +218,7 @@ class CefV8Context : public virtual CefBaseRefCounted {
                     CefRefPtr<CefV8Exception>& exception) = 0;
 };
 
-typedef std::vector<CefRefPtr<CefV8Value> > CefV8ValueList;
+typedef std::vector<CefRefPtr<CefV8Value>> CefV8ValueList;
 
 ///
 // Interface that should be implemented to handle V8 function calls. The methods

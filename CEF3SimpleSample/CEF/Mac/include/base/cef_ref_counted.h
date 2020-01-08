@@ -196,7 +196,7 @@ struct DefaultRefCountedThreadSafeTraits {
 //    private:
 //     friend class base::RefCountedThreadSafe<MyFoo>;
 //     ~MyFoo();
-template <class T, typename Traits = DefaultRefCountedThreadSafeTraits<T> >
+template <class T, typename Traits = DefaultRefCountedThreadSafeTraits<T>>
 class RefCountedThreadSafe : public cef_subtle::RefCountedThreadSafeBase {
  public:
   RefCountedThreadSafe() {}
@@ -225,7 +225,7 @@ class RefCountedThreadSafe : public cef_subtle::RefCountedThreadSafeBase {
 //
 template <typename T>
 class RefCountedData
-    : public base::RefCountedThreadSafe<base::RefCountedData<T> > {
+    : public base::RefCountedThreadSafe<base::RefCountedData<T>> {
  public:
   RefCountedData() : data() {}
   RefCountedData(const T& in_value) : data(in_value) {}
@@ -233,7 +233,7 @@ class RefCountedData
   T data;
 
  private:
-  friend class base::RefCountedThreadSafe<base::RefCountedData<T> >;
+  friend class base::RefCountedThreadSafe<base::RefCountedData<T>>;
   ~RefCountedData() {}
 };
 

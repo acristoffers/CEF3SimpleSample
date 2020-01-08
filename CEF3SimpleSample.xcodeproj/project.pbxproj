@@ -31,13 +31,6 @@
 		E779040E23C3FBC3005B04E4 /* Helper Process Main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E76E32CE17DAA70E00E3AF5C /* Helper Process Main.cpp */; };
 		E779041123C3FBC3005B04E4 /* libcef_dll_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38DF17D4DF770081FCA7 /* libcef_dll_wrapper.a */; };
 		E779041223C3FBC3005B04E4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38B317D4DDFD0081FCA7 /* Cocoa.framework */; };
-		E779041E23C3FBDB005B04E4 /* CEF3 Simple Sample Helper (GPU).app in Resources */ = {isa = PBXBuildFile; fileRef = E77903F223C3FB9F005B04E4 /* CEF3 Simple Sample Helper (GPU).app */; };
-		E779042123C3FBDB005B04E4 /* CEF3 Simple Sample Helper (Plugin).app in Resources */ = {isa = PBXBuildFile; fileRef = E779040723C3FBB4005B04E4 /* CEF3 Simple Sample Helper (Plugin).app */; };
-		E779042423C3FBDB005B04E4 /* CEF3 Simple Sample Helper (Renderer).app in Resources */ = {isa = PBXBuildFile; fileRef = E779041C23C3FBC3005B04E4 /* CEF3 Simple Sample Helper (Renderer).app */; };
-		E779043523C3FC1A005B04E4 /* CEF3 Simple Sample Helper.app in Resources */ = {isa = PBXBuildFile; fileRef = E79F3A2B17D4FDFB0081FCA7 /* CEF3 Simple Sample Helper.app */; };
-		E779043A23C3FE0F005B04E4 /* CEF3 Simple Sample Helper (GPU).app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E77903F223C3FB9F005B04E4 /* CEF3 Simple Sample Helper (GPU).app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E779043B23C3FE0F005B04E4 /* CEF3 Simple Sample Helper (Plugin).app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E779040723C3FBB4005B04E4 /* CEF3 Simple Sample Helper (Plugin).app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E779043C23C3FE0F005B04E4 /* CEF3 Simple Sample Helper (Renderer).app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E779041C23C3FBC3005B04E4 /* CEF3 Simple Sample Helper (Renderer).app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E779043D23C3FE74005B04E4 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7A14E741AE01418005672E7 /* Chromium Embedded Framework.framework */; };
 		E779043E23C3FE74005B04E4 /* Chromium Embedded Framework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = E7A14E741AE01418005672E7 /* Chromium Embedded Framework.framework */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E779044023C3FE78005B04E4 /* Chromium Embedded Framework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7A14E741AE01418005672E7 /* Chromium Embedded Framework.framework */; };
@@ -61,9 +54,12 @@
 		E79F39BD17D4F5B30081FCA7 /* ClientHandler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E79F39BB17D4F5B30081FCA7 /* ClientHandler.cpp */; };
 		E79F39EA17D4FDFB0081FCA7 /* ClientApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E79F39B817D4E58F0081FCA7 /* ClientApp.cpp */; };
 		E79F39ED17D4FDFB0081FCA7 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38B317D4DDFD0081FCA7 /* Cocoa.framework */; };
-		E79F3A7A17D4FFDB0081FCA7 /* CEF3 Simple Sample Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E79F3A2B17D4FDFB0081FCA7 /* CEF3 Simple Sample Helper.app */; };
 		E7A14E771AE01427005672E7 /* libcef_dll_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38DF17D4DF770081FCA7 /* libcef_dll_wrapper.a */; };
 		E7A14E781AE01446005672E7 /* libcef_dll_wrapper.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E79F38DF17D4DF770081FCA7 /* libcef_dll_wrapper.a */; };
+		E7A7003523C621F800E24507 /* CEF3 Simple Sample Helper.app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E79F3A2B17D4FDFB0081FCA7 /* CEF3 Simple Sample Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E7A7003623C621F800E24507 /* CEF3 Simple Sample Helper (GPU).app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E77903F223C3FB9F005B04E4 /* CEF3 Simple Sample Helper (GPU).app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E7A7003723C621F800E24507 /* CEF3 Simple Sample Helper (Plugin).app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E779040723C3FBB4005B04E4 /* CEF3 Simple Sample Helper (Plugin).app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E7A7003823C621F800E24507 /* CEF3 Simple Sample Helper (Renderer).app in CopyFiles */ = {isa = PBXBuildFile; fileRef = E779041C23C3FBC3005B04E4 /* CEF3 Simple Sample Helper (Renderer).app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,69 +83,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = E779040923C3FBC3005B04E4;
 			remoteInfo = "CEF3 Simple Sample Helper (Renderer)";
-		};
-		E779042723C3FBEE005B04E4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E79F38A817D4DDFD0081FCA7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E77903DF23C3FB9F005B04E4;
-			remoteInfo = "CEF3 Simple Sample Helper (GPU)";
-		};
-		E779042923C3FBF9005B04E4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E79F38A817D4DDFD0081FCA7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E77903DF23C3FB9F005B04E4;
-			remoteInfo = "CEF3 Simple Sample Helper (GPU)";
-		};
-		E779042B23C3FBF9005B04E4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E79F38A817D4DDFD0081FCA7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E77903F423C3FBB4005B04E4;
-			remoteInfo = "CEF3 Simple Sample Helper (Plugin)";
-		};
-		E779042D23C3FBF9005B04E4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E79F38A817D4DDFD0081FCA7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E779040923C3FBC3005B04E4;
-			remoteInfo = "CEF3 Simple Sample Helper (Renderer)";
-		};
-		E779042F23C3FC1A005B04E4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E79F38A817D4DDFD0081FCA7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E77903DF23C3FB9F005B04E4;
-			remoteInfo = "CEF3 Simple Sample Helper (GPU)";
-		};
-		E779043123C3FC1A005B04E4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E79F38A817D4DDFD0081FCA7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E77903F423C3FBB4005B04E4;
-			remoteInfo = "CEF3 Simple Sample Helper (Plugin)";
-		};
-		E779043323C3FC1A005B04E4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E79F38A817D4DDFD0081FCA7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E779040923C3FBC3005B04E4;
-			remoteInfo = "CEF3 Simple Sample Helper (Renderer)";
-		};
-		E779043623C3FC1A005B04E4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E79F38A817D4DDFD0081FCA7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E79F39E617D4FDFB0081FCA7;
-			remoteInfo = "CEF3 Simple Sample Helper";
-		};
-		E779043823C3FDFD005B04E4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = E79F38A817D4DDFD0081FCA7 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = E77903DF23C3FB9F005B04E4;
-			remoteInfo = "CEF3 Simple Sample Helper (GPU)";
 		};
 		E79F3A7617D4FF890081FCA7 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -211,10 +144,10 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				E779043A23C3FE0F005B04E4 /* CEF3 Simple Sample Helper (GPU).app in CopyFiles */,
-				E779043B23C3FE0F005B04E4 /* CEF3 Simple Sample Helper (Plugin).app in CopyFiles */,
-				E779043C23C3FE0F005B04E4 /* CEF3 Simple Sample Helper (Renderer).app in CopyFiles */,
-				E79F3A7A17D4FFDB0081FCA7 /* CEF3 Simple Sample Helper.app in CopyFiles */,
+				E7A7003523C621F800E24507 /* CEF3 Simple Sample Helper.app in CopyFiles */,
+				E7A7003623C621F800E24507 /* CEF3 Simple Sample Helper (GPU).app in CopyFiles */,
+				E7A7003723C621F800E24507 /* CEF3 Simple Sample Helper (Plugin).app in CopyFiles */,
+				E7A7003823C621F800E24507 /* CEF3 Simple Sample Helper (Renderer).app in CopyFiles */,
 				E77903DE23C3F631005B04E4 /* Chromium Embedded Framework.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -228,11 +161,8 @@
 		E76E32CE17DAA70E00E3AF5C /* Helper Process Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "Helper Process Main.cpp"; path = "Mac/Helper Process Main.cpp"; sourceTree = "<group>"; };
 		E77903D823C3EB10005B04E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Mac/Resources/Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E77903F223C3FB9F005B04E4 /* CEF3 Simple Sample Helper (GPU).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEF3 Simple Sample Helper (GPU).app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E77903F323C3FBA0005B04E4 /* CEF3 Simple Sample Helper copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CEF3 Simple Sample Helper copy-Info.plist"; path = "/Users/Alan/Developer/CEF3SimpleSample/CEF3 Simple Sample Helper copy-Info.plist"; sourceTree = "<absolute>"; };
 		E779040723C3FBB4005B04E4 /* CEF3 Simple Sample Helper (Plugin).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEF3 Simple Sample Helper (Plugin).app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E779040823C3FBB5005B04E4 /* CEF3 Simple Sample Helper (GPU) copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CEF3 Simple Sample Helper (GPU) copy-Info.plist"; path = "/Users/Alan/Developer/CEF3SimpleSample/CEF3 Simple Sample Helper (GPU) copy-Info.plist"; sourceTree = "<absolute>"; };
 		E779041C23C3FBC3005B04E4 /* CEF3 Simple Sample Helper (Renderer).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEF3 Simple Sample Helper (Renderer).app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E779041D23C3FBC4005B04E4 /* CEF3 Simple Sample Helper (Plugin) copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CEF3 Simple Sample Helper (Plugin) copy-Info.plist"; path = "/Users/Alan/Developer/CEF3SimpleSample/CEF3 Simple Sample Helper (Plugin) copy-Info.plist"; sourceTree = "<absolute>"; };
 		E779044923C40C8F005B04E4 /* cef_sandbox.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = cef_sandbox.a; path = CEF3SimpleSample/CEF/Mac/lib/cef_sandbox.a; sourceTree = "<group>"; };
 		E79F38B017D4DDFD0081FCA7 /* CEF3 Simple Sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEF3 Simple Sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E79F38B317D4DDFD0081FCA7 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
@@ -322,9 +252,6 @@
 				E79F38B117D4DDFD0081FCA7 /* Products */,
 				E79F38E717D4DF7D0081FCA7 /* CEF Libraries */,
 				E79F391E17D4E2EF0081FCA7 /* html */,
-				E77903F323C3FBA0005B04E4 /* CEF3 Simple Sample Helper copy-Info.plist */,
-				E779040823C3FBB5005B04E4 /* CEF3 Simple Sample Helper (GPU) copy-Info.plist */,
-				E779041D23C3FBC4005B04E4 /* CEF3 Simple Sample Helper (Plugin) copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -483,15 +410,6 @@
 				E779042023C3FBDB005B04E4 /* PBXTargetDependency */,
 				E779042323C3FBDB005B04E4 /* PBXTargetDependency */,
 				E779042623C3FBDB005B04E4 /* PBXTargetDependency */,
-				E779042823C3FBEE005B04E4 /* PBXTargetDependency */,
-				E779042A23C3FBF9005B04E4 /* PBXTargetDependency */,
-				E779042C23C3FBF9005B04E4 /* PBXTargetDependency */,
-				E779042E23C3FBF9005B04E4 /* PBXTargetDependency */,
-				E779043023C3FC1A005B04E4 /* PBXTargetDependency */,
-				E779043223C3FC1A005B04E4 /* PBXTargetDependency */,
-				E779043423C3FC1A005B04E4 /* PBXTargetDependency */,
-				E779043723C3FC1A005B04E4 /* PBXTargetDependency */,
-				E779043923C3FDFD005B04E4 /* PBXTargetDependency */,
 			);
 			name = "CEF3 Simple Sample";
 			productName = CEF3SimpleSample;
@@ -645,12 +563,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E779041E23C3FBDB005B04E4 /* CEF3 Simple Sample Helper (GPU).app in Resources */,
-				E779043523C3FC1A005B04E4 /* CEF3 Simple Sample Helper.app in Resources */,
-				E779042123C3FBDB005B04E4 /* CEF3 Simple Sample Helper (Plugin).app in Resources */,
 				E79F38DD17D4DE900081FCA7 /* MainMenu.xib in Resources */,
 				E79F38DE17D4DE900081FCA7 /* InfoPlist.strings in Resources */,
-				E779042423C3FBDB005B04E4 /* CEF3 Simple Sample Helper (Renderer).app in Resources */,
 				E79F391F17D4E2EF0081FCA7 /* html in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -678,7 +592,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exec install_name_tool -change @executable_path/libcef.dylib \"@executable_path/../../../../MacOS/libcef.dylib\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nexit 1";
+			shellScript = "exec install_name_tool -change @executable_path/libcef.dylib \"@executable_path/../../../../MacOS/libcef.dylib\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nexit 1\n";
 		};
 		E73EAEC117D52A4600DC9A30 /* Run - Change Mach-O Flags */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -723,7 +637,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exec install_name_tool -change @executable_path/libcef.dylib \"@executable_path/../../../../MacOS/libcef.dylib\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nexit 1";
+			shellScript = "exec install_name_tool -change @executable_path/libcef.dylib \"@executable_path/../../../../MacOS/libcef.dylib\" \"${BUILT_PRODUCTS_DIR}/${EXECUTABLE_PATH}\"\nexit 1\n";
 		};
 		E77903EB23C3FB9F005B04E4 /* Run - Change Mach-O Flags */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -837,7 +751,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "install_name_tool -change \"@executable_path/Chromium Embedded Framework\" \"@loader_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"$TARGET_BUILD_DIR/$TARGET_NAME.app/Contents/MacOS/$PRODUCT_NAME\"";
+			shellScript = "install_name_tool -change \"@executable_path/Chromium Embedded Framework\" \"@loader_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"$TARGET_BUILD_DIR/$TARGET_NAME.app/Contents/MacOS/$PRODUCT_NAME\"\n";
 		};
 		E7F810531AE00FC700B143D5 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -850,7 +764,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/bash;
-			shellScript = "install_name_tool -change \"@executable_path/Chromium Embedded Framework\" \"@loader_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"$TARGET_BUILD_DIR/$TARGET_NAME.app/Contents/MacOS/$PRODUCT_NAME\"";
+			shellScript = "install_name_tool -change \"@executable_path/Chromium Embedded Framework\" \"@loader_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework\" \"$TARGET_BUILD_DIR/$TARGET_NAME.app/Contents/MacOS/$PRODUCT_NAME\"\n";
 		};
 		E7F810541AE0103600B143D5 /* Run Script */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -943,51 +857,6 @@
 			target = E779040923C3FBC3005B04E4 /* CEF3 Simple Sample Helper (Renderer) */;
 			targetProxy = E779042523C3FBDB005B04E4 /* PBXContainerItemProxy */;
 		};
-		E779042823C3FBEE005B04E4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E77903DF23C3FB9F005B04E4 /* CEF3 Simple Sample Helper (GPU) */;
-			targetProxy = E779042723C3FBEE005B04E4 /* PBXContainerItemProxy */;
-		};
-		E779042A23C3FBF9005B04E4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E77903DF23C3FB9F005B04E4 /* CEF3 Simple Sample Helper (GPU) */;
-			targetProxy = E779042923C3FBF9005B04E4 /* PBXContainerItemProxy */;
-		};
-		E779042C23C3FBF9005B04E4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E77903F423C3FBB4005B04E4 /* CEF3 Simple Sample Helper (Plugin) */;
-			targetProxy = E779042B23C3FBF9005B04E4 /* PBXContainerItemProxy */;
-		};
-		E779042E23C3FBF9005B04E4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E779040923C3FBC3005B04E4 /* CEF3 Simple Sample Helper (Renderer) */;
-			targetProxy = E779042D23C3FBF9005B04E4 /* PBXContainerItemProxy */;
-		};
-		E779043023C3FC1A005B04E4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E77903DF23C3FB9F005B04E4 /* CEF3 Simple Sample Helper (GPU) */;
-			targetProxy = E779042F23C3FC1A005B04E4 /* PBXContainerItemProxy */;
-		};
-		E779043223C3FC1A005B04E4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E77903F423C3FBB4005B04E4 /* CEF3 Simple Sample Helper (Plugin) */;
-			targetProxy = E779043123C3FC1A005B04E4 /* PBXContainerItemProxy */;
-		};
-		E779043423C3FC1A005B04E4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E779040923C3FBC3005B04E4 /* CEF3 Simple Sample Helper (Renderer) */;
-			targetProxy = E779043323C3FC1A005B04E4 /* PBXContainerItemProxy */;
-		};
-		E779043723C3FC1A005B04E4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E79F39E617D4FDFB0081FCA7 /* CEF3 Simple Sample Helper */;
-			targetProxy = E779043623C3FC1A005B04E4 /* PBXContainerItemProxy */;
-		};
-		E779043923C3FDFD005B04E4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = E77903DF23C3FB9F005B04E4 /* CEF3 Simple Sample Helper (GPU) */;
-			targetProxy = E779043823C3FDFD005B04E4 /* PBXContainerItemProxy */;
-		};
 		E79F3A7717D4FF890081FCA7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = E79F39E617D4FDFB0081FCA7 /* CEF3 Simple Sample Helper */;
@@ -1036,7 +905,7 @@
 					"\"$(SRCROOT)/CEF3SimpleSample/Mac\"",
 					"\"$(SRCROOT)/CEF3SimpleSample/Independent\"",
 				);
-				INFOPLIST_FILE = "CEF3 Simple Sample Helper copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/CEF3SimpleSample/Mac/CEF3SimpleSampleHelper-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1073,7 +942,7 @@
 					"\"$(SRCROOT)/CEF3SimpleSample/Mac\"",
 					"\"$(SRCROOT)/CEF3SimpleSample/Independent\"",
 				);
-				INFOPLIST_FILE = "CEF3 Simple Sample Helper copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/CEF3SimpleSample/Mac/CEF3SimpleSampleHelper-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1110,7 +979,7 @@
 					"\"$(SRCROOT)/CEF3SimpleSample/Mac\"",
 					"\"$(SRCROOT)/CEF3SimpleSample/Independent\"",
 				);
-				INFOPLIST_FILE = "CEF3 Simple Sample Helper (GPU) copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/CEF3SimpleSample/Mac/CEF3SimpleSampleHelper-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1147,7 +1016,7 @@
 					"\"$(SRCROOT)/CEF3SimpleSample/Mac\"",
 					"\"$(SRCROOT)/CEF3SimpleSample/Independent\"",
 				);
-				INFOPLIST_FILE = "CEF3 Simple Sample Helper (GPU) copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/CEF3SimpleSample/Mac/CEF3SimpleSampleHelper-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1184,7 +1053,7 @@
 					"\"$(SRCROOT)/CEF3SimpleSample/Mac\"",
 					"\"$(SRCROOT)/CEF3SimpleSample/Independent\"",
 				);
-				INFOPLIST_FILE = "CEF3 Simple Sample Helper (Plugin) copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/CEF3SimpleSample/Mac/CEF3SimpleSampleHelper-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1221,7 +1090,7 @@
 					"\"$(SRCROOT)/CEF3SimpleSample/Mac\"",
 					"\"$(SRCROOT)/CEF3SimpleSample/Independent\"",
 				);
-				INFOPLIST_FILE = "CEF3 Simple Sample Helper (Plugin) copy-Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/CEF3SimpleSample/Mac/CEF3SimpleSampleHelper-Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

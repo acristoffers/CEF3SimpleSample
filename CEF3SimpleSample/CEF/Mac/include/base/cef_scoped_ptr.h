@@ -349,7 +349,7 @@ class scoped_ptr_impl {
 // unique_ptr<> features. Known deficiencies include not supporting move-only
 // deleteres, function pointers as deleters, and deleters with reference
 // types.
-template <class T, class D = base::DefaultDeleter<T> >
+template <class T, class D = base::DefaultDeleter<T>>
 class scoped_ptr {
   MOVE_ONLY_TYPE_FOR_CPP_03(scoped_ptr, RValue)
 

@@ -112,7 +112,7 @@ class CefX509CertPrincipal : public virtual CefBaseRefCounted {
 /*--cef(source=library)--*/
 class CefX509Certificate : public virtual CefBaseRefCounted {
  public:
-  typedef std::vector<CefRefPtr<CefBinaryValue> > IssuerChainBinaryList;
+  typedef std::vector<CefRefPtr<CefBinaryValue>> IssuerChainBinaryList;
 
   ///
   // Returns the subject of the X.509 certificate. For HTTPS server

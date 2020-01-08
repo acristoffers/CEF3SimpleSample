@@ -73,7 +73,7 @@ class CefRequestHandler : public virtual CefBaseRefCounted {
  public:
   typedef cef_termination_status_t TerminationStatus;
   typedef cef_window_open_disposition_t WindowOpenDisposition;
-  typedef std::vector<CefRefPtr<CefX509Certificate> > X509CertificateList;
+  typedef std::vector<CefRefPtr<CefX509Certificate>> X509CertificateList;
 
   ///
   // Called on the UI thread before browser navigation. Return true to cancel

@@ -227,7 +227,7 @@ class CefRequest : public virtual CefBaseRefCounted {
 /*--cef(source=library,no_debugct_check)--*/
 class CefPostData : public virtual CefBaseRefCounted {
  public:
-  typedef std::vector<CefRefPtr<CefPostDataElement> > ElementVector;
+  typedef std::vector<CefRefPtr<CefPostDataElement>> ElementVector;
 
   ///
   // Create a new CefPostData object.
