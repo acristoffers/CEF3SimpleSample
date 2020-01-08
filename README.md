@@ -14,6 +14,13 @@ available as a [Release in GitHub](https://github.com/acristoffers/CEF3SimpleSam
 Download and unpack in CEF3SimpleSample/CEF/Linux/, CEF3SimpleSample/CEF/Mac/ or
 CEF3SimpleSample/CEF/Win/
 
+Windows
+-------
+
+If using CMake, generate with `cmake -A x64 ..` and build with `msbuild
+/p:Configuration=Release`. You will need to have Visual Studio installed and its
+console.
+
 LICENSE
 -------
 (MIT)

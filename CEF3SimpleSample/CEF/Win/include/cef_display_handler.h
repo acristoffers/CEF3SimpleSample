@@ -47,7 +47,7 @@
 // The methods of this class will be called on the UI thread.
 ///
 /*--cef(source=client)--*/
-class CefDisplayHandler : public virtual CefBase {
+class CefDisplayHandler : public virtual CefBaseRefCounted {
  public:
   ///
   // Called when a frame's address has changed.
@@ -72,6 +72,17 @@ class CefDisplayHandler : public virtual CefBase {
                                   const std::vector<CefString>& icon_urls) {}
 
   ///
+  // Called when web content in the page has toggled fullscreen mode. If
+  // |fullscreen| is true the content will automatically be sized to fill the
+  // browser content area. If |fullscreen| is false the content will
+  // automatically return to its original size and position. The client is
+  // responsible for resizing the browser if desired.
+  ///
+  /*--cef()--*/
+  virtual void OnFullscreenModeChange(CefRefPtr<CefBrowser> browser,
+                                      bool fullscreen) {}
+
+  ///
   // Called when the browser is about to display a tooltip. |text| contains the
   // text that will be displayed in the tooltip. To handle the display of the
   // tooltip yourself return true. Otherwise, you can optionally modify |text|
@@ -80,8 +91,9 @@ class CefDisplayHandler : public virtual CefBase {
   // drawing tooltips and the return value is ignored.
   ///
   /*--cef(optional_param=text)--*/
-  virtual bool OnTooltip(CefRefPtr<CefBrowser> browser,
-                         CefString& text) { return false; }
+  virtual bool OnTooltip(CefRefPtr<CefBrowser> browser, CefString& text) {
+    return false;
+  }
 
   ///
   // Called when the browser receives a status message. |value| contains the
@@ -97,9 +109,32 @@ class CefDisplayHandler : public virtual CefBase {
   ///
   /*--cef(optional_param=message,optional_param=source)--*/
   virtual bool OnConsoleMessage(CefRefPtr<CefBrowser> browser,
+                                cef_log_severity_t level,
                                 const CefString& message,
                                 const CefString& source,
-                                int line) { return false; }
+                                int line) {
+    return false;
+  }
+
+  ///
+  // Called when auto-resize is enabled via CefBrowserHost::SetAutoResizeEnabled
+  // and the contents have auto-resized. |new_size| will be the desired size in
+  // view coordinates. Return true if the resize was handled or false for
+  // default handling.
+  ///
+  /*--cef()--*/
+  virtual bool OnAutoResize(CefRefPtr<CefBrowser> browser,
+                            const CefSize& new_size) {
+    return false;
+  }
+
+  ///
+  // Called when the overall page loading progress has changed. |progress|
+  // ranges from 0.0 to 1.0.
+  ///
+  /*--cef()--*/
+  virtual void OnLoadingProgressChange(CefRefPtr<CefBrowser> browser,
+                                       double progress) {}
 };
 
 #endif  // CEF_INCLUDE_CEF_DISPLAY_HANDLER_H_

@@ -1,4 +1,4 @@
-﻿/************************************************************************************************
+/************************************************************************************************
 *   Copyright (c) 2013 Álan Crí­stoffer
 *
 *   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -36,19 +36,19 @@ std::string GetApplicationDir()
     std::wstring wide(wpath);
 
     std::string path = CefString(wide);
-    path = path.substr( 0, path.find_last_of("\\/") );
+    path = path.substr(0, path.find_last_of("\\/"));
     return path;
 }
 
 LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-    switch ( uMsg ) {
+    switch (uMsg) {
         case WM_DESTROY:
             PostQuitMessage(0);
             return 0;
 
         case WM_SIZE:
-            if ( g_handler ) {
+            if (g_handler) {
                 // Resize the browser window and address bar to match the new frame
                 // window size
                 RECT rect;
@@ -65,7 +65,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
             break;
 
         case WM_ERASEBKGND:
-            if ( g_handler ) {
+            if (g_handler) {
                 // Dont erase the background if the browser window has been loaded
                 // (this avoids flashing)
                 return 0;
@@ -73,7 +73,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
             break;
 
-       case WM_PAINT:
+        case WM_PAINT:
             PAINTSTRUCT ps;
             HDC         hdc = BeginPaint(hwnd, &ps);
             EndPaint(hwnd, &ps);
@@ -104,7 +104,7 @@ HWND RegisterWindow(HINSTANCE hInstance, int nCmdShow)
                                NULL       // Additional application data
                               );
 
-    if ( hwnd == NULL ) {
+    if (hwnd == NULL) {
         return 0;
     }
 
@@ -138,14 +138,15 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     CefRefPtr<ClientApp> app(new ClientApp);
 
     // Execute the secondary process, if any.
-    int exit_code = CefExecuteProcess( main_args, app.get(), NULL );
-    if ( exit_code >= 0 ) {
+    int exit_code = CefExecuteProcess(main_args, app.get(), NULL);
+
+    if (exit_code >= 0) {
         exit(exit_code);
     }
 
     // Register the window class.
     HWND hwnd = RegisterWindow(hInstance, nCmdShow);
-    if ( hwnd == 0 ) {
+    if (hwnd == 0) {
         return 0;
     }
 
@@ -153,23 +154,23 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
     GetClientRect(hwnd, &rect);
 
     CefSettings settings;
-    CefInitialize( main_args, settings, app.get(), NULL );
+    CefInitialize(main_args, settings, app.get(), NULL);
     CefWindowInfo        info;
     CefBrowserSettings   b_settings;
     CefRefPtr<CefClient> client(new ClientHandler);
-    g_handler = (ClientHandler *) client.get();
+    g_handler = (ClientHandler*) client.get();
     std::string               path         = "file://" + GetApplicationDir() + "/html/index.html";
     CefRefPtr<CefCommandLine> command_line = CefCommandLine::GetGlobalCommandLine();
 
-    if ( command_line->HasSwitch("url") ) {
+    if (command_line->HasSwitch("url")) {
         path = command_line->GetSwitchValue("url");
     }
 
     info.SetAsChild(hwnd, rect);
-    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings, NULL);
+    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings, NULL, NULL);
     int result = 0;
 
-    if ( !settings.multi_threaded_message_loop ) {
+    if (!settings.multi_threaded_message_loop) {
         // Run the CEF message loop. This function will block until the application
         // recieves a WM_QUIT message.
         CefRunMessageLoop();
@@ -179,14 +180,14 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, LPSTR, int nCmdShow)
         MSG  msg;
 
         // Run the application message loop.
-        while ( GetMessage(&msg, NULL, 0, 0) ) {
+        while (GetMessage(&msg, NULL, 0, 0)) {
             TranslateMessage(&msg);
             DispatchMessage(&msg);
         }
 
         DestroyWindow(hMessageWnd);
         hMessageWnd = NULL;
-        result      = static_cast<int> (msg.wParam);
+        result      = static_cast<int>(msg.wParam);
     }
 
     CefShutdown();

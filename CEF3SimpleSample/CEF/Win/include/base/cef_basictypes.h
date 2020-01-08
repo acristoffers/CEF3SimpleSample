@@ -32,16 +32,8 @@
 #define CEF_INCLUDE_BASE_CEF_BASICTYPES_H_
 #pragma once
 
-#if defined(BUILDING_CEF_SHARED)
-// When building CEF include the Chromium header directly.
-#include "base/basictypes.h"
-#else  // !BUILDING_CEF_SHARED
-// The following is substantially similar to the Chromium implementation.
-// If the Chromium implementation diverges the below implementation should be
-// updated to match.
-
-#include <limits.h>         // For UINT_MAX
-#include <stddef.h>         // For size_t
+#include <limits.h>  // For UINT_MAX
+#include <stddef.h>  // For size_t
 
 #include "include/base/cef_build.h"
 
@@ -51,36 +43,45 @@
 // On Mac OS X, |long long| is used for 64-bit types for compatibility with
 // <inttypes.h> format macros even in the LP64 model.
 #if defined(__LP64__) && !defined(OS_MACOSX) && !defined(OS_OPENBSD)
-typedef long                int64;  // NOLINT(runtime/int)
-typedef unsigned long       uint64;  // NOLINT(runtime/int)
+typedef long int64;
+typedef unsigned long uint64;
 #else
-typedef long long           int64;  // NOLINT(runtime/int)
-typedef unsigned long long  uint64;  // NOLINT(runtime/int)
+typedef long long int64;
+typedef unsigned long long uint64;
 #endif
 
 // TODO: Remove these type guards.  These are to avoid conflicts with
 // obsolete/protypes.h in the Gecko SDK.
 #ifndef _INT32
 #define _INT32
-typedef int                 int32;
+typedef int int32;
 #endif
 
 // TODO: Remove these type guards.  These are to avoid conflicts with
 // obsolete/protypes.h in the Gecko SDK.
 #ifndef _UINT32
 #define _UINT32
-typedef unsigned int       uint32;
+typedef unsigned int uint32;
 #endif
 
-// UTF-16 character type
+#ifndef _INT16
+#define _INT16
+typedef short int16;
+#endif
+
+#ifndef _UINT16
+#define _UINT16
+typedef unsigned short uint16;
+#endif
+
+// UTF-16 character type.
+// This should be kept synchronized with base/strings/string16.h
 #ifndef char16
-#if defined(WIN32)
-typedef wchar_t             char16;
-#else
-typedef unsigned short      char16;
+#if defined(WCHAR_T_IS_UTF16)
+typedef wchar_t char16;
+#elif defined(WCHAR_T_IS_UTF32)
+typedef unsigned short char16;
 #endif
 #endif
-
-#endif  // !BUILDING_CEF_SHARED
 
 #endif  // CEF_INCLUDE_BASE_CEF_BASICTYPES_H_
