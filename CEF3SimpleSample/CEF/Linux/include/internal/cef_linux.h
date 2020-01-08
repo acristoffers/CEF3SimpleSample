@@ -27,7 +27,6 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 #ifndef CEF_INCLUDE_INTERNAL_CEF_LINUX_H_
 #define CEF_INCLUDE_INTERNAL_CEF_LINUX_H_
 #pragma once
@@ -39,7 +38,6 @@
 #define CefCursorHandle cef_cursor_handle_t
 #define CefEventHandle cef_event_handle_t
 #define CefWindowHandle cef_window_handle_t
-#define CefTextInputContext cef_text_input_context_t
 
 struct CefMainArgsTraits {
   typedef cef_main_args_t struct_type;
@@ -47,8 +45,9 @@ struct CefMainArgsTraits {
   static inline void init(struct_type* s) {}
   static inline void clear(struct_type* s) {}
 
-  static inline void set(const struct_type* src, struct_type* target,
-      bool copy) {
+  static inline void set(const struct_type* src,
+                         struct_type* target,
+                         bool copy) {
     target->argc = src->argc;
     target->argv = src->argv;
   }
@@ -72,17 +71,24 @@ struct CefWindowInfoTraits {
   typedef cef_window_info_t struct_type;
 
   static inline void init(struct_type* s) {}
-  static inline void clear(struct_type* s) {}
 
-  static inline void set(const struct_type* src, struct_type* target,
-      bool copy) {
+  static inline void clear(struct_type* s) {
+    cef_string_clear(&s->window_name);
+  }
+
+  static inline void set(const struct_type* src,
+                         struct_type* target,
+                         bool copy) {
+    cef_string_set(src->window_name.str, src->window_name.length,
+                   &target->window_name, copy);
     target->x = src->x;
     target->y = src->y;
     target->width = src->width;
     target->height = src->height;
     target->parent_window = src->parent_window;
     target->windowless_rendering_enabled = src->windowless_rendering_enabled;
-    target->transparent_painting_enabled = src->transparent_painting_enabled;
+    target->shared_texture_enabled = src->shared_texture_enabled;
+    target->external_begin_frame_enabled = src->external_begin_frame_enabled;
     target->window = src->window;
   }
 };
@@ -99,8 +105,7 @@ class CefWindowInfo : public CefStructBase<CefWindowInfoTraits> {
   ///
   // Create the browser as a child window.
   ///
-  void SetAsChild(CefWindowHandle parent,
-                  const CefRect& windowRect) {
+  void SetAsChild(CefWindowHandle parent, const CefRect& windowRect) {
     parent_window = parent;
     x = windowRect.x;
     y = windowRect.y;
@@ -115,15 +120,14 @@ class CefWindowInfo : public CefStructBase<CefWindowInfoTraits> {
   // monitor info and to act as the parent window for dialogs, context menus,
   // etc. If |parent| is not provided then the main screen monitor will be used
   // and some functionality that requires a parent window may not function
-  // correctly. If |transparent| is true a transparent background color will be
-  // used (RGBA=0x00000000). If |transparent| is false the background will be
-  // white and opaque. In order to create windowless browsers the
+  // correctly. In order to create windowless browsers the
   // CefSettings.windowless_rendering_enabled value must be set to true.
+  // Transparent painting is enabled by default but can be disabled by setting
+  // CefBrowserSettings.background_color to an opaque value.
   ///
-  void SetAsWindowless(CefWindowHandle parent, bool transparent) {
+  void SetAsWindowless(CefWindowHandle parent) {
     windowless_rendering_enabled = true;
     parent_window = parent;
-    transparent_painting_enabled = transparent;
   }
 };
 

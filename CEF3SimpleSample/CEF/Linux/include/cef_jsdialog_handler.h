@@ -46,32 +46,32 @@
 // requests.
 ///
 /*--cef(source=library)--*/
-class CefJSDialogCallback : public virtual CefBase {
+class CefJSDialogCallback : public virtual CefBaseRefCounted {
  public:
   ///
   // Continue the JS dialog request. Set |success| to true if the OK button was
   // pressed. The |user_input| value should be specified for prompt dialogs.
   ///
   /*--cef(capi_name=cont,optional_param=user_input)--*/
-  virtual void Continue(bool success,
-                        const CefString& user_input) =0;
+  virtual void Continue(bool success, const CefString& user_input) = 0;
 };
-
 
 ///
 // Implement this interface to handle events related to JavaScript dialogs. The
 // methods of this class will be called on the UI thread.
 ///
 /*--cef(source=client)--*/
-class CefJSDialogHandler : public virtual CefBase {
+class CefJSDialogHandler : public virtual CefBaseRefCounted {
  public:
   typedef cef_jsdialog_type_t JSDialogType;
 
   ///
-  // Called to run a JavaScript dialog. The |default_prompt_text| value will be
+  // Called to run a JavaScript dialog. If |origin_url| is non-empty it can be
+  // passed to the CefFormatUrlForSecurityDisplay function to retrieve a secure
+  // and user-friendly display string. The |default_prompt_text| value will be
   // specified for prompt dialogs only. Set |suppress_message| to true and
-  // return false to suppress the message (suppressing messages is preferable
-  // to immediately executing the callback as this is used to detect presumably
+  // return false to suppress the message (suppressing messages is preferable to
+  // immediately executing the callback as this is used to detect presumably
   // malicious behavior like spamming alert messages in onbeforeunload). Set
   // |suppress_message| to false and return false to use the default
   // implementation (the default implementation will show one modal dialog at a
@@ -85,7 +85,6 @@ class CefJSDialogHandler : public virtual CefBase {
           optional_param=message_text,optional_param=default_prompt_text)--*/
   virtual bool OnJSDialog(CefRefPtr<CefBrowser> browser,
                           const CefString& origin_url,
-                          const CefString& accept_lang,
                           JSDialogType dialog_type,
                           const CefString& message_text,
                           const CefString& default_prompt_text,
@@ -117,7 +116,7 @@ class CefJSDialogHandler : public virtual CefBase {
   ///
   /*--cef()--*/
   virtual void OnResetDialogState(CefRefPtr<CefBrowser> browser) {}
-  
+
   ///
   // Called when the default implementation dialog is closed.
   ///

@@ -37,32 +37,30 @@
 // This can happen in cases where Chromium code is used directly by the
 // client application. When using Chromium code directly always include
 // the Chromium header first to avoid type conflicts.
-#elif defined(BUILDING_CEF_SHARED)
+#elif defined(USING_CHROMIUM_INCLUDES)
 // When building CEF include the Chromium header directly.
 #include "base/threading/thread_checker.h"
-#else  // !BUILDING_CEF_SHARED
+#else  // !USING_CHROMIUM_INCLUDES
 // The following is substantially similar to the Chromium implementation.
 // If the Chromium implementation diverges the below implementation should be
 // updated to match.
+
+#include "include/base/cef_logging.h"
+#include "include/base/internal/cef_thread_checker_impl.h"
 
 // Apart from debug builds, we also enable the thread checker in
 // builds with DCHECK_ALWAYS_ON so that trybots and waterfall bots
 // with this define will get the same level of thread checking as
 // debug bots.
-//
-// Note that this does not perfectly match situations where DCHECK is
-// enabled.  For example a non-official release build may have
-// DCHECK_ALWAYS_ON undefined (and therefore ThreadChecker would be
-// disabled) but have DCHECKs enabled at runtime.
-#if (!defined(NDEBUG) || defined(DCHECK_ALWAYS_ON))
+#if DCHECK_IS_ON()
 #define ENABLE_THREAD_CHECKER 1
 #else
 #define ENABLE_THREAD_CHECKER 0
 #endif
 
-#include "include/base/internal/cef_thread_checker_impl.h"
-
 namespace base {
+
+namespace cef_internal {
 
 // Do nothing implementation, for use in release mode.
 //
@@ -70,12 +68,12 @@ namespace base {
 // right version for your build configuration.
 class ThreadCheckerDoNothing {
  public:
-  bool CalledOnValidThread() const {
-    return true;
-  }
+  bool CalledOnValidThread() const { return true; }
 
   void DetachFromThread() {}
 };
+
+}  // namespace cef_internal
 
 // ThreadChecker is a helper class used to help verify that some methods of a
 // class are called from the same thread. It provides identical functionality to
@@ -109,17 +107,15 @@ class ThreadCheckerDoNothing {
 //
 // In Release mode, CalledOnValidThread will always return true.
 #if ENABLE_THREAD_CHECKER
-class ThreadChecker : public ThreadCheckerImpl {
-};
+class ThreadChecker : public cef_internal::ThreadCheckerImpl {};
 #else
-class ThreadChecker : public ThreadCheckerDoNothing {
-};
+class ThreadChecker : public cef_internal::ThreadCheckerDoNothing {};
 #endif  // ENABLE_THREAD_CHECKER
 
 #undef ENABLE_THREAD_CHECKER
 
 }  // namespace base
 
-#endif  // !BUILDING_CEF_SHARED
+#endif  // !USING_CHROMIUM_INCLUDES
 
 #endif  // CEF_INCLUDE_BASE_THREAD_CHECKER_H_

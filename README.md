@@ -4,16 +4,15 @@ A simple hello world application to get you started with CEF3.
 
 It setups a browser, loads a local file and binds JS methods.
 
-MACOS
------
+Lib folders
+-----------
 
-The library file was compressed, so you need to decompress it before running the
-project. From the root directory:
+The lib folders containing CEF binaries were removed from the repository because
+GitHub does not allow files bigger than 100MB, and some of them are. The are
+available as a [Release in GitHub](https://github.com/acristoffers/CEF3SimpleSample/releases). 
 
-```bash
-cd CEF3SimpleSample/CEF/Mac/lib/Chromium\ Embedded\ Framework.framework
-tar -xf Chromium\ Embedded\ Framework.txz
-```
+Download and unpack in CEF3SimpleSample/CEF/Linux/, CEF3SimpleSample/CEF/Mac/ or
+CEF3SimpleSample/CEF/Win/
 
 LICENSE
 -------

@@ -1,4 +1,4 @@
-﻿/************************************************************************************************
+/************************************************************************************************
 *   Copyright (c) 2013 Álan Crí­stoffer
 *
 *   Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -24,13 +24,13 @@
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
 #include <X11/Xlib.h>
-#undef Status   // Definition conflicts with cef_urlrequest.h
-#undef Success  // Definition conflicts with cef_message_router.h
+#undef Status  // Definition conflicts with cef_urlrequest.h
+#undef Success // Definition conflicts with cef_message_router.h
 
 #include "include/cef_app.h"
 #include "include/cef_browser.h"
 #include "include/cef_frame.h"
-#include "include/cef_runnable.h"
+// #include "include/cef_runnable.h"
 
 #include "ClientHandler.h"
 #include "ClientApp.h"
@@ -52,7 +52,7 @@ GdkPixbuf *create_pixbuf(const gchar *filename)
     GError    *error = NULL;
 
     pixbuf = gdk_pixbuf_new_from_file(filename, &error);
-    if ( !pixbuf ) {
+    if (!pixbuf) {
         fprintf(stderr, "%s\n", error->message);
         g_error_free(error);
     }
@@ -74,7 +74,7 @@ std::string getExecutableBaseFolder()
     _link.append("/exe");
     char proc[512];
     int  ch = readlink(_link.c_str(), proc, 512);
-    if ( ch != -1 ) {
+    if (ch != -1) {
         proc[ch] = 0;
         path     = proc;
         std::string::size_type t = path.find_last_of("/");
@@ -86,13 +86,13 @@ std::string getExecutableBaseFolder()
 
 int main(int argc, char **argv)
 {
-    CefMainArgs main_args(argc, argv);
-
+    CefMainArgs          main_args(argc, argv);
     CefRefPtr<ClientApp> app(new ClientApp);
 
     // Execute the secondary process, if any.
-    int exit_code = CefExecuteProcess( main_args, app.get(), NULL );
-    if ( exit_code >= 0 ) {
+    int exit_code = CefExecuteProcess(main_args, app.get(), NULL);
+
+    if (exit_code >= 0) {
         exit(exit_code);
     }
 
@@ -105,12 +105,12 @@ int main(int argc, char **argv)
 
     g_signal_connect(window, "delete-event", G_CALLBACK(delete_event), NULL);
 
-    GtkWidget *vbox = gtk_vbox_new(FALSE, 0);
+    GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
     CefSettings settings;
     settings.no_sandbox = true;
 
-    CefInitialize( main_args, settings, app.get(), NULL );
+    CefInitialize(main_args, settings, app.get(), NULL);
 
     CefWindowInfo        info;
     CefBrowserSettings   b_settings;
@@ -121,20 +121,20 @@ int main(int argc, char **argv)
     path = std::string("file://") + path + std::string("/html/index.html");
 
     CefRefPtr<CefCommandLine> command_line = CefCommandLine::GetGlobalCommandLine();
-    if ( command_line->HasSwitch("url") ) {
+    if (command_line->HasSwitch("url")) {
         path = command_line->GetSwitchValue("url");
     }
 
-    gtk_window_set_icon( GTK_WINDOW(window), create_pixbuf( app_icon.c_str() ) );
+    gtk_window_set_icon(GTK_WINDOW(window), create_pixbuf(app_icon.c_str()));
     gtk_container_add(GTK_CONTAINER(window), vbox);
-    gtk_widget_show_all( GTK_WIDGET(window) );
+    gtk_widget_show_all(GTK_WIDGET(window));
 
     ::Window xwindow = GDK_WINDOW_XID(gtk_widget_get_window(window));
 
     CefRect rect(0, 0, 800, 600);
     info.SetAsChild(xwindow, rect);
 
-    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings, NULL);
+    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings, NULL, NULL);
 
     signal(SIGINT,  TerminationSignalHandler);
     signal(SIGTERM, TerminationSignalHandler);

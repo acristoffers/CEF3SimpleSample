@@ -38,25 +38,43 @@
 
 #include <stddef.h>
 
+#include "include/base/cef_atomic_ref_count.h"
+#include "include/base/cef_macros.h"
 #include "include/base/cef_ref_counted.h"
 #include "include/base/cef_scoped_ptr.h"
+#include "include/base/cef_template_util.h"
 
 template <typename T>
 class ScopedVector;
 
 namespace base {
 namespace cef_internal {
+class CallbackBase;
 
-// BindStateBase is used to provide an opaque handle that the Callback
-// class can use to represent a function object with bound arguments.  It
-// behaves as an existential type that is used by a corresponding
-// DoInvoke function to perform the function execution.  This allows
-// us to shield the Callback class from the types of the bound argument via
-// "type erasure."
-class BindStateBase : public RefCountedThreadSafe<BindStateBase> {
+// At the base level, the only task is to add reference counting data. Don't use
+// RefCountedThreadSafe since it requires the destructor to be a virtual method.
+// Creating a vtable for every BindState template instantiation results in a lot
+// of bloat. Its only task is to call the destructor which can be done with a
+// function pointer.
+class BindStateBase {
  protected:
-  friend class RefCountedThreadSafe<BindStateBase>;
-  virtual ~BindStateBase() {}
+  explicit BindStateBase(void (*destructor)(BindStateBase*))
+      : ref_count_(0), destructor_(destructor) {}
+  ~BindStateBase() {}
+
+ private:
+  friend class scoped_refptr<BindStateBase>;
+  friend class CallbackBase;
+
+  void AddRef();
+  void Release();
+
+  AtomicRefCount ref_count_;
+
+  // Pointer to a function that will properly destroy |this|.
+  void (*destructor_)(BindStateBase*);
+
+  DISALLOW_COPY_AND_ASSIGN(BindStateBase);
 };
 
 // Holds the Callback methods that don't require specialization to reduce
@@ -74,7 +92,7 @@ class CallbackBase {
   // another type. It is not okay to use void*. We create a InvokeFuncStorage
   // that that can store our function pointer, and then cast it back to
   // the original type on usage.
-  typedef void(*InvokeFuncStorage)(void);
+  typedef void (*InvokeFuncStorage)(void);
 
   // Returns true if this callback equals |other|. |other| may be null.
   bool Equals(const CallbackBase& other) const;
@@ -97,15 +115,16 @@ class CallbackBase {
 // A helper template to determine if given type is non-const move-only-type,
 // i.e. if a value of the given type should be passed via .Pass() in a
 // destructive way.
-template <typename T> struct IsMoveOnlyType {
+template <typename T>
+struct IsMoveOnlyType {
   template <typename U>
   static YesType Test(const typename U::MoveOnlyTypeForCPP03*);
 
   template <typename U>
   static NoType Test(...);
 
-  static const bool value = sizeof(Test<T>(0)) == sizeof(YesType) &&
-                            !is_const<T>::value;
+  static const bool value =
+      sizeof(Test<T>(0)) == sizeof(YesType) && !is_const<T>::value;
 };
 
 // This is a typetraits object that's used to take an argument type, and

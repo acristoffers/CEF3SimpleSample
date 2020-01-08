@@ -27,15 +27,14 @@
 // (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
-
 #ifndef CEF_INCLUDE_BASE_CEF_BUILD_H_
 #define CEF_INCLUDE_BASE_CEF_BUILD_H_
 #pragma once
 
-#if defined(BUILDING_CEF_SHARED)
+#if defined(USING_CHROMIUM_INCLUDES)
 // When building CEF include the Chromium header directly.
 #include "base/compiler_specific.h"
-#else  // !BUILDING_CEF_SHARED
+#else  // !USING_CHROMIUM_INCLUDES
 // The following is substantially similar to the Chromium implementation.
 // If the Chromium implementation diverges the below implementation should be
 // updated to match.
@@ -116,12 +115,10 @@
 // Type detection for wchar_t.
 #if defined(OS_WIN)
 #define WCHAR_T_IS_UTF16
-#elif defined(OS_POSIX) && defined(COMPILER_GCC) && \
-    defined(__WCHAR_MAX__) && \
+#elif defined(OS_POSIX) && defined(COMPILER_GCC) && defined(__WCHAR_MAX__) && \
     (__WCHAR_MAX__ == 0x7fffffff || __WCHAR_MAX__ == 0xffffffff)
 #define WCHAR_T_IS_UTF32
-#elif defined(OS_POSIX) && defined(COMPILER_GCC) && \
-    defined(__WCHAR_MAX__) && \
+#elif defined(OS_POSIX) && defined(COMPILER_GCC) && defined(__WCHAR_MAX__) && \
     (__WCHAR_MAX__ == 0x7fff || __WCHAR_MAX__ == 0xffff)
 // On Posix, we'll detect short wchar_t, but projects aren't guaranteed to
 // compile in this mode (in particular, Chrome doesn't). This is intended for
@@ -132,26 +129,10 @@
 #error Please add support for your compiler in cef_build.h
 #endif
 
-// Annotate a virtual method indicating it must be overriding a virtual
-// method in the parent class.
-// Use like:
-//   virtual void foo() OVERRIDE;
-#ifndef OVERRIDE
-#if defined(__clang__) || defined(COMPILER_MSVC)
-#define OVERRIDE override
-#elif defined(COMPILER_GCC) && __cplusplus >= 201103 && \
-      (__GNUC__ * 10000 + __GNUC_MINOR__ * 100) >= 40700
-// GCC 4.7 supports explicit virtual overrides when C++11 support is enabled.
-#define OVERRIDE override
-#else
-#define OVERRIDE
-#endif
-#endif  // OVERRIDE
-
 // Annotate a function indicating the caller must examine the return value.
 // Use like:
 //   int foo() WARN_UNUSED_RESULT;
-// To explicitly ignore a result, see |ignore_result()| in <base/basictypes.h>.
+// To explicitly ignore a result, see |ignore_result()| in <base/macros.h>.
 #ifndef WARN_UNUSED_RESULT
 #if defined(COMPILER_GCC)
 #define WARN_UNUSED_RESULT __attribute__((warn_unused_result))
@@ -181,6 +162,46 @@
 #define ALLOW_UNUSED_LOCAL(x) false ? (void)x : (void)0
 #endif
 
-#endif  // !BUILDING_CEF_SHARED
+// Sanitizers annotations.
+#if defined(__has_attribute)
+#if __has_attribute(no_sanitize)
+#define NO_SANITIZE(what) __attribute__((no_sanitize(what)))
+#endif
+#endif
+#if !defined(NO_SANITIZE)
+#define NO_SANITIZE(what)
+#endif
+
+#endif  // !USING_CHROMIUM_INCLUDES
+
+// Annotate a virtual method indicating it must be overriding a virtual method
+// in the parent class.
+// Use like:
+//   void foo() OVERRIDE;
+// NOTE: This define should only be used in classes exposed to the client since
+// C++11 support may not be enabled in client applications. CEF internal classes
+// should use the `override` keyword directly.
+#ifndef OVERRIDE
+#if defined(__clang__)
+#define OVERRIDE override
+#elif defined(COMPILER_MSVC) && _MSC_VER >= 1600
+// Visual Studio 2010 and later support override.
+#define OVERRIDE override
+#elif defined(COMPILER_GCC) && __cplusplus >= 201103 && \
+    (__GNUC__ * 10000 + __GNUC_MINOR__ * 100) >= 40700
+// GCC 4.7 supports explicit virtual overrides when C++11 support is enabled.
+#define OVERRIDE override
+#else
+#define OVERRIDE
+#endif
+#endif  // OVERRIDE
+
+// Check for C++11 template alias support which was added in VS2013 and GCC4.7.
+// http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2258.pdf
+#if __cplusplus > 199711L || (defined(_MSC_VER) && _MSC_VER >= 1800) || \
+    (defined(__GNUC__) &&                                               \
+     (__GNUC__ * 10000 + __GNUC_MINOR__ * 100 + __GNUC_PATCHLEVEL__ >= 40700))
+#define HAS_CPP11_TEMPLATE_ALIAS_SUPPORT
+#endif
 
 #endif  // CEF_INCLUDE_BASE_CEF_BUILD_H_

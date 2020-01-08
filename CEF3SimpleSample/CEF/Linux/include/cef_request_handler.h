@@ -38,61 +38,42 @@
 #define CEF_INCLUDE_CEF_REQUEST_HANDLER_H_
 #pragma once
 
+#include <vector>
+
 #include "include/cef_auth_callback.h"
 #include "include/cef_base.h"
 #include "include/cef_browser.h"
 #include "include/cef_frame.h"
-#include "include/cef_resource_handler.h"
-#include "include/cef_response.h"
 #include "include/cef_request.h"
+#include "include/cef_request_callback.h"
+#include "include/cef_resource_request_handler.h"
 #include "include/cef_ssl_info.h"
-#include "include/cef_web_plugin.h"
+#include "include/cef_x509_certificate.h"
 
 ///
-// Callback interface used for asynchronous continuation of quota requests.
-///
-/*--cef(source=library)--*/
-class CefQuotaCallback : public virtual CefBase {
- public:
-  ///
-  // Continue the quota request. If |allow| is true the request will be
-  // allowed. Otherwise, the request will be denied.
-  ///
-  /*--cef(capi_name=cont)--*/
-  virtual void Continue(bool allow) =0;
-
-  ///
-  // Cancel the quota request.
-  ///
-  /*--cef()--*/
-  virtual void Cancel() =0;
-};
-
-
-///
-// Callback interface used for asynchronous continuation of url requests when
-// invalid SSL certificates are encountered.
+// Callback interface used to select a client certificate for authentication.
 ///
 /*--cef(source=library)--*/
-class CefAllowCertificateErrorCallback : public virtual CefBase {
+class CefSelectClientCertificateCallback : public virtual CefBaseRefCounted {
  public:
   ///
-  // Continue the url request. If |allow| is true the request will be
-  // continued. Otherwise, the request will be canceled.
+  // Chooses the specified certificate for client certificate authentication.
+  // NULL value means that no client certificate should be used.
   ///
-  /*--cef(capi_name=cont)--*/
-  virtual void Continue(bool allow) =0;
+  /*--cef(optional_param=cert)--*/
+  virtual void Select(CefRefPtr<CefX509Certificate> cert) = 0;
 };
-
 
 ///
 // Implement this interface to handle events related to browser requests. The
 // methods of this class will be called on the thread indicated.
 ///
 /*--cef(source=client)--*/
-class CefRequestHandler : public virtual CefBase {
+class CefRequestHandler : public virtual CefBaseRefCounted {
  public:
   typedef cef_termination_status_t TerminationStatus;
+  typedef cef_window_open_disposition_t WindowOpenDisposition;
+  typedef std::vector<CefRefPtr<CefX509Certificate>> X509CertificateList;
 
   ///
   // Called on the UI thread before browser navigation. Return true to cancel
@@ -102,63 +83,86 @@ class CefRequestHandler : public virtual CefBase {
   // If the navigation is allowed CefLoadHandler::OnLoadStart and
   // CefLoadHandler::OnLoadEnd will be called. If the navigation is canceled
   // CefLoadHandler::OnLoadError will be called with an |errorCode| value of
-  // ERR_ABORTED.
+  // ERR_ABORTED. The |user_gesture| value will be true if the browser
+  // navigated via explicit user gesture (e.g. clicking a link) or false if it
+  // navigated automatically (e.g. via the DomContentLoaded event).
   ///
   /*--cef()--*/
   virtual bool OnBeforeBrowse(CefRefPtr<CefBrowser> browser,
                               CefRefPtr<CefFrame> frame,
                               CefRefPtr<CefRequest> request,
+                              bool user_gesture,
                               bool is_redirect) {
     return false;
   }
 
   ///
-  // Called on the IO thread before a resource request is loaded. The |request|
-  // object may be modified. To cancel the request return true otherwise return
-  // false.
+  // Called on the UI thread before OnBeforeBrowse in certain limited cases
+  // where navigating a new or different browser might be desirable. This
+  // includes user-initiated navigation that might open in a special way (e.g.
+  // links clicked via middle-click or ctrl + left-click) and certain types of
+  // cross-origin navigation initiated from the renderer process (e.g.
+  // navigating the top-level frame to/from a file URL). The |browser| and
+  // |frame| values represent the source of the navigation. The
+  // |target_disposition| value indicates where the user intended to navigate
+  // the browser based on standard Chromium behaviors (e.g. current tab,
+  // new tab, etc). The |user_gesture| value will be true if the browser
+  // navigated via explicit user gesture (e.g. clicking a link) or false if it
+  // navigated automatically (e.g. via the DomContentLoaded event). Return true
+  // to cancel the navigation or false to allow the navigation to proceed in the
+  // source browser's top-level frame.
   ///
   /*--cef()--*/
-  virtual bool OnBeforeResourceLoad(CefRefPtr<CefBrowser> browser,
-                                    CefRefPtr<CefFrame> frame,
-                                    CefRefPtr<CefRequest> request) {
+  virtual bool OnOpenURLFromTab(CefRefPtr<CefBrowser> browser,
+                                CefRefPtr<CefFrame> frame,
+                                const CefString& target_url,
+                                WindowOpenDisposition target_disposition,
+                                bool user_gesture) {
     return false;
   }
 
   ///
-  // Called on the IO thread before a resource is loaded. To allow the resource
-  // to load normally return NULL. To specify a handler for the resource return
-  // a CefResourceHandler object. The |request| object should not be modified in
-  // this callback.
+  // Called on the browser process IO thread before a resource request is
+  // initiated. The |browser| and |frame| values represent the source of the
+  // request. |request| represents the request contents and cannot be modified
+  // in this callback. |is_navigation| will be true if the resource request is a
+  // navigation. |is_download| will be true if the resource request is a
+  // download. |request_initiator| is the origin (scheme + domain) of the page
+  // that initiated the request. Set |disable_default_handling| to true to
+  // disable default handling of the request, in which case it will need to be
+  // handled via CefResourceRequestHandler::GetResourceHandler or it will be
+  // canceled. To allow the resource load to proceed with default handling
+  // return NULL. To specify a handler for the resource return a
+  // CefResourceRequestHandler object. If this callback returns NULL the same
+  // method will be called on the associated CefRequestContextHandler, if any.
   ///
-  /*--cef()--*/
-  virtual CefRefPtr<CefResourceHandler> GetResourceHandler(
+  /*--cef(optional_param=request_initiator)--*/
+  virtual CefRefPtr<CefResourceRequestHandler> GetResourceRequestHandler(
       CefRefPtr<CefBrowser> browser,
       CefRefPtr<CefFrame> frame,
-      CefRefPtr<CefRequest> request) {
+      CefRefPtr<CefRequest> request,
+      bool is_navigation,
+      bool is_download,
+      const CefString& request_initiator,
+      bool& disable_default_handling) {
     return NULL;
   }
 
   ///
-  // Called on the IO thread when a resource load is redirected. The |old_url|
-  // parameter will contain the old URL. The |new_url| parameter will contain
-  // the new URL and can be changed if desired.
-  ///
-  /*--cef()--*/
-  virtual void OnResourceRedirect(CefRefPtr<CefBrowser> browser,
-                                  CefRefPtr<CefFrame> frame,
-                                  const CefString& old_url,
-                                  CefString& new_url) {}
-
-  ///
   // Called on the IO thread when the browser needs credentials from the user.
-  // |isProxy| indicates whether the host is a proxy server. |host| contains the
-  // hostname and |port| contains the port number. Return true to continue the
-  // request and call CefAuthCallback::Continue() when the authentication
-  // information is available. Return false to cancel the request.
+  // |origin_url| is the origin making this authentication request. |isProxy|
+  // indicates whether the host is a proxy server. |host| contains the hostname
+  // and |port| contains the port number. |realm| is the realm of the challenge
+  // and may be empty. |scheme| is the authentication scheme used, such as
+  // "basic" or "digest", and will be empty if the source of the request is an
+  // FTP server. Return true to continue the request and call
+  // CefAuthCallback::Continue() either in this method or at a later time when
+  // the authentication information is available. Return false to cancel the
+  // request immediately.
   ///
-  /*--cef(optional_param=realm)--*/
+  /*--cef(optional_param=realm,optional_param=scheme)--*/
   virtual bool GetAuthCredentials(CefRefPtr<CefBrowser> browser,
-                                  CefRefPtr<CefFrame> frame,
+                                  const CefString& origin_url,
                                   bool isProxy,
                                   const CefString& host,
                                   int port,
@@ -172,58 +176,55 @@ class CefRequestHandler : public virtual CefBase {
   // Called on the IO thread when JavaScript requests a specific storage quota
   // size via the webkitStorageInfo.requestQuota function. |origin_url| is the
   // origin of the page making the request. |new_size| is the requested quota
-  // size in bytes. Return true and call CefQuotaCallback::Continue() either in
-  // this method or at a later time to grant or deny the request. Return false
-  // to cancel the request.
+  // size in bytes. Return true to continue the request and call
+  // CefRequestCallback::Continue() either in this method or at a later time to
+  // grant or deny the request. Return false to cancel the request immediately.
   ///
   /*--cef()--*/
   virtual bool OnQuotaRequest(CefRefPtr<CefBrowser> browser,
                               const CefString& origin_url,
                               int64 new_size,
-                              CefRefPtr<CefQuotaCallback> callback) {
+                              CefRefPtr<CefRequestCallback> callback) {
     return false;
   }
-
-  ///
-  // Called on the UI thread to handle requests for URLs with an unknown
-  // protocol component. Set |allow_os_execution| to true to attempt execution
-  // via the registered OS protocol handler, if any.
-  // SECURITY WARNING: YOU SHOULD USE THIS METHOD TO ENFORCE RESTRICTIONS BASED
-  // ON SCHEME, HOST OR OTHER URL ANALYSIS BEFORE ALLOWING OS EXECUTION.
-  ///
-  /*--cef()--*/
-  virtual void OnProtocolExecution(CefRefPtr<CefBrowser> browser,
-                                   const CefString& url,
-                                   bool& allow_os_execution) {}
 
   ///
   // Called on the UI thread to handle requests for URLs with an invalid
-  // SSL certificate. Return true and call CefAllowCertificateErrorCallback::
-  // Continue() either in this method or at a later time to continue or cancel
-  // the request. Return false to cancel the request immediately. If |callback|
-  // is empty the error cannot be recovered from and the request will be
-  // canceled automatically. If CefSettings.ignore_certificate_errors is set
-  // all invalid certificates will be accepted without calling this method.
+  // SSL certificate. Return true and call CefRequestCallback::Continue() either
+  // in this method or at a later time to continue or cancel the request. Return
+  // false to cancel the request immediately. If
+  // CefSettings.ignore_certificate_errors is set all invalid certificates will
+  // be accepted without calling this method.
   ///
   /*--cef()--*/
-  virtual bool OnCertificateError(
-      CefRefPtr<CefBrowser> browser,
-      cef_errorcode_t cert_error,
-      const CefString& request_url,
-      CefRefPtr<CefSSLInfo> ssl_info,
-      CefRefPtr<CefAllowCertificateErrorCallback> callback) {
+  virtual bool OnCertificateError(CefRefPtr<CefBrowser> browser,
+                                  cef_errorcode_t cert_error,
+                                  const CefString& request_url,
+                                  CefRefPtr<CefSSLInfo> ssl_info,
+                                  CefRefPtr<CefRequestCallback> callback) {
     return false;
   }
 
   ///
-  // Called on the browser process IO thread before a plugin is loaded. Return
-  // true to block loading of the plugin.
+  // Called on the UI thread when a client certificate is being requested for
+  // authentication. Return false to use the default behavior and automatically
+  // select the first certificate available. Return true and call
+  // CefSelectClientCertificateCallback::Select either in this method or at a
+  // later time to select a certificate. Do not call Select or call it with NULL
+  // to continue without using any certificate. |isProxy| indicates whether the
+  // host is an HTTPS proxy or the origin server. |host| and |port| contains the
+  // hostname and port of the SSL server. |certificates| is the list of
+  // certificates to choose from; this list has already been pruned by Chromium
+  // so that it only contains certificates from issuers that the server trusts.
   ///
-  /*--cef(optional_param=url,optional_param=policy_url)--*/
-  virtual bool OnBeforePluginLoad(CefRefPtr<CefBrowser> browser,
-                                  const CefString& url,
-                                  const CefString& policy_url,
-                                  CefRefPtr<CefWebPluginInfo> info) {
+  /*--cef()--*/
+  virtual bool OnSelectClientCertificate(
+      CefRefPtr<CefBrowser> browser,
+      bool isProxy,
+      const CefString& host,
+      int port,
+      const X509CertificateList& certificates,
+      CefRefPtr<CefSelectClientCertificateCallback> callback) {
     return false;
   }
 
@@ -234,6 +235,14 @@ class CefRequestHandler : public virtual CefBase {
   /*--cef()--*/
   virtual void OnPluginCrashed(CefRefPtr<CefBrowser> browser,
                                const CefString& plugin_path) {}
+
+  ///
+  // Called on the browser process UI thread when the render view associated
+  // with |browser| is ready to receive/handle IPC messages in the render
+  // process.
+  ///
+  /*--cef()--*/
+  virtual void OnRenderViewReady(CefRefPtr<CefBrowser> browser) {}
 
   ///
   // Called on the browser process UI thread when the render process

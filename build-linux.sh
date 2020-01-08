@@ -12,19 +12,19 @@ g++ -c ../CEF3SimpleSample/Independente/*.cpp \
 	-I ../CEF3SimpleSample/Independente \
 	-I ../CEF3SimpleSample/CEF/Linux \
 	-I ../CEF3SimpleSample/CEF/Linux/include \
-	`pkg-config --cflags --libs gtk+-2.0`
+	`pkg-config --cflags --libs gtk+-3.0`
 
 echo "Building CEF3SimpleSample::Linux"
 g++ -c ../CEF3SimpleSample/Linux/*.cpp \
 	-I ../CEF3SimpleSample/Independente \
 	-I ../CEF3SimpleSample/CEF/Linux \
 	-I ../CEF3SimpleSample/CEF/Linux/include \
-	`pkg-config --cflags --libs gtk+-2.0`
+	`pkg-config --cflags --libs gtk+-3.0`
 
 echo "Linking..."
 g++ *.o \
 	-o CEF3SimpleSample \
-	`pkg-config --cflags --libs gtk+-2.0` \
+	`pkg-config --cflags --libs gtk+-3.0` \
 	-L ../CEF3SimpleSample/CEF/Linux/lib \
 	-ldl \
 	-lcef_dll_wrapper \

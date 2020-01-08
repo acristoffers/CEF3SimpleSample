@@ -1,4 +1,4 @@
-// Copyright (c) 2015 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,6 +33,8 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
+// $hash=78022908355fbf836799545e67ce2e4663b85fdf$
+//
 
 #ifndef CEF_INCLUDE_CAPI_CEF_DRAG_HANDLER_CAPI_H_
 #define CEF_INCLUDE_CAPI_CEF_DRAG_HANDLER_CAPI_H_
@@ -41,11 +43,11 @@
 #include "include/capi/cef_base_capi.h"
 #include "include/capi/cef_browser_capi.h"
 #include "include/capi/cef_drag_data_capi.h"
+#include "include/capi/cef_frame_capi.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
-
 
 ///
 // Implement this structure to handle events related to dragging. The functions
@@ -55,7 +57,7 @@ typedef struct _cef_drag_handler_t {
   ///
   // Base structure.
   ///
-  cef_base_t base;
+  cef_base_ref_counted_t base;
 
   ///
   // Called when an external drag event enters the browser window. |dragData|
@@ -63,11 +65,25 @@ typedef struct _cef_drag_handler_t {
   // operation. Return false (0) for default drag handling behavior or true (1)
   // to cancel the drag event.
   ///
-  int (CEF_CALLBACK *on_drag_enter)(struct _cef_drag_handler_t* self,
-      struct _cef_browser_t* browser, struct _cef_drag_data_t* dragData,
-      cef_drag_operations_mask_t mask);
-} cef_drag_handler_t;
+  int(CEF_CALLBACK* on_drag_enter)(struct _cef_drag_handler_t* self,
+                                   struct _cef_browser_t* browser,
+                                   struct _cef_drag_data_t* dragData,
+                                   cef_drag_operations_mask_t mask);
 
+  ///
+  // Called whenever draggable regions for the browser window change. These can
+  // be specified using the '-webkit-app-region: drag/no-drag' CSS-property. If
+  // draggable regions are never defined in a document this function will also
+  // never be called. If the last draggable region is removed from a document
+  // this function will be called with an NULL vector.
+  ///
+  void(CEF_CALLBACK* on_draggable_regions_changed)(
+      struct _cef_drag_handler_t* self,
+      struct _cef_browser_t* browser,
+      struct _cef_frame_t* frame,
+      size_t regionsCount,
+      cef_draggable_region_t const* regions);
+} cef_drag_handler_t;
 
 #ifdef __cplusplus
 }
