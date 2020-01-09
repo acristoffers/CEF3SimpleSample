@@ -8,7 +8,7 @@ Lib folders
 -----------
 
 The lib folders containing CEF binaries were removed from the repository because
-GitHub does not allow files bigger than 100MB, and some of them are. The are
+GitHub does not allow files bigger than 100MB, and some of them are. They are
 available as a [Release in GitHub](https://github.com/acristoffers/CEF3SimpleSample/releases). 
 
 Download and unpack in CEF3SimpleSample/CEF/Linux/, CEF3SimpleSample/CEF/Mac/ or
