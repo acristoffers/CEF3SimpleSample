@@ -189,3 +189,5 @@ Release/
 *.autosave
 
 *.xcuserstate
+.clangd
+CEF3SimpleSample/CEF/**/*
