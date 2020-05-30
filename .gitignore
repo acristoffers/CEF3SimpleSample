@@ -191,3 +191,4 @@ Release/
 *.xcuserstate
 .clangd
 CEF3SimpleSample/CEF/**/*
+compile_commands.json
