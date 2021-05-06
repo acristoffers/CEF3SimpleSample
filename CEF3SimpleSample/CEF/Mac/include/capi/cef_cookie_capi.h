@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2021 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,7 +33,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=c18e084ad06a04096b1ce50e488cf2276211a66c$
+// $hash=b19ef1c8a781f8d59276357609fe64370bb8a107$
 //
 
 #ifndef CEF_INCLUDE_CAPI_CEF_COOKIE_CAPI_H_
@@ -60,21 +60,6 @@ typedef struct _cef_cookie_manager_t {
   // Base structure.
   ///
   cef_base_ref_counted_t base;
-
-  ///
-  // Set the schemes supported by this manager. If |include_defaults| is true
-  // (1) the default schemes ("http", "https", "ws" and "wss") will also be
-  // supported. Calling this function with an NULL |schemes| value and
-  // |include_defaults| set to false (0) will disable all loading and saving of
-  // cookies for this manager. If |callback| is non-NULL it will be executed
-  // asnychronously on the UI thread after the change has been applied. Must be
-  // called before any cookies are accessed.
-  ///
-  void(CEF_CALLBACK* set_supported_schemes)(
-      struct _cef_cookie_manager_t* self,
-      cef_string_list_t schemes,
-      int include_defaults,
-      struct _cef_completion_callback_t* callback);
 
   ///
   // Visit all cookies on the UI thread. The returned cookies are ordered by
@@ -141,8 +126,8 @@ typedef struct _cef_cookie_manager_t {
 // CefSettings.cache_path if specified or in memory otherwise. If |callback| is
 // non-NULL it will be executed asnychronously on the UI thread after the
 // manager's storage has been initialized. Using this function is equivalent to
-// calling cef_request_tContext::cef_request_context_get_global_context()->GetDe
-// faultCookieManager().
+// calling cef_request_context_t::cef_request_context_get_global_context()->GetD
+// efaultCookieManager().
 ///
 CEF_EXPORT cef_cookie_manager_t* cef_cookie_manager_get_global_manager(
     struct _cef_completion_callback_t* callback);

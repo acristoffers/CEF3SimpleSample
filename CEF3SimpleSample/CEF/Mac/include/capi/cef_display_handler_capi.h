@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2021 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,7 +33,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=951c936c8070dbf9bd246cc766b81cdfe06a3d81$
+// $hash=067fd169a30bec1ad8eeacc5ab1ac750cf59640e$
 //
 
 #ifndef CEF_INCLUDE_CAPI_CEF_DISPLAY_HANDLER_CAPI_H_
@@ -141,6 +141,19 @@ typedef struct _cef_display_handler_t {
       struct _cef_display_handler_t* self,
       struct _cef_browser_t* browser,
       double progress);
+
+  ///
+  // Called when the browser's cursor has changed. If |type| is CT_CUSTOM then
+  // |custom_cursor_info| will be populated with the custom cursor information.
+  // Return true (1) if the cursor change was handled or false (0) for default
+  // handling.
+  ///
+  int(CEF_CALLBACK* on_cursor_change)(
+      struct _cef_display_handler_t* self,
+      struct _cef_browser_t* browser,
+      cef_cursor_handle_t cursor,
+      cef_cursor_type_t type,
+      const struct _cef_cursor_info_t* custom_cursor_info);
 } cef_display_handler_t;
 
 #ifdef __cplusplus

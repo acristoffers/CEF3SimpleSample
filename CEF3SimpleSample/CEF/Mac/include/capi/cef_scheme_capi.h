@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2021 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,7 +33,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=324e2fd030633115fb8f788da1d07496821a6f58$
+// $hash=9384e0b2bc27ccbdd7ebb1a86f213c28fd2784a1$
 //
 
 #ifndef CEF_INCLUDE_CAPI_CEF_SCHEME_CAPI_H_
@@ -115,9 +115,9 @@ typedef struct _cef_scheme_handler_factory_t {
 // function may be called multiple times to change or remove the factory that
 // matches the specified |scheme_name| and optional |domain_name|. Returns false
 // (0) if an error occurs. This function may be called on any thread in the
-// browser process. Using this function is equivalent to calling cef_request_tCo
-// ntext::cef_request_context_get_global_context()->register_scheme_handler_fact
-// ory().
+// browser process. Using this function is equivalent to calling cef_request_con
+// text_t::cef_request_context_get_global_context()->register_scheme_handler_fac
+// tory().
 ///
 CEF_EXPORT int cef_register_scheme_handler_factory(
     const cef_string_t* scheme_name,
@@ -128,8 +128,8 @@ CEF_EXPORT int cef_register_scheme_handler_factory(
 // Clear all scheme handler factories registered with the global request
 // context. Returns false (0) on error. This function may be called on any
 // thread in the browser process. Using this function is equivalent to calling c
-// ef_request_tContext::cef_request_context_get_global_context()->clear_scheme_h
-// andler_factories().
+// ef_request_context_t::cef_request_context_get_global_context()->clear_scheme_
+// handler_factories().
 ///
 CEF_EXPORT int cef_clear_scheme_handler_factories();
 

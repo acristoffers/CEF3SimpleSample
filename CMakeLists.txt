@@ -10,7 +10,7 @@ if(APPLE)
     find_library(COCOA_LIBRARY Cocoa)
     file(GLOB SRC_FILES CONFIGURE_DEPENDS
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Mac/*.mm"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente/*.cpp"
+        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform/*.cpp"
     )
     add_executable(MainExecutable MACOSX_BUNDLE ${SRC_FILES})
     target_compile_features(MainExecutable PRIVATE cxx_range_for)
@@ -23,7 +23,7 @@ if(APPLE)
     target_include_directories(MainExecutable PUBLIC
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac"
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac/include"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente"
+        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform"
     )
     set(EXECUTABLE_NAME ${APP_NAME})
     set(PRODUCT_NAME ${APP_NAME})
@@ -49,7 +49,7 @@ if(APPLE)
         TARGET MainExecutable
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-                "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente/html"
+                "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform/html"
                 "${PROJECT_BINARY_DIR}/${APP_NAME}.app/Contents/Resources/html"
         VERBATIM
     )
@@ -57,7 +57,7 @@ if(APPLE)
     file(GLOB SRC_FILES CONFIGURE_DEPENDS
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Mac/AppDelegate.mm"
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Mac/Helper Process Main.cpp"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente/*.cpp"
+        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform/*.cpp"
     )
     set(HELPER_NAME "HelperApp")
     add_executable(${HELPER_NAME} MACOSX_BUNDLE ${SRC_FILES})
@@ -71,7 +71,7 @@ if(APPLE)
     target_include_directories(${HELPER_NAME} PUBLIC
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac"
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac/include"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente"
+        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform"
     )
     set_target_properties(${HELPER_NAME} PROPERTIES
         MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/${APP_FOLDER_NAME}/Mac/CEF3SimpleSampleHelper-Info.plist"
@@ -98,7 +98,7 @@ if(APPLE)
     foreach(suffix ${HELPER_SUFFIXES})
         file(GLOB SRC_FILES CONFIGURE_DEPENDS
             "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Mac/Helper Process Main.cpp"
-            "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente/*.cpp"
+            "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform/*.cpp"
         )
         set(HELPER_NAME "${suffix}HelperApp")
         add_executable(${HELPER_NAME} MACOSX_BUNDLE ${SRC_FILES})
@@ -112,7 +112,7 @@ if(APPLE)
         target_include_directories(${HELPER_NAME} PUBLIC
             "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac"
             "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac/include"
-            "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente"
+            "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform"
         )
         set_target_properties(${HELPER_NAME} PROPERTIES
             MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/${APP_FOLDER_NAME}/Mac/CEF3SimpleSampleHelper-Info.plist"
@@ -139,7 +139,7 @@ if(APPLE)
 elseif(WIN32)
     file(GLOB SRC_FILES CONFIGURE_DEPENDS
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Win/main.cpp"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente/*.cpp"
+        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform/*.cpp"
     )
     add_executable(MainExecutable WIN32 ${SRC_FILES})
     target_compile_features(MainExecutable PRIVATE cxx_range_for)
@@ -153,7 +153,7 @@ elseif(WIN32)
         ${GTK3_INCLUDE_DIRS}
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Win"
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Win/include"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente"
+        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform"
     )
     set(EXECUTABLE_NAME ${APP_NAME})
     set(PRODUCT_NAME ${APP_NAME})
@@ -162,7 +162,7 @@ elseif(WIN32)
         TARGET MainExecutable
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-                "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente/html"
+                "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform/html"
                 "${PROJECT_BINARY_DIR}/bin/html"
         VERBATIM
     )
@@ -195,7 +195,7 @@ else()
     pkg_check_modules(GTK3 REQUIRED gtk+-3.0)
     file(GLOB SRC_FILES CONFIGURE_DEPENDS
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Linux/main.cpp"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente/*.cpp"
+        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform/*.cpp"
     )
     add_executable(MainExecutable ${SRC_FILES})
     target_compile_options(MainExecutable PUBLIC ${GTK3_CFLAGS_OTHER})
@@ -210,7 +210,7 @@ else()
         ${GTK3_INCLUDE_DIRS}
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Linux"
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Linux/include"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente"
+        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform"
     )
     set(EXECUTABLE_NAME ${APP_NAME})
     set(PRODUCT_NAME ${APP_NAME})
@@ -219,7 +219,7 @@ else()
         TARGET MainExecutable
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-                "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Independente/html"
+                "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform/html"
                 "${PROJECT_BINARY_DIR}/bin/html"
         VERBATIM
     )

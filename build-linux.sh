@@ -7,16 +7,16 @@ touch build/touched # for silencing the next line, in case the folder was just c
 rm -r build/*
 cd build
 
-echo "Building CEF3SimpleSample::Independente"
-g++ -c ../CEF3SimpleSample/Independente/*.cpp \
-	-I ../CEF3SimpleSample/Independente \
+echo "Building CEF3SimpleSample::CrossPlatform"
+g++ -c ../CEF3SimpleSample/CrossPlatform/*.cpp \
+	-I ../CEF3SimpleSample/CrossPlatform \
 	-I ../CEF3SimpleSample/CEF/Linux \
 	-I ../CEF3SimpleSample/CEF/Linux/include \
 	`pkg-config --cflags --libs gtk+-3.0`
 
 echo "Building CEF3SimpleSample::Linux"
 g++ -c ../CEF3SimpleSample/Linux/*.cpp \
-	-I ../CEF3SimpleSample/Independente \
+	-I ../CEF3SimpleSample/CrossPlatform \
 	-I ../CEF3SimpleSample/CEF/Linux \
 	-I ../CEF3SimpleSample/CEF/Linux/include \
 	`pkg-config --cflags --libs gtk+-3.0`
@@ -37,7 +37,7 @@ mkdir bin
 mv CEF3SimpleSample bin/
 cp -r ../CEF3SimpleSample/CEF/Linux/Resources/* bin/
 cp -r ../CEF3SimpleSample/CEF/Linux/lib/*.so bin/
-cp -r ../CEF3SimpleSample/Independente/html bin/html
+cp -r ../CEF3SimpleSample/CrossPlatform/html bin/html
 mv bin ..
 cd ..
 rm -r build

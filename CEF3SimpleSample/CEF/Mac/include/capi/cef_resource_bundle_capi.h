@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2021 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,7 +33,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=a2203cb5bfab20cd4128a11557915c22f21033b8$
+// $hash=ffe0de3b50e0a612bd1b055b873c265b030e721d$
 //
 
 #ifndef CEF_INCLUDE_CAPI_CEF_RESOURCE_BUNDLE_CAPI_H_
@@ -41,6 +41,7 @@
 #pragma once
 
 #include "include/capi/cef_base_capi.h"
+#include "include/capi/cef_values_capi.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -48,7 +49,7 @@ extern "C" {
 
 ///
 // Structure used for retrieving resources from the resource bundle (*.pak)
-// files loaded by CEF during startup or via the cef_resource_bundle_tHandler
+// files loaded by CEF during startup or via the cef_resource_bundle_handler_t
 // returned from cef_app_t::GetResourceBundleHandler. See CefSettings for
 // additional options related to resource bundle loading. The functions of this
 // structure may be called on any thread unless otherwise indicated.
@@ -70,34 +71,25 @@ typedef struct _cef_resource_bundle_t {
       int string_id);
 
   ///
-  // Retrieves the contents of the specified scale independent |resource_id|. If
-  // the value is found then |data| and |data_size| will be populated and this
-  // function will return true (1). If the value is not found then this function
-  // will return false (0). The returned |data| pointer will remain resident in
-  // memory and should not be freed. Include cef_pack_resources.h for a listing
-  // of valid resource ID values.
+  // Returns a cef_binary_value_t containing the decompressed contents of the
+  // specified scale independent |resource_id| or NULL if not found. Include
+  // cef_pack_resources.h for a listing of valid resource ID values.
   ///
-  int(CEF_CALLBACK* get_data_resource)(struct _cef_resource_bundle_t* self,
-                                       int resource_id,
-                                       void** data,
-                                       size_t* data_size);
+  struct _cef_binary_value_t*(CEF_CALLBACK* get_data_resource)(
+      struct _cef_resource_bundle_t* self,
+      int resource_id);
 
   ///
-  // Retrieves the contents of the specified |resource_id| nearest the scale
-  // factor |scale_factor|. Use a |scale_factor| value of SCALE_FACTOR_NONE for
-  // scale independent resources or call GetDataResource instead. If the value
-  // is found then |data| and |data_size| will be populated and this function
-  // will return true (1). If the value is not found then this function will
-  // return false (0). The returned |data| pointer will remain resident in
-  // memory and should not be freed. Include cef_pack_resources.h for a listing
-  // of valid resource ID values.
+  // Returns a cef_binary_value_t containing the decompressed contents of the
+  // specified |resource_id| nearest the scale factor |scale_factor| or NULL if
+  // not found. Use a |scale_factor| value of SCALE_FACTOR_NONE for scale
+  // independent resources or call GetDataResource instead.Include
+  // cef_pack_resources.h for a listing of valid resource ID values.
   ///
-  int(CEF_CALLBACK* get_data_resource_for_scale)(
+  struct _cef_binary_value_t*(CEF_CALLBACK* get_data_resource_for_scale)(
       struct _cef_resource_bundle_t* self,
       int resource_id,
-      cef_scale_factor_t scale_factor,
-      void** data,
-      size_t* data_size);
+      cef_scale_factor_t scale_factor);
 } cef_resource_bundle_t;
 
 ///

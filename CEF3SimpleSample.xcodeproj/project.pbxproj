@@ -156,8 +156,8 @@
 
 /* Begin PBXFileReference section */
 		E73EAEBF17D5284F00DC9A30 /* CEF3SimpleSampleHelper-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "CEF3SimpleSampleHelper-Info.plist"; path = "Mac/CEF3SimpleSampleHelper-Info.plist"; sourceTree = "<group>"; };
-		E73EAEC717D5496100DC9A30 /* ClientV8ExtensionHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClientV8ExtensionHandler.cpp; path = Independente/ClientV8ExtensionHandler.cpp; sourceTree = "<group>"; };
-		E73EAEC817D5496100DC9A30 /* ClientV8ExtensionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientV8ExtensionHandler.h; path = Independente/ClientV8ExtensionHandler.h; sourceTree = "<group>"; };
+		E73EAEC717D5496100DC9A30 /* ClientV8ExtensionHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClientV8ExtensionHandler.cpp; path = CrossPlatform/ClientV8ExtensionHandler.cpp; sourceTree = "<group>"; };
+		E73EAEC817D5496100DC9A30 /* ClientV8ExtensionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientV8ExtensionHandler.h; path = CrossPlatform/ClientV8ExtensionHandler.h; sourceTree = "<group>"; };
 		E76E32CE17DAA70E00E3AF5C /* Helper Process Main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = "Helper Process Main.cpp"; path = "Mac/Helper Process Main.cpp"; sourceTree = "<group>"; };
 		E77903D823C3EB10005B04E4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Mac/Resources/Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E77903F223C3FB9F005B04E4 /* CEF3 Simple Sample Helper (GPU).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEF3 Simple Sample Helper (GPU).app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,11 +176,11 @@
 		E79F38D417D4DE730081FCA7 /* CEF3SimpleSample-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "CEF3SimpleSample-Info.plist"; path = "Mac/CEF3SimpleSample-Info.plist"; sourceTree = "<group>"; };
 		E79F38DC17D4DE900081FCA7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Mac/Resources/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E79F38DF17D4DF770081FCA7 /* libcef_dll_wrapper.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libcef_dll_wrapper.a; path = CEF3SimpleSample/CEF/Mac/lib/libcef_dll_wrapper.a; sourceTree = "<group>"; };
-		E79F391E17D4E2EF0081FCA7 /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; name = html; path = CEF3SimpleSample/Independente/html; sourceTree = "<group>"; };
-		E79F39B817D4E58F0081FCA7 /* ClientApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClientApp.cpp; path = Independente/ClientApp.cpp; sourceTree = "<group>"; };
-		E79F39B917D4E58F0081FCA7 /* ClientApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientApp.h; path = Independente/ClientApp.h; sourceTree = "<group>"; };
-		E79F39BB17D4F5B30081FCA7 /* ClientHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClientHandler.cpp; path = Independente/ClientHandler.cpp; sourceTree = "<group>"; };
-		E79F39BC17D4F5B30081FCA7 /* ClientHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientHandler.h; path = Independente/ClientHandler.h; sourceTree = "<group>"; };
+		E79F391E17D4E2EF0081FCA7 /* html */ = {isa = PBXFileReference; lastKnownFileType = folder; name = html; path = CEF3SimpleSample/CrossPlatform/html; sourceTree = "<group>"; };
+		E79F39B817D4E58F0081FCA7 /* ClientApp.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClientApp.cpp; path = CrossPlatform/ClientApp.cpp; sourceTree = "<group>"; };
+		E79F39B917D4E58F0081FCA7 /* ClientApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientApp.h; path = CrossPlatform/ClientApp.h; sourceTree = "<group>"; };
+		E79F39BB17D4F5B30081FCA7 /* ClientHandler.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ClientHandler.cpp; path = CrossPlatform/ClientHandler.cpp; sourceTree = "<group>"; };
+		E79F39BC17D4F5B30081FCA7 /* ClientHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ClientHandler.h; path = CrossPlatform/ClientHandler.h; sourceTree = "<group>"; };
 		E79F3A2B17D4FDFB0081FCA7 /* CEF3 Simple Sample Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "CEF3 Simple Sample Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7A14E741AE01418005672E7 /* Chromium Embedded Framework.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Chromium Embedded Framework.framework"; path = "CEF3SimpleSample/CEF/Mac/lib/Chromium Embedded Framework.framework"; sourceTree = "<group>"; };
 /* End PBXFileReference section */

@@ -39,12 +39,12 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>CEF\Win;Independente;$(IncludePath)</IncludePath>
+    <IncludePath>CEF\Win;CrossPlatform;$(IncludePath)</IncludePath>
     <LibraryPath>CEF\Win\lib;$(LibraryPath)</LibraryPath>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>CEF\Win;Independente;$(IncludePath)</IncludePath>
+    <IncludePath>CEF\Win;CrossPlatform;$(IncludePath)</IncludePath>
     <LibraryPath>CEF\Win\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -65,7 +65,7 @@
       <Command>XCOPY /I /E /Y $(ProjectDir)CEF\Win\Resources\* "$(OutputPath)"
 XCOPY /I /E /Y "$(ProjectDir)CEF\Win\lib\*.dll" "$(OutputPath)"
 XCOPY /I /E /Y "$(ProjectDir)CEF\Win\lib\debug\*.dll" "$(OutputPath)"
-XCOPY /I /E /Y "$(ProjectDir)Independente\html" "$(OutputPath)html"</Command>
+XCOPY /I /E /Y "$(ProjectDir)CrossPlatform\html" "$(OutputPath)html"</Command>
       <Message>Copying Files</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
@@ -88,15 +88,15 @@ XCOPY /I /E /Y "$(ProjectDir)Independente\html" "$(OutputPath)html"</Command>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Independente\ClientApp.cpp" />
-    <ClCompile Include="Independente\ClientHandler.cpp" />
-    <ClCompile Include="Independente\ClientV8ExtensionHandler.cpp" />
+    <ClCompile Include="CrossPlatform\ClientApp.cpp" />
+    <ClCompile Include="CrossPlatform\ClientHandler.cpp" />
+    <ClCompile Include="CrossPlatform\ClientV8ExtensionHandler.cpp" />
     <ClCompile Include="Win\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Independente\ClientApp.h" />
-    <ClInclude Include="Independente\ClientHandler.h" />
-    <ClInclude Include="Independente\ClientV8ExtensionHandler.h" />
+    <ClInclude Include="CrossPlatform\ClientApp.h" />
+    <ClInclude Include="CrossPlatform\ClientHandler.h" />
+    <ClInclude Include="CrossPlatform\ClientV8ExtensionHandler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

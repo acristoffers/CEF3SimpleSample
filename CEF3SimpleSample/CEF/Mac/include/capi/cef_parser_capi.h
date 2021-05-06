@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2021 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,7 +33,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=3bc4225f43428d8a3a24dcac1830dafac18b0caf$
+// $hash=84149324b177c47287b935dcb3d5900a33acfdf5$
 //
 
 #ifndef CEF_INCLUDE_CAPI_CEF_PARSER_CAPI_H_
@@ -141,15 +141,23 @@ CEF_EXPORT struct _cef_value_t* cef_parse_json(
     cef_json_parser_options_t options);
 
 ///
+// Parses the specified UTF8-encoded |json| buffer of size |json_size| and
+// returns a dictionary or list representation. If JSON parsing fails this
+// function returns NULL.
+///
+CEF_EXPORT struct _cef_value_t* cef_parse_json_buffer(
+    const void* json,
+    size_t json_size,
+    cef_json_parser_options_t options);
+
+///
 // Parses the specified |json_string| and returns a dictionary or list
 // representation. If JSON parsing fails this function returns NULL and
-// populates |error_code_out| and |error_msg_out| with an error code and a
-// formatted error message respectively.
+// populates |error_msg_out| with a formatted error message.
 ///
 CEF_EXPORT struct _cef_value_t* cef_parse_jsonand_return_error(
     const cef_string_t* json_string,
     cef_json_parser_options_t options,
-    cef_json_parser_error_t* error_code_out,
     cef_string_t* error_msg_out);
 
 ///

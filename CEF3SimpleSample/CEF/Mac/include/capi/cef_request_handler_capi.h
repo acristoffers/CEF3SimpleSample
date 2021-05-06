@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2021 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,7 +33,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=f0543a081b43ad33a0e02bdf8b59207d4352ef36$
+// $hash=1d8b3f540a8305ce1738c5fe7c716434062c67b0$
 //
 
 #ifndef CEF_INCLUDE_CAPI_CEF_REQUEST_HANDLER_CAPI_H_
@@ -138,8 +138,8 @@ typedef struct _cef_request_handler_t {
   // be canceled. To allow the resource load to proceed with default handling
   // return NULL. To specify a handler for the resource return a
   // cef_resource_request_handler_t object. If this callback returns NULL the
-  // same function will be called on the associated cef_request_tContextHandler,
-  // if any.
+  // same function will be called on the associated
+  // cef_request_context_handler_t, if any.
   ///
   struct _cef_resource_request_handler_t*(
       CEF_CALLBACK* get_resource_request_handler)(
@@ -180,8 +180,8 @@ typedef struct _cef_request_handler_t {
   // size via the webkitStorageInfo.requestQuota function. |origin_url| is the
   // origin of the page making the request. |new_size| is the requested quota
   // size in bytes. Return true (1) to continue the request and call
-  // cef_request_tCallback::cont() either in this function or at a later time to
-  // grant or deny the request. Return false (0) to cancel the request
+  // cef_request_callback_t::cont() either in this function or at a later time
+  // to grant or deny the request. Return false (0) to cancel the request
   // immediately.
   ///
   int(CEF_CALLBACK* on_quota_request)(struct _cef_request_handler_t* self,
@@ -192,7 +192,7 @@ typedef struct _cef_request_handler_t {
 
   ///
   // Called on the UI thread to handle requests for URLs with an invalid SSL
-  // certificate. Return true (1) and call cef_request_tCallback::cont() either
+  // certificate. Return true (1) and call cef_request_callback_t::cont() either
   // in this function or at a later time to continue or cancel the request.
   // Return false (0) to cancel the request immediately. If
   // CefSettings.ignore_certificate_errors is set all invalid certificates will
@@ -253,6 +253,14 @@ typedef struct _cef_request_handler_t {
       struct _cef_request_handler_t* self,
       struct _cef_browser_t* browser,
       cef_termination_status_t status);
+
+  ///
+  // Called on the browser process UI thread when the window.document object of
+  // the main frame has been created.
+  ///
+  void(CEF_CALLBACK* on_document_available_in_main_frame)(
+      struct _cef_request_handler_t* self,
+      struct _cef_browser_t* browser);
 } cef_request_handler_t;
 
 #ifdef __cplusplus

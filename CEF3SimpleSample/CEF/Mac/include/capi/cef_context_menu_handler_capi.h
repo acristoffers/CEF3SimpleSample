@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2021 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,7 +33,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=fcb0328c54e5f629c24bfd232d75c31c372ab6ac$
+// $hash=175779df75a1405fcc5c337a09e6322c556698ba$
 //
 
 #ifndef CEF_INCLUDE_CAPI_CEF_CONTEXT_MENU_HANDLER_CAPI_H_
@@ -294,11 +294,6 @@ typedef struct _cef_context_menu_params_t {
   // items).
   ///
   int(CEF_CALLBACK* is_custom_menu)(struct _cef_context_menu_params_t* self);
-
-  ///
-  // Returns true (1) if the context menu was invoked from a pepper plugin.
-  ///
-  int(CEF_CALLBACK* is_pepper_menu)(struct _cef_context_menu_params_t* self);
 } cef_context_menu_params_t;
 
 #ifdef __cplusplus
