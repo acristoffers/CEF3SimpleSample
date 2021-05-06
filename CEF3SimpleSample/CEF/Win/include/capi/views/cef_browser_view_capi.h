@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2021 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,7 +33,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=3ac114f5bd9aa0e6d62e7540e9205adce485a09d$
+// $hash=3e4eb9ed3a0cb28ae0459a50f20c8405c7722437$
 //
 
 #ifndef CEF_INCLUDE_CAPI_VIEWS_CEF_BROWSER_VIEW_CAPI_H_
@@ -63,6 +63,17 @@ typedef struct _cef_browser_view_t {
   // the browser has not yet been created or has already been destroyed.
   ///
   struct _cef_browser_t*(CEF_CALLBACK* get_browser)(
+      struct _cef_browser_view_t* self);
+
+  ///
+  // Returns the Chrome toolbar associated with this BrowserView. Only supported
+  // when using the Chrome runtime. The cef_browser_view_delegate_t::
+  // get_chrome_toolbar_type() function must return a value other than
+  // CEF_CTT_NONE and the toolbar will not be available until after this
+  // BrowserView is added to a cef_window_t and
+  // cef_view_delegate_t::on_window_changed() has been called.
+  ///
+  struct _cef_view_t*(CEF_CALLBACK* get_chrome_toolbar)(
       struct _cef_browser_view_t* self);
 
   ///

@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2021 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,7 +33,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=1f462f42bf69d259b876c1ad8245a3e0484b3804$
+// $hash=9a471c97e43ad3d1d042ba3dc6d887f2f4b0d851$
 //
 
 #ifndef CEF_INCLUDE_CAPI_CEF_THREAD_CAPI_H_
@@ -49,7 +49,7 @@ extern "C" {
 
 ///
 // A simple thread abstraction that establishes a message loop on a new thread.
-// The consumer uses cef_task_tRunner to execute code on the thread's message
+// The consumer uses cef_task_runner_t to execute code on the thread's message
 // loop. The thread is terminated when the cef_thread_t object is destroyed or
 // stop() is called. All pending tasks queued on the thread's message loop will
 // run to completion before the thread is terminated. cef_thread_create() can be
@@ -65,7 +65,7 @@ typedef struct _cef_thread_t {
   cef_base_ref_counted_t base;
 
   ///
-  // Returns the cef_task_tRunner that will execute code on this thread's
+  // Returns the cef_task_runner_t that will execute code on this thread's
   // message loop. This function is safe to call from any thread.
   ///
   struct _cef_task_runner_t*(CEF_CALLBACK* get_task_runner)(
@@ -98,8 +98,8 @@ typedef struct _cef_thread_t {
 // identify the thread. |priority| is the thread execution priority.
 // |message_loop_type| indicates the set of asynchronous events that the thread
 // can process. If |stoppable| is true (1) the thread will stopped and joined on
-// destruction or when stop() is called; otherwise, the the thread cannot be
-// stopped and will be leaked on shutdown. On Windows the |com_init_mode| value
+// destruction or when stop() is called; otherwise, the thread cannot be stopped
+// and will be leaked on shutdown. On Windows the |com_init_mode| value
 // specifies how COM will be initialized for the thread. If |com_init_mode| is
 // set to COM_INIT_MODE_STA then |message_loop_type| must be set to ML_TYPE_UI.
 ///

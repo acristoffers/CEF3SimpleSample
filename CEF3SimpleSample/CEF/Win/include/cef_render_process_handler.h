@@ -58,15 +58,6 @@ class CefRenderProcessHandler : public virtual CefBaseRefCounted {
   typedef cef_navigation_type_t NavigationType;
 
   ///
-  // Called after the render process main thread has been created. |extra_info|
-  // is a read-only value originating from
-  // CefBrowserProcessHandler::OnRenderProcessThreadCreated(). Do not keep a
-  // reference to |extra_info| outside of this method.
-  ///
-  /*--cef()--*/
-  virtual void OnRenderThreadCreated(CefRefPtr<CefListValue> extra_info) {}
-
-  ///
   // Called after WebKit has been initialized.
   ///
   /*--cef()--*/
@@ -93,7 +84,7 @@ class CefRenderProcessHandler : public virtual CefBaseRefCounted {
   // Return the handler for browser load status events.
   ///
   /*--cef()--*/
-  virtual CefRefPtr<CefLoadHandler> GetLoadHandler() { return NULL; }
+  virtual CefRefPtr<CefLoadHandler> GetLoadHandler() { return nullptr; }
 
   ///
   // Called immediately after the V8 context for a frame has been created. To

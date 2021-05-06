@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2021 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,7 +33,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=72d10c0974ced675d89aa54db60de845978f6319$
+// $hash=74c1ec16b0fd36657bc6227e19ff529a9e9e7afa$
 //
 
 #ifndef CEF_INCLUDE_CAPI_VIEWS_CEF_SCROLL_VIEW_CAPI_H_
@@ -59,7 +59,7 @@ typedef struct _cef_scroll_view_t {
 
   ///
   // Set the content View. The content View must have a specified size (e.g. via
-  // cef_view_t::SetBounds or cef_view_tDelegate::GetPreferredSize).
+  // cef_view_t::SetBounds or cef_view_delegate_t::GetPreferredSize).
   ///
   void(CEF_CALLBACK* set_content_view)(struct _cef_scroll_view_t* self,
                                        struct _cef_view_t* view);
