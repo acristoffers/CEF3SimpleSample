@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.10)
 project(CEF3SimpleSample VERSION 1.0)
 
-set(APP_NAME "CEF3 Simple Sample")
+set(APP_NAME "CEF3SimpleSample")
 set(APP_FOLDER_NAME "CEF3SimpleSample")
 
 if(APPLE)
@@ -221,14 +221,6 @@ else()
         COMMAND ${CMAKE_COMMAND} -E copy_directory
                 "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform/html"
                 "${PROJECT_BINARY_DIR}/bin/html"
-        VERBATIM
-    )
-    add_custom_command(
-        TARGET MainExecutable
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-                "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Linux/Resources"
-                "${PROJECT_BINARY_DIR}/bin"
         VERBATIM
     )
     add_custom_command(

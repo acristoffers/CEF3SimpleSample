@@ -44,6 +44,7 @@
 #include "include/cef_cookie.h"
 #include "include/cef_extension.h"
 #include "include/cef_extension_handler.h"
+#include "include/cef_media_router.h"
 #include "include/cef_values.h"
 
 class CefRequestContextHandler;
@@ -145,7 +146,7 @@ class CefRequestContext : public virtual CefBaseRefCounted {
 
   ///
   // Returns the cookie manager for this object. If |callback| is non-NULL it
-  // will be executed asnychronously on the IO thread after the manager's
+  // will be executed asnychronously on the UI thread after the manager's
   // storage has been initialized.
   ///
   /*--cef(optional_param=callback)--*/
@@ -361,6 +362,15 @@ class CefRequestContext : public virtual CefBaseRefCounted {
   /*--cef()--*/
   virtual CefRefPtr<CefExtension> GetExtension(
       const CefString& extension_id) = 0;
+
+  ///
+  // Returns the MediaRouter object associated with this context.  If |callback|
+  // is non-NULL it will be executed asnychronously on the UI thread after the
+  // manager's context has been initialized.
+  ///
+  /*--cef(optional_param=callback)--*/
+  virtual CefRefPtr<CefMediaRouter> GetMediaRouter(
+      CefRefPtr<CefCompletionCallback> callback) = 0;
 };
 
 #endif  // CEF_INCLUDE_CEF_REQUEST_CONTEXT_H_

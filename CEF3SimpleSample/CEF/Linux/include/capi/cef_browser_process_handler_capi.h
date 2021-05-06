@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2021 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,7 +33,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=b15ba2c750f5227b6b40fea59965817ba4431ee0$
+// $hash=ade537f836add7fe0b5fd94ceba26d678abb3e43$
 //
 
 #ifndef CEF_INCLUDE_CAPI_CEF_BROWSER_PROCESS_HANDLER_CAPI_H_
@@ -41,8 +41,8 @@
 #pragma once
 
 #include "include/capi/cef_base_capi.h"
+#include "include/capi/cef_client_capi.h"
 #include "include/capi/cef_command_line_capi.h"
-#include "include/capi/cef_print_handler_capi.h"
 #include "include/capi/cef_values_capi.h"
 
 #ifdef __cplusplus
@@ -79,24 +79,6 @@ typedef struct _cef_browser_process_handler_t {
       struct _cef_command_line_t* command_line);
 
   ///
-  // Called on the browser process IO thread after the main thread has been
-  // created for a new render process. Provides an opportunity to specify extra
-  // information that will be passed to
-  // cef_render_process_handler_t::on_render_thread_created() in the render
-  // process. Do not keep a reference to |extra_info| outside of this function.
-  ///
-  void(CEF_CALLBACK* on_render_process_thread_created)(
-      struct _cef_browser_process_handler_t* self,
-      struct _cef_list_value_t* extra_info);
-
-  ///
-  // Return the handler for printing on Linux. If a print handler is not
-  // provided then printing will not be supported on the Linux platform.
-  ///
-  struct _cef_print_handler_t*(CEF_CALLBACK* get_print_handler)(
-      struct _cef_browser_process_handler_t* self);
-
-  ///
   // Called from any thread when work has been scheduled for the browser process
   // main (UI) thread. This callback is used in combination with CefSettings.
   // external_message_pump and cef_do_message_loop_work() in cases where the CEF
@@ -112,6 +94,16 @@ typedef struct _cef_browser_process_handler_t {
   void(CEF_CALLBACK* on_schedule_message_pump_work)(
       struct _cef_browser_process_handler_t* self,
       int64 delay_ms);
+
+  ///
+  // Return the default client for use with a newly created browser window. If
+  // null is returned the browser will be unmanaged (no callbacks will be
+  // executed for that browser) and application shutdown will be blocked until
+  // the browser window is closed manually. This function is currently only used
+  // with the chrome runtime.
+  ///
+  struct _cef_client_t*(CEF_CALLBACK* get_default_client)(
+      struct _cef_browser_process_handler_t* self);
 } cef_browser_process_handler_t;
 
 #ifdef __cplusplus

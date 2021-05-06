@@ -35,7 +35,6 @@ echo "Copying files around..."
 rm *.o
 mkdir bin
 mv CEF3SimpleSample bin/
-cp -r ../CEF3SimpleSample/CEF/Linux/Resources/* bin/
 cp -r ../CEF3SimpleSample/CEF/Linux/lib/*.so bin/
 cp -r ../CEF3SimpleSample/CrossPlatform/html bin/html
 mv bin ..

@@ -1,4 +1,4 @@
-// Copyright (c) 2020 Marshall A. Greenblatt. All rights reserved.
+// Copyright (c) 2021 Marshall A. Greenblatt. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
@@ -33,7 +33,7 @@
 // by hand. See the translator.README.txt file in the tools directory for
 // more information.
 //
-// $hash=e40cee272e6edd3789896bef6b43e05cc517c424$
+// $hash=11c227079ec0687adeaa8a085aeec37c89346ee7$
 //
 
 #ifndef CEF_INCLUDE_CAPI_CEF_URLREQUEST_CAPI_H_
@@ -115,20 +115,13 @@ typedef struct _cef_urlrequest_t {
 // Create a new URL request that is not associated with a specific browser or
 // frame. Use cef_frame_t::CreateURLRequest instead if you want the request to
 // have this association, in which case it may be handled differently (see
-// documentation on that function). Requests may originate from the both browser
-// process and the render process.
-//
-// For requests originating from the browser process:
+// documentation on that function). A request created with this function may
+// only originate from the browser process, and will behave as follows:
 //   - It may be intercepted by the client via CefResourceRequestHandler or
 //     CefSchemeHandlerFactory.
 //   - POST data may only contain only a single element of type PDE_TYPE_FILE
 //     or PDE_TYPE_BYTES.
 //   - If |request_context| is empty the global request context will be used.
-// For requests originating from the render process:
-//   - It cannot be intercepted by the client so only http(s) and blob schemes
-//     are supported.
-//   - POST data may only contain a single element of type PDE_TYPE_BYTES.
-//   - The |request_context| parameter must be NULL.
 //
 // The |request| object will be marked as read-only after calling this function.
 ///
@@ -195,7 +188,7 @@ typedef struct _cef_urlrequest_client_t {
   // the request and call cef_auth_callback_t::cont() when the authentication
   // information is available. If the request has an associated browser/frame
   // then returning false (0) will result in a call to GetAuthCredentials on the
-  // cef_request_tHandler associated with that browser, if any. Otherwise,
+  // cef_request_handler_t associated with that browser, if any. Otherwise,
   // returning false (0) will cancel the request immediately. This function will
   // only be called for requests initiated from the browser process.
   ///

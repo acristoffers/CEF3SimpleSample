@@ -136,7 +136,11 @@
 #define CEF_INCLUDE_BASE_CEF_LOGGING_H_
 #pragma once
 
-#if defined(DCHECK)
+#if defined(USING_CHROMIUM_INCLUDES)
+// When building CEF include the Chromium header directly.
+#include "base/logging.h"
+#include "base/notreached.h"
+#elif defined(DCHECK)
 // Do nothing if the macros provided by this header already exist.
 // This can happen in cases where Chromium code is used directly by the
 // client application. When using Chromium code directly always include
@@ -144,15 +148,12 @@
 
 // Always define the DCHECK_IS_ON macro which is used from other CEF headers.
 #if defined(NDEBUG) && !defined(DCHECK_ALWAYS_ON)
-#define DCHECK_IS_ON() 0
+#define DCHECK_IS_ON() false
 #else
-#define DCHECK_IS_ON() 1
+#define DCHECK_IS_ON() true
 #endif
 
-#elif defined(USING_CHROMIUM_INCLUDES)
-// When building CEF include the Chromium header directly.
-#include "base/logging.h"
-#else  // !USING_CHROMIUM_INCLUDES
+#else  // !defined(DCHECK)
 // The following is substantially similar to the Chromium implementation.
 // If the Chromium implementation diverges the below implementation should be
 // updated to match.
@@ -553,12 +554,7 @@ const LogSeverity LOG_DCHECK = LOG_INFO;
 #define DCHECK_GE(val1, val2) DCHECK_OP(GE, >=, val1, val2)
 #define DCHECK_GT(val1, val2) DCHECK_OP(GT, >, val1, val2)
 
-#if defined(NDEBUG) && defined(OS_CHROMEOS)
-#define NOTREACHED() \
-  LOG(ERROR) << "NOTREACHED() hit in " << __FUNCTION__ << ". "
-#else
 #define NOTREACHED() DCHECK(false)
-#endif
 
 // Redefine the standard assert to use our nice log files
 #undef assert
