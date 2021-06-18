@@ -16,10 +16,30 @@ CEF3SimpleSample/CEF/Win/
 
 Windows
 -------
+Requires VS 2019 and cmake.
 
-If using CMake, generate with `cmake -A x64 ..` and build with `msbuild
-/p:Configuration=Release`. You will need to have Visual Studio installed and its
-console.
+From a Native VS 2019 x64 command prompt, Change directory to the root of the repository:
+
+```
+cd CEF3SimpleSample 
+```
+Download https://github.com/acristoffers/CEF3SimpleSample/releases/tag/90.6.5 and extract to CEF3SimpleSample\CEF3SimpleSample\CEF\Win\Lib as mentioned above. Then:
+```
+mkdir build
+cd build
+mkdir bin
+cmake .. 
+```
+Download the cef standard distribution from: https://cef-builds.spotifycdn.com/cef_binary_90.6.5%2Bg7a604aa%2Bchromium-90.0.4430.93_windows64.tar.bz2, extract it and copy resource.pak, chrome_100_percent.pak and chrome_200_percent.pak from \Resources to build\bin
+```
+msbuild /p:Configuration=Release CEF3SimpleSample.sln
+```
+
+To run go to build\bin and execute
+```
+CEF3SimpleSample.exe
+```
+You should see a window with a label and a button that if presed would change the label from Hello to "Hello, world!". If not check if debug.log contains any useful info.
 
 LICENSE
 -------
