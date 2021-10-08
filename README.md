@@ -41,6 +41,8 @@ CEF3SimpleSample.exe
 ```
 You should see a window with a label and a button that if presed would change the label from Hello to "Hello, world!". If not check if debug.log contains any useful info.
 
+**If you need to use Visual Studio, open `.../build/ALL_BUILD.vcxproj` project that were generated using cmake, because compiling the `.../CEF3SimpleSample.sln` project throws an error.**
+
 LICENSE
 -------
 (MIT)
