@@ -7,6 +7,7 @@ set(APP_FOLDER_NAME "CEF3SimpleSample")
 if(APPLE)
     ### Build main executable
     find_program(IBTOOL ibtool HINTS "/usr/bin" "${OSX_DEVELOPER_ROOT}/usr/bin")
+    find_program(INTOOL install_name_tool HINTS "/usr/bin" "${OSX_DEVELOPER_ROOT}/usr/bin")
     find_library(COCOA_LIBRARY Cocoa)
     file(GLOB SRC_FILES CONFIGURE_DEPENDS
         "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Mac/*.mm"
@@ -41,66 +42,33 @@ if(APPLE)
         TARGET MainExecutable
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-                "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac/lib/Chromium Embedded Framework.framework"
-                "${PROJECT_BINARY_DIR}/${APP_NAME}.app/Contents/Frameworks/Chromium Embedded Framework.framework"
-        VERBATIM
-    )
-    add_custom_command(
-        TARGET MainExecutable
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
                 "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform/html"
                 "${PROJECT_BINARY_DIR}/${APP_NAME}.app/Contents/Resources/html"
         VERBATIM
     )
-    ### Build helpers
-    file(GLOB SRC_FILES CONFIGURE_DEPENDS
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Mac/AppDelegate.mm"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Mac/Helper Process Main.cpp"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform/*.cpp"
-    )
-    set(HELPER_NAME "HelperApp")
-    add_executable(${HELPER_NAME} MACOSX_BUNDLE ${SRC_FILES})
-    target_compile_features(${HELPER_NAME} PRIVATE cxx_range_for)
-    target_link_libraries(${HELPER_NAME}
-        ${COCOA_LIBRARY}
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac/lib/cef_sandbox.a"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac/lib/libcef_dll_wrapper.a"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac/lib/Chromium Embedded Framework.framework"
-    )
-    target_include_directories(${HELPER_NAME} PUBLIC
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac/include"
-        "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform"
-    )
-    set_target_properties(${HELPER_NAME} PROPERTIES
-        MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/${APP_FOLDER_NAME}/Mac/CEF3SimpleSampleHelper-Info.plist"
-        OUTPUT_NAME "${APP_NAME} Helper"
-    )
-    add_custom_command(
-        TARGET ${HELPER_NAME}
-        POST_BUILD
-        COMMAND ${CMAKE_COMMAND} -E copy_directory
-                "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac/lib/Chromium Embedded Framework.framework"
-                "${PROJECT_BINARY_DIR}/${APP_NAME} Helper.app/Contents/Frameworks/Chromium Embedded Framework.framework"
-        VERBATIM
-    )
     add_custom_command(
         TARGET MainExecutable
         POST_BUILD
         COMMAND ${CMAKE_COMMAND} -E copy_directory
-                "${PROJECT_BINARY_DIR}/${APP_NAME} Helper.app"
-                "${PROJECT_BINARY_DIR}/${APP_NAME}.app/Contents/Frameworks/${APP_NAME} Helper.app"
+                "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac/lib/Chromium Embedded Framework.framework"
+                "${PROJECT_BINARY_DIR}/${APP_NAME}.app/Contents/Frameworks/Chromium Embedded Framework.framework"
         VERBATIM
     )
-    add_dependencies(MainExecutable ${HELPER_NAME})
-    set(HELPER_SUFFIXES "GPU" "Plugin" "Renderer")
+    ### Build helpers
+    set(HELPER_SUFFIXES "None" "GPU" "Plugin" "Renderer")
     foreach(suffix ${HELPER_SUFFIXES})
         file(GLOB SRC_FILES CONFIGURE_DEPENDS
             "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/Mac/Helper Process Main.cpp"
             "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CrossPlatform/*.cpp"
         )
+        if(${suffix} STREQUAL "None")
+            set(suffix "")
+            set(HELPER_BUNDLE "${APP_NAME} Helper")
+        else()
+            set(HELPER_BUNDLE "${APP_NAME} Helper (${suffix})")
+        endif()
         set(HELPER_NAME "${suffix}HelperApp")
+        set(HELPER_INSTALL_PATH "${PROJECT_BINARY_DIR}/${APP_NAME}.app/Contents/Frameworks/${HELPER_BUNDLE}.app")
         add_executable(${HELPER_NAME} MACOSX_BUNDLE ${SRC_FILES})
         target_compile_features(${HELPER_NAME} PRIVATE cxx_range_for)
         target_link_libraries(${HELPER_NAME}
@@ -116,22 +84,28 @@ if(APPLE)
         )
         set_target_properties(${HELPER_NAME} PROPERTIES
             MACOSX_BUNDLE_INFO_PLIST "${CMAKE_CURRENT_SOURCE_DIR}/${APP_FOLDER_NAME}/Mac/CEF3SimpleSampleHelper-Info.plist"
-            OUTPUT_NAME "${APP_NAME} Helper (${suffix})"
-        )
-        add_custom_command(
-            TARGET ${HELPER_NAME}
-            POST_BUILD
-            COMMAND ${CMAKE_COMMAND} -E copy_directory
-                    "${PROJECT_SOURCE_DIR}/${APP_FOLDER_NAME}/CEF/Mac/lib/Chromium Embedded Framework.framework"
-                    "${PROJECT_BINARY_DIR}/${APP_NAME} Helper (${suffix}).app/Contents/Frameworks/Chromium Embedded Framework.framework"
-            VERBATIM
+            OUTPUT_NAME ${HELPER_BUNDLE}
         )
         add_custom_command(
             TARGET MainExecutable
             POST_BUILD
             COMMAND ${CMAKE_COMMAND} -E copy_directory
-                    "${PROJECT_BINARY_DIR}/${APP_NAME} Helper (${suffix}).app"
-                    "${PROJECT_BINARY_DIR}/${APP_NAME}.app/Contents/Frameworks/${APP_NAME} Helper (${suffix}).app"
+                    "${PROJECT_BINARY_DIR}/${HELPER_BUNDLE}.app"
+                    "${HELPER_INSTALL_PATH}"
+            VERBATIM
+        )
+        add_custom_command(
+            TARGET MainExecutable
+            POST_BUILD
+            COMMAND ${CMAKE_COMMAND} -E remove_directory "${HELPER_INSTALL_PATH}/Contents/Frameworks" VERBATIM
+        )
+        add_custom_command(
+            TARGET MainExecutable
+            POST_BUILD
+            COMMAND ${INTOOL} -change
+            "@executable_path/../Frameworks/Chromium Embedded Framework.framework/Chromium Embedded Framework"
+            "@executable_path/../../../Chromium Embedded Framework.framework/Chromium Embedded Framework"
+            "${HELPER_INSTALL_PATH}/Contents/MacOS/${HELPER_BUNDLE}"
             VERBATIM
         )
         add_dependencies(MainExecutable ${HELPER_NAME})
