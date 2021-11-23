@@ -31,48 +31,56 @@
 
 -(void)dealloc
 {
-    [super dealloc];
+	[super dealloc];
 }
 
 -(BOOL)applicationShouldTerminateAfterLastWindowClosed: (NSApplication *)sender
 {
-    return YES;
+	return YES;
 }
 
 -(void)applicationDidFinishLaunching: (NSNotification *)aNotification
 {
-    CefRefPtr<ClientApp> app(new ClientApp);
+	CefRefPtr<ClientApp> app(new ClientApp);
 
-    CefMainArgs main_args;
-    CefSettings settings;
+	CefMainArgs main_args;
+	CefSettings settings;
 
-    int ret = CefExecuteProcess(main_args, app.get(), NULL);
-    if (ret >= 0) exit(ret);
+	int ret = CefExecuteProcess(main_args, app.get(), NULL);
+	if (ret >= 0) exit(ret);
 
-    CefInitialize(main_args, settings, app.get(), NULL);
+	CefInitialize(main_args, settings, app.get(), NULL);
 
-    CefRefPtr<CefClient> client(new ClientHandler);
+	CefRefPtr<CefClient> client(new ClientHandler);
 
-    CefWindowInfo        info;
-    CefBrowserSettings   b_settings;
+	CefWindowInfo info;
+	CefBrowserSettings b_settings;
 
-    std::string path;
+	std::string path;
 
-    CefRefPtr<CefCommandLine> command_line = CefCommandLine::GetGlobalCommandLine();
-    if ( command_line->HasSwitch("url") ) {
-        path = command_line->GetSwitchValue("url");
-    }
+	CefRefPtr<CefCommandLine> command_line =
+		CefCommandLine::GetGlobalCommandLine();
+	if ( command_line->HasSwitch("url") ) {
+		path = command_line->GetSwitchValue("url");
+	}
 
-    if ( path.empty() ) {
-        path = [[[NSBundle mainBundle] resourcePath] cStringUsingEncoding:NSUTF8StringEncoding];
-        path = "file://" + path + "/html/index.html";
-    }
+	if ( path.empty() ) {
+		path =
+			[[[NSBundle mainBundle] resourcePath]
+			 cStringUsingEncoding:
+			 NSUTF8StringEncoding];
+		path = "file://" + path + "/html/index.html";
+	}
 
-    info.SetAsChild([window contentView], 0, 0, [[window contentView] frame].size.width, [[window contentView] frame].size.height);
-    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings, NULL, NULL);
+	info.SetAsChild([window contentView], 0, 0,
+	                [[window contentView] frame].size.width,
+	                [[window contentView] frame].size.height);
+	CefBrowserHost::CreateBrowser(info,
+	                              client.get(), path, b_settings, NULL,
+	                              NULL);
 
-    CefRunMessageLoop();
-    CefShutdown();
+	CefRunMessageLoop();
+	CefShutdown();
 }
 
 @end

@@ -38,109 +38,114 @@
 
 void TerminationSignalHandler(int signatl)
 {
-    CefQuitMessageLoop();
+	CefQuitMessageLoop();
 }
 
 static gboolean delete_event(GtkWidget *widget, GdkEvent *event, gpointer data)
 {
-    CefShutdown();
-    return TRUE;
+	CefShutdown();
+	return TRUE;
 }
 
 GdkPixbuf *create_pixbuf(const gchar *filename)
 {
-    GdkPixbuf *pixbuf;
-    GError    *error = NULL;
+	GdkPixbuf *pixbuf;
+	GError    *error = NULL;
 
-    pixbuf = gdk_pixbuf_new_from_file(filename, &error);
-    if (!pixbuf) {
-        fprintf(stderr, "%s\n", error->message);
-        g_error_free(error);
-    }
+	pixbuf = gdk_pixbuf_new_from_file(filename, &error);
+	if (!pixbuf) {
+		fprintf(stderr, "%s\n", error->message);
+		g_error_free(error);
+	}
 
-    return pixbuf;
+	return pixbuf;
 }
 
 std::string getExecutableBaseFolder()
 {
-    std::string path    = "";
-    pid_t       pid     = getpid();
-    char        buf[20] = {
-        0
-    };
+	std::string path    = "";
+	pid_t pid     = getpid();
+	char buf[20] = {
+		0
+	};
 
-    sprintf(buf, "%d", pid);
-    std::string _link = "/proc/";
-    _link.append(buf);
-    _link.append("/exe");
-    char proc[512];
-    int  ch = readlink(_link.c_str(), proc, 512);
-    if (ch != -1) {
-        proc[ch] = 0;
-        path     = proc;
-        std::string::size_type t = path.find_last_of("/");
-        path = path.substr(0, t);
-    }
+	sprintf(buf, "%d", pid);
+	std::string _link = "/proc/";
+	_link.append(buf);
+	_link.append("/exe");
+	char proc[512];
+	int ch = readlink(_link.c_str(), proc, 512);
+	if (ch != -1) {
+		proc[ch] = 0;
+		path     = proc;
+		std::string::size_type t = path.find_last_of("/");
+		path = path.substr(0, t);
+	}
 
-    return path;
+	return path;
 }
 
 int main(int argc, char **argv)
 {
-    CefMainArgs          main_args(argc, argv);
-    CefRefPtr<ClientApp> app(new ClientApp);
+	CefMainArgs main_args(argc, argv);
+	CefRefPtr<ClientApp> app(new ClientApp);
 
-    // Execute the secondary process, if any.
-    int exit_code = CefExecuteProcess(main_args, app.get(), NULL);
+	// Execute the secondary process, if any.
+	int exit_code = CefExecuteProcess(main_args, app.get(), NULL);
 
-    if (exit_code >= 0) {
-        exit(exit_code);
-    }
+	if (exit_code >= 0) {
+		exit(exit_code);
+	}
 
-    GtkWidget *window;
+	GtkWidget *window;
 
-    gtk_init(&argc, &argv);
+	gtk_init(&argc, &argv);
 
-    window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_default_size(GTK_WINDOW(window), 800, 600);
+	window = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	gtk_window_set_default_size(GTK_WINDOW(window), 800, 600);
 
-    g_signal_connect(window, "delete-event", G_CALLBACK(delete_event), NULL);
+	g_signal_connect(window, "delete-event", G_CALLBACK(delete_event),
+	                 NULL);
 
-    GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+	GtkWidget *vbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 
-    CefSettings settings;
-    settings.no_sandbox = true;
+	CefSettings settings;
+	settings.no_sandbox = true;
 
-    CefInitialize(main_args, settings, app.get(), NULL);
+	CefInitialize(main_args, settings, app.get(), NULL);
 
-    CefWindowInfo        info;
-    CefBrowserSettings   b_settings;
-    CefRefPtr<CefClient> client(new ClientHandler);
+	CefWindowInfo info;
+	CefBrowserSettings b_settings;
+	CefRefPtr<CefClient> client(new ClientHandler);
 
-    std::string path     = getExecutableBaseFolder();
-    std::string app_icon = path + "/html/img/icon.png";
-    path = std::string("file://") + path + std::string("/html/index.html");
+	std::string path     = getExecutableBaseFolder();
+	std::string app_icon = path + "/html/img/icon.png";
+	path = std::string("file://") + path + std::string("/html/index.html");
 
-    CefRefPtr<CefCommandLine> command_line = CefCommandLine::GetGlobalCommandLine();
-    if (command_line->HasSwitch("url")) {
-        path = command_line->GetSwitchValue("url");
-    }
+	CefRefPtr<CefCommandLine> command_line =
+		CefCommandLine::GetGlobalCommandLine();
+	if (command_line->HasSwitch("url")) {
+		path = command_line->GetSwitchValue("url");
+	}
 
-    gtk_window_set_icon(GTK_WINDOW(window), create_pixbuf(app_icon.c_str()));
-    gtk_container_add(GTK_CONTAINER(window), vbox);
-    gtk_widget_show_all(GTK_WIDGET(window));
+	gtk_window_set_icon(GTK_WINDOW(window),
+	                    create_pixbuf(app_icon.c_str()));
+	gtk_container_add(GTK_CONTAINER(window), vbox);
+	gtk_widget_show_all(GTK_WIDGET(window));
 
-    ::Window xwindow = GDK_WINDOW_XID(gtk_widget_get_window(window));
+	::Window xwindow = GDK_WINDOW_XID(gtk_widget_get_window(window));
 
-    CefRect rect(0, 0, 800, 600);
-    info.SetAsChild(xwindow, rect);
+	CefRect rect(0, 0, 800, 600);
+	info.SetAsChild(xwindow, rect);
 
-    CefBrowserHost::CreateBrowser(info, client.get(), path, b_settings, NULL, NULL);
+	CefBrowserHost::CreateBrowser(info,
+	                              client.get(), path, b_settings, NULL,
+	                              NULL);
 
-    signal(SIGINT,  TerminationSignalHandler);
-    signal(SIGTERM, TerminationSignalHandler);
+	signal(SIGINT,  TerminationSignalHandler);
+	signal(SIGTERM, TerminationSignalHandler);
 
-    CefRunMessageLoop();
+	CefRunMessageLoop();
 
-    return 0;
+	return 0;
 }

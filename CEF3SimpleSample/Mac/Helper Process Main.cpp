@@ -25,20 +25,20 @@
 
 int main(int argc, char *argv[])
 {
-    CefScopedSandboxContext sandbox_context;
-    if (!sandbox_context.Initialize(argc, argv))
-        return 1;
+	CefScopedSandboxContext sandbox_context;
+	if (!sandbox_context.Initialize(argc, argv))
+		return 1;
 
-    CefScopedLibraryLoader library_loader;
-    if (!library_loader.LoadInHelper()) {
-        return 1;
-    }
+	CefScopedLibraryLoader library_loader;
+	if (!library_loader.LoadInHelper()) {
+		return 1;
+	}
 
-    // Provide CEF with command-line arguments.
-    CefMainArgs main_args(argc, argv);
+	// Provide CEF with command-line arguments.
+	CefMainArgs main_args(argc, argv);
 
-    CefRefPtr<ClientApp> app(new ClientApp);
+	CefRefPtr<ClientApp> app(new ClientApp);
 
-    // Execute the sub-process.
-    return CefExecuteProcess(main_args, app, NULL);
+	// Execute the sub-process.
+	return CefExecuteProcess(main_args, app, NULL);
 }
